@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-Firstly install `bun`:
+Firstly, install `bun`:
 
 ```bash
 npm install -g bun
@@ -22,7 +22,12 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Folder structure
 
+Preferred folder structure we should stick to:
+
 - `src`
+  - `app`
+    - `(app)` - defined pages, route groups etc.
+    - `api` - api related stuff, routes
   - `components`
     - `ui` - generally used components (button, dialog, input etc.) (mostly [shadcn](https://ui.shadcn.com/docs/components) - please check the link for example usage)
     - `component1.tsx`
