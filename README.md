@@ -20,6 +20,28 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Folder structure
+
+- `src`
+  - `components`
+    - `ui` - generally used components (button, dialog, input etc.) (mostly [shadcn](https://ui.shadcn.com/docs/components) - please check the link for example usage)
+    - `component1.tsx`
+    - `component2.tsx`
+    - `feature` - folder grouping components for some feature
+  - `lib` - useful functions
+    - `hooks` - hooks used across the app
+      - `use-toast.tsx`
+    - `feature.ts` - functions related to some feature
+  - `queries` - tanstack queries (one query/mutation === one file)
+    - `expenses` - folder grouping all queries for some feature
+      - `useGetExpenses.ts`
+      - `usePatchExpenses.ts`
+  - `store` - contexts folder
+    - `auth-context.tsx`
+  - `schema`
+    - `auth.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
+    - `feature.ts`
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
