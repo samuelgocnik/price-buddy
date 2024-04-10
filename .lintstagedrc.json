@@ -1,5 +1,5 @@
 {
-  "*.{css}": [
+  "*.css": [
     "prettier --write"
   ],
   "*.{tsx,ts,jsx,js}": [
