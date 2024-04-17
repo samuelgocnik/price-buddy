@@ -8,6 +8,12 @@ Firstly, install `bun`:
 npm install -g bun
 ```
 
+Install packages:
+
+```bash
+bun i
+```
+
 Run the development server:
 
 ```bash
