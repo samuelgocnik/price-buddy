@@ -48,6 +48,12 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 4. `<description>` is a short description of the changes.
 5. If the change introduces a breaking change, it should be noted as `BREAKING CHANGE:` in the footer or `!` after the type/scope.
 
+Here are some examples of commit messages: (scope is optional)
+
+- A new feature commit: `feat(user-auth): add login functionality`
+- A bug fix commit: `fix(button-color): correct the primary button color`
+- A commit for code style updates: `style(login-form): fix indentation` 
+
 Remember, these conventions aim to make the version control process smoother and the project easier to manage.
 
 ## Folder structure
