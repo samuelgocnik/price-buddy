@@ -41,6 +41,7 @@ entity "Expense" as e {
   *expense_id : number <<generated>>
   --
   *amount : decimal
+  *paid_each : decimal
   *group_id : number <<FK>>
   ' references user
   *paid_by_id : number <<FK>> 
