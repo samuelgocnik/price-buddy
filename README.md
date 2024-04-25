@@ -82,3 +82,16 @@ Preferred folder structure we should stick to:
   - `schema`
     - `auth.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
     - `feature.ts`
+
+
+## App routes
+**(unauthorized)**
+- /login
+- /register
+
+**(authorized)**
+- /dashboard - first page, summary info, (statistics??) recent groups, recent transaction etc.
+- /group - all users groups, filter groups, create group, invitation by email
+- /group/[id] - group detail, members, expenses (filterable by category or payer)
+- /profile - user info (edit) 
+- /expenses -> all expenses among two(or more) people
