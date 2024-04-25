@@ -95,3 +95,12 @@ Preferred folder structure we should stick to:
 - /group/[id] - group detail, members, expenses (filterable by category or payer)
 - /profile - user info (edit) 
 - /expenses -> all expenses among two(or more) people
+
+
+## Entity Relationship Diagram
+- in case you will edit the ERD file during the database initialisation (or for other reasons), don't forget to generate a new `png` using the following command:
+
+```bash
+plantuml erd.plantuml
+```
+![Entity Relationship Diagram](diagrams/erd/erd.png)
