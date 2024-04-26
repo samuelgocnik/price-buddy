@@ -31,7 +31,7 @@ entity "UserGroup" as ug {
   *user_group_id : number <<generated>>
   --
   *user_id : number <<FK>>
-  *expense_id : number <<FK>>
+  *group_id : number <<FK>>
   --
   *created_at : date
   deleted_at : date
@@ -40,11 +40,13 @@ entity "UserGroup" as ug {
 entity "Expense" as e {
   *expense_id : number <<generated>>
   --
+  *title : text
   *amount : decimal
   *paid_each : decimal
   *group_id : number <<FK>>
   ' references user
   *paid_by_id : number <<FK>> 
+  *category_id: number <<FK>>
   --
   *created_at : date
   deleted_at : date
