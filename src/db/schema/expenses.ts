@@ -1,5 +1,7 @@
+import { title } from 'process';
+
 import { relations } from 'drizzle-orm';
-import { integer, sqliteTable, numeric } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable, numeric, text } from 'drizzle-orm/sqlite-core';
 
 import { usersExpenses } from './usersExpenses';
 import { groups } from './groups';
@@ -9,6 +11,7 @@ import { categories } from './categories';
 export const expenses = sqliteTable('expenses', {
 	expense_id: integer('expense_id').primaryKey({ autoIncrement: true }),
 	amount: numeric('amount').notNull(),
+	title: text('title'),
 	group_id: integer('group_id')
 		.notNull()
 		.references(() => groups.group_id),
