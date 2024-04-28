@@ -20,29 +20,27 @@ Run the development server:
 bun dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+## Database
 Run database locally (in wsl):
 
 ```bash
-turso dev --db-file dev.db
+bun db:locally
 ```
 
 Access drizzle studio locally:
 
 ```bash
-npx drizzle-kit studio
+bun db:studio
 ```
 
 Push changes to database server:
 
 ```bash
-npx drizzle-kit push:sqlite
+bun db:push
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Branch and commit naming
 
