@@ -10,9 +10,14 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,css,md,mdx}\"",
     "check": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md,mdx}\"",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "db:studio": "npx drizzle-kit studio",
+    "db:locally": "turso dev --db-file dev.db",
+    "db:push": "npx drizzle-kit push:sqlite"
   },
   "dependencies": {
+    "@auth/core": "^0.30.0",
+    "@auth/drizzle-adapter": "^1.0.1",
     "@hookform/resolvers": "^3.3.4",
     "@libsql/client": "^0.6.0",
     "@radix-ui/react-avatar": "^1.0.4",
