@@ -14,8 +14,8 @@ export const userBalances = sqliteTable('userBalances', {
 		.notNull()
 		.references(() => users.userId),
 	balance: numeric('balance').notNull().default('0'),
-	createdAt: text('created_at').notNull().default(new Date().toDateString()),
-	deletedAt: integer('deleted_at', { mode: 'timestamp' })
+	createdAt: text('created_at').notNull().default(new Date().toString()),
+	deletedAt: text('deleted_at')
 });
 
 export const userBalancesRelations = relations(userBalances, ({ one }) => ({

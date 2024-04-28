@@ -19,8 +19,8 @@ export const expenses = sqliteTable('expenses', {
 	categoryId: integer('category_id')
 		.notNull()
 		.references(() => categories.categoryId),
-	createdAt: text('created_at').notNull().default(new Date().toDateString()),
-	deletedAt: integer('deleted_at', { mode: 'timestamp' })
+	createdAt: text('created_at').notNull().default(new Date().toString()),
+	deletedAt: text('deleted_at')
 });
 
 export const expensesRelations = relations(expenses, ({ many, one }) => ({

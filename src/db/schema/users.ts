@@ -11,8 +11,8 @@ export const users = sqliteTable('users', {
 	lastName: text('last_name').notNull(),
 	email: text('email').notNull(),
 	photoUrl: text('photo_url'),
-	createdAt: text('created_at').notNull().default(new Date().toDateString()),
-	deletedAt: integer('deleted_at', { mode: 'timestamp' })
+	createdAt: text('created_at').notNull().default(new Date().toString()),
+	deletedAt: text('deleted_at')
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

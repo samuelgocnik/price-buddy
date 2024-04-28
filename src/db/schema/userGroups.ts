@@ -14,8 +14,8 @@ export const usersGroups = sqliteTable('usersGroups', {
 	groupId: text('group_id')
 		.notNull()
 		.references(() => groups.groupId),
-	createdAt: text('created_at').notNull().default(new Date().toDateString()),
-	deletedAt: integer('deleted_at', { mode: 'timestamp' })
+	createdAt: text('created_at').notNull().default(new Date().toString()),
+	deletedAt: text('deleted_at')
 });
 
 export const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
