@@ -16,9 +16,6 @@ const getIsProtectedPath = (path: string) =>
 export const authConfig = {
 	providers: [GitHub],
 	adapter: DrizzleAdapter(db),
-	pages: {
-		signIn: '/signin'
-	},
 	callbacks: {
 		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
@@ -26,7 +23,7 @@ export const authConfig = {
 			const isProtected = getIsProtectedPath(nextUrl.pathname);
 
 			if (!isLoggedIn && isProtected) {
-				const redirectUrl = new URL('/api/auth/signin', nextUrl.origin);
+				const redirectUrl = new URL('/signin', nextUrl.origin);
 				redirectUrl.searchParams.append('callbackUrl', nextUrl.href);
 				return Response.redirect(redirectUrl);
 			}
