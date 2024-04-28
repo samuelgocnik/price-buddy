@@ -1,11 +1,13 @@
 import { relations } from 'drizzle-orm';
-import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { text, sqliteTable } from 'drizzle-orm/sqlite-core';
 
 import { usersGroups } from './userGroups';
 import { expenses } from './expenses';
 
 export const groups = sqliteTable('groups', {
-	groupId: integer('group_id').primaryKey({ autoIncrement: true }),
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
 	name: text('name').notNull(),
 	photoUrl: text('photo_url'),
 	createdAt: text('created_at').notNull().default(new Date().toString()),
