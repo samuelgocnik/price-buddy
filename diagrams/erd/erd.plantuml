@@ -1,0 +1,101 @@
+@startuml erd
+' hide the spot
+' hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as u {
+  *user_id : number <<generated>>
+  --
+  *first_name : text
+  *last_name : text
+  *email : text
+  *photo_url : text
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "Group" as g {
+  *group_id : number <<generated>>
+  --
+  *name : text
+  *photo_url : text
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "UserGroup" as ug {
+  *user_group_id : number <<generated>>
+  --
+  *user_id : number <<FK>>
+  *group_id : number <<FK>>
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "Expense" as e {
+  *expense_id : number <<generated>>
+  --
+  *title : text
+  *amount : decimal
+  *paid_each : decimal
+  *group_id : number <<FK>>
+  ' references user
+  *paid_by_id : number <<FK>> 
+  *category_id: number <<FK>>
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "UserExpense" as ue {
+  *user_expense_id : number <<generated>>
+  --
+  *user_id : number <<FK>>
+  *expense_id : number <<FK>>
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "Category" as c {
+  *category_id : number <<generated>>
+  --
+  *name : text
+  *color : text
+  --
+  *created_at : date
+  deleted_at : date
+}
+
+entity "UserBalance" as ub {
+  *user_balance_id : number <<generated>>
+  --
+  *user_id_1 : number <<FK>>
+  *user_id_2 : number <<FK>>
+  *balance : decimal
+  --
+  *created_at : date
+  deleted_at : date
+
+}
+
+u ||--o{ ue
+e ||--o{ ue
+
+u ||--o{ ug
+g ||--o{ ug
+
+e }o--|| c
+
+u ||--o{ ub
+u ||--o{ ub
+
+g ||--o{ e
+
+
+@enduml
