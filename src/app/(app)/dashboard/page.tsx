@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { SignOutButton } from '@/components/auth/signout-button';
 
 const DashboardPage = () => (

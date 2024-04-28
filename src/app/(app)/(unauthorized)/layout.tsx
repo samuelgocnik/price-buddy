@@ -1,5 +1,5 @@
 import { CoinsIcon } from 'lucide-react';
-import React, { type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 const UnauthorizedLayout = ({ children }: PropsWithChildren) => (
 	<>
