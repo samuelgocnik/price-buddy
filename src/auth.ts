@@ -5,6 +5,12 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter';
 
 import { db } from './db';
 
+// Define the paths that require authentication
+const PROTECTED_PATHS = ['/group', '/dashboard', '/profile'];
+
+const getIsProtectedPath = (path: string) =>
+	PROTECTED_PATHS.some(p => path.startsWith(p));
+
 // Define your configuration in a separate variable and pass it to NextAuth()
 // This way we can also 'export const config' for use later
 export const authConfig = {
@@ -17,13 +23,20 @@ export const authConfig = {
 		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
 
-			// TODO: protect all pages except /signin
-			const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-			if (isOnDashboard) {
-				return isLoggedIn; // if false redirect unauthenticated users to login page
-			} else if (isLoggedIn) {
-				return Response.redirect(new URL('/dashboard', nextUrl));
+			const isProtected = getIsProtectedPath(nextUrl.pathname);
+
+			if (!isLoggedIn && isProtected) {
+				const redirectUrl = new URL('/api/auth/signin', nextUrl.origin);
+				redirectUrl.searchParams.append('callbackUrl', nextUrl.href);
+				return Response.redirect(redirectUrl);
 			}
+
+			// Redirect logged in users to dashboard
+			const isSignInPage = nextUrl.pathname === '/signin';
+			if (isLoggedIn && isSignInPage) {
+				return Response.redirect(new URL('/dashboard', nextUrl.origin));
+			}
+
 			return true;
 		},
 
