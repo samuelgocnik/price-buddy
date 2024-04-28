@@ -80,7 +80,6 @@ Preferred folder structure we should stick to:
 - `src`
   - `app`
     - `(app)` - defined pages, route groups etc.
-    - `api` - api related stuff, routes
   - `components`
     - `ui` - generally used components (button, dialog, input etc.) (mostly [shadcn](https://ui.shadcn.com/docs/components) - please check the link for example usage)
     - `component1.tsx`
