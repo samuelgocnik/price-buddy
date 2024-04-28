@@ -13,8 +13,10 @@ export const userBalances = sqliteTable('userBalances', {
 	user_2_id: text('user_2_id')
 		.notNull()
 		.references(() => users.user_id),
-	balance: numeric('balance').default('0'),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	balance: numeric('balance').notNull().default('0'),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 

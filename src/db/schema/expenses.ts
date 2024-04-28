@@ -1,5 +1,3 @@
-import { title } from 'process';
-
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, numeric, text } from 'drizzle-orm/sqlite-core';
 
@@ -21,12 +19,14 @@ export const expenses = sqliteTable('expenses', {
 	category_id: integer('category_id')
 		.notNull()
 		.references(() => categories.category_id),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const expensesRelations = relations(expenses, ({ many, one }) => ({
-	userExpenses: many(usersExpenses),
+	expenses: many(usersExpenses),
 	group: one(groups, {
 		fields: [expenses.group_id],
 		references: [groups.group_id]

@@ -14,16 +14,18 @@ export const usersGroups = sqliteTable('usersGroups', {
 	group_id: text('group_id')
 		.notNull()
 		.references(() => groups.group_id),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 
-export const userBalancesRelations = relations(usersGroups, ({ one }) => ({
-	user_1: one(users, {
+export const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
+	user: one(users, {
 		fields: [usersGroups.user_id],
 		references: [users.user_id]
 	}),
-	user_2: one(groups, {
+	group: one(groups, {
 		fields: [usersGroups.group_id],
 		references: [groups.group_id]
 	})

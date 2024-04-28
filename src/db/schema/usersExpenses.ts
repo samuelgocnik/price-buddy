@@ -14,7 +14,9 @@ export const usersExpenses = sqliteTable('usersExpenses', {
 	expense_id: text('expense_id')
 		.notNull()
 		.references(() => expenses.expense_id),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 

@@ -7,10 +7,12 @@ export const categories = sqliteTable('categories', {
 	category_id: integer('category_id').primaryKey({ autoIncrement: true }),
 	name: text('name').notNull(),
 	color: text('color'),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
-	categoryGroups: many(groups)
+	groups: many(groups)
 }));

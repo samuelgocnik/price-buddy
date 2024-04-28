@@ -11,12 +11,14 @@ export const users = sqliteTable('users', {
 	last_name: text('last_name').notNull(),
 	email: text('email').notNull(),
 	photo_url: text('photo_url'),
-	created_at: integer('created_at', { mode: 'timestamp' }),
+	created_at: integer('created_at', { mode: 'timestamp' })
+		.notNull()
+		.default(new Date()),
 	deleted_at: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-	userExpenses: many(usersExpenses),
-	userGroups: many(usersGroups),
-	userBalances: many(userBalances)
+	expenses: many(usersExpenses),
+	groups: many(usersGroups),
+	balances: many(userBalances)
 }));
