@@ -5,28 +5,26 @@ import { users } from './users';
 import { groups } from './groups';
 
 export const usersGroups = sqliteTable('usersGroups', {
-	user_group_id: integer('user_group_id').primaryKey({
+	userGroupId: integer('user_group_id').primaryKey({
 		autoIncrement: true
 	}),
-	user_id: text('user_id')
+	userId: text('user_id')
 		.notNull()
-		.references(() => users.user_id),
-	group_id: text('group_id')
+		.references(() => users.userId),
+	groupId: text('group_id')
 		.notNull()
-		.references(() => groups.group_id),
-	created_at: integer('created_at', { mode: 'timestamp' })
-		.notNull()
-		.default(new Date()),
-	deleted_at: integer('deleted_at', { mode: 'timestamp' })
+		.references(() => groups.groupId),
+	createdAt: text('created_at').notNull().default(new Date().toDateString()),
+	deletedAt: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
 	user: one(users, {
-		fields: [usersGroups.user_id],
-		references: [users.user_id]
+		fields: [usersGroups.userId],
+		references: [users.userId]
 	}),
 	group: one(groups, {
-		fields: [usersGroups.group_id],
-		references: [groups.group_id]
+		fields: [usersGroups.groupId],
+		references: [groups.groupId]
 	})
 }));

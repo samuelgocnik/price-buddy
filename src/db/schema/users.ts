@@ -6,15 +6,13 @@ import { usersGroups } from './userGroups';
 import { userBalances } from './userBalances';
 
 export const users = sqliteTable('users', {
-	user_id: integer('user_id').primaryKey({ autoIncrement: true }),
-	first_name: text('first_name').notNull(),
-	last_name: text('last_name').notNull(),
+	userId: integer('user_id').primaryKey({ autoIncrement: true }),
+	firstName: text('first_name').notNull(),
+	lastName: text('last_name').notNull(),
 	email: text('email').notNull(),
-	photo_url: text('photo_url'),
-	created_at: integer('created_at', { mode: 'timestamp' })
-		.notNull()
-		.default(new Date()),
-	deleted_at: integer('deleted_at', { mode: 'timestamp' })
+	photoUrl: text('photo_url'),
+	createdAt: text('created_at').notNull().default(new Date().toDateString()),
+	deletedAt: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

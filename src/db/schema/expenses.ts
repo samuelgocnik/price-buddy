@@ -7,36 +7,34 @@ import { users } from './users';
 import { categories } from './categories';
 
 export const expenses = sqliteTable('expenses', {
-	expense_id: integer('expense_id').primaryKey({ autoIncrement: true }),
+	expenseId: integer('expense_id').primaryKey({ autoIncrement: true }),
 	amount: numeric('amount').notNull(),
 	title: text('title'),
-	group_id: integer('group_id')
+	groupId: integer('group_id')
 		.notNull()
-		.references(() => groups.group_id),
-	paid_by_id: integer('paid_by_id')
+		.references(() => groups.groupId),
+	paidById: integer('paid_by_id')
 		.notNull()
-		.references(() => users.user_id),
-	category_id: integer('category_id')
+		.references(() => users.userId),
+	categoryId: integer('category_id')
 		.notNull()
-		.references(() => categories.category_id),
-	created_at: integer('created_at', { mode: 'timestamp' })
-		.notNull()
-		.default(new Date()),
-	deleted_at: integer('deleted_at', { mode: 'timestamp' })
+		.references(() => categories.categoryId),
+	createdAt: text('created_at').notNull().default(new Date().toDateString()),
+	deletedAt: integer('deleted_at', { mode: 'timestamp' })
 });
 
 export const expensesRelations = relations(expenses, ({ many, one }) => ({
 	expenses: many(usersExpenses),
 	group: one(groups, {
-		fields: [expenses.group_id],
-		references: [groups.group_id]
+		fields: [expenses.groupId],
+		references: [groups.groupId]
 	}),
-	paid_by: one(users, {
-		fields: [expenses.paid_by_id],
-		references: [users.user_id]
+	paidBy: one(users, {
+		fields: [expenses.paidById],
+		references: [users.userId]
 	}),
 	category: one(categories, {
-		fields: [expenses.category_id],
-		references: [categories.category_id]
+		fields: [expenses.categoryId],
+		references: [categories.categoryId]
 	})
 }));
