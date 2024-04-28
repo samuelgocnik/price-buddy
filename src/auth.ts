@@ -38,7 +38,8 @@ export const authConfig = {
 		},
 
 		session: ({ session, user }) => {
-			// Assign user.id to session.user.id
+			// Assign user.id to session.user.id as we need it for relations in
+			// database and it's not included in the default session object
 			session.user.id = user.id;
 
 			return session;
