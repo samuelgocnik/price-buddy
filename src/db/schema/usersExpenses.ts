@@ -28,3 +28,7 @@ export const usersExpensesRelations = relations(usersExpenses, ({ one }) => ({
 		references: [users.id]
 	})
 }));
+
+export type UsersExpenses = typeof usersExpenses.$inferSelect;
+
+export type UsersExpensesCreate = typeof usersExpenses.$inferInsert;

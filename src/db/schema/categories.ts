@@ -16,3 +16,7 @@ export const categories = sqliteTable('categories', {
 export const categoriesRelations = relations(categories, ({ many }) => ({
 	groups: many(groups)
 }));
+
+export type Categories = typeof categories.$inferSelect;
+
+export type CategoriesCreate = typeof categories.$inferInsert;

@@ -40,3 +40,7 @@ export const expensesRelations = relations(expenses, ({ many, one }) => ({
 		references: [categories.id]
 	})
 }));
+
+export type Expenses = typeof expenses.$inferSelect;
+
+export type ExpensesCreate = typeof expenses.$inferInsert;

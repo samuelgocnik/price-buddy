@@ -77,3 +77,7 @@ export const verificationTokens = sqliteTable(
 		compoundKey: primaryKey({ columns: [vt.identifier, vt.token] })
 	})
 );
+
+export type User = typeof users.$inferSelect;
+
+export type UserCreate = typeof users.$inferInsert;
