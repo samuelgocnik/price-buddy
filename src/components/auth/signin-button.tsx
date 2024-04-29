@@ -1,9 +1,13 @@
+import { GithubIcon } from 'lucide-react';
+
 import { signInAction } from '@/server-actions/auth';
 
-import { Button } from '../ui/button';
+import { Button, type ButtonProps } from '../ui/button';
 
-export const SignInButton = () => (
+export const SignInButton = (props: ButtonProps) => (
 	<form action={signInAction}>
-		<Button>Sign In</Button>
+		<Button type="submit" LeadingIcon={GithubIcon} {...props}>
+			Sign In with GitHub
+		</Button>
 	</form>
 );

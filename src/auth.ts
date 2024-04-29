@@ -11,6 +11,8 @@ const PROTECTED_PATHS = ['/group', '/dashboard', '/profile'];
 const getIsProtectedPath = (path: string) =>
 	PROTECTED_PATHS.some(p => path.startsWith(p));
 
+const SIGNIN_PATH = '/signin';
+
 // Define your configuration in a separate variable and pass it to NextAuth()
 // This way we can also 'export const config' for use later
 export const authConfig = {
@@ -23,13 +25,13 @@ export const authConfig = {
 			const isProtected = getIsProtectedPath(nextUrl.pathname);
 
 			if (!isLoggedIn && isProtected) {
-				const redirectUrl = new URL('/signin', nextUrl.origin);
+				const redirectUrl = new URL(SIGNIN_PATH, nextUrl.origin);
 				redirectUrl.searchParams.append('callbackUrl', nextUrl.href);
 				return Response.redirect(redirectUrl);
 			}
 
 			// Redirect logged in users to dashboard
-			const isSignInPage = nextUrl.pathname === '/signin';
+			const isSignInPage = nextUrl.pathname === SIGNIN_PATH;
 			if (isLoggedIn && isSignInPage) {
 				return Response.redirect(new URL('/dashboard', nextUrl.origin));
 			}
