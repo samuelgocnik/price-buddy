@@ -41,6 +41,10 @@ Push changes to database server:
 ```bash
 bun db:push
 ```
+## Auth
+For our authentication system, we have chosen to utilize GitHub's OAuth provider. This decision is guided by the recommendations from Auth.js, which advocates for OAuth due to its robust and well-tested functionalities. By leveraging these pre-built solutions, we can avoid reinventing the wheel and ensure a secure, reliable authentication process. 
+
+For more information, please refer to the Auth.js [getting started guide on authentication](https://authjs.dev/getting-started/authentication).
 
 ## Branch and commit naming
 
