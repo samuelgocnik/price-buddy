@@ -8,7 +8,7 @@ export const categories = sqliteTable('categories', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
 	name: text('name').notNull(),
-	color: text('color'),
+	color: text('color').notNull(),
 	createdAt: text('created_at').notNull().default(new Date().toString()),
 	deletedAt: text('deleted_at')
 });
