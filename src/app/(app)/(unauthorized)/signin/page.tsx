@@ -4,7 +4,7 @@ import { SignInButton } from '@/components/auth/signin-button';
 import { Card } from '@/components/ui/card';
 
 const SigInPage = () => (
-	<Card className="flex w-full items-center bg-almond-100 p-6">
+	<Card className="flex w-full items-center bg-almond-200/75 p-6">
 		<div className="">
 			<CoinsIcon className="h-20 w-20 text-primary" />
 		</div>
