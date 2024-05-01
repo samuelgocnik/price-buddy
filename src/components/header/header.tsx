@@ -5,21 +5,18 @@ import { Suspense } from 'react';
 import ProfileDropdown from './profile-dropdown';
 import Navigation from './navigation';
 import HamburgerMenu from './hamburger-menu';
-
-const HeaderLogo = () => (
-	<Link href="/dashboard">
-		<div className="flex items-center gap-2 text-lg font-medium">
-			<CoinsIcon size={30} />
-			<h1>PriceBuddy</h1>
-		</div>
-	</Link>
-);
+import CurrentPage from './current-page';
 
 const Header = () => (
 	<header className="bg-primary px-4 py-3 text-primary-foreground md:px-6">
 		{/* Desktop version */}
 		<div className="container mx-auto flex items-center justify-between max-md:hidden">
-			<HeaderLogo />
+			<Link href="/dashboard">
+				<div className="flex items-center gap-2 text-lg font-medium">
+					<CoinsIcon size={32} />
+					<h1>PriceBuddy</h1>
+				</div>
+			</Link>
 			<Navigation />
 			<Suspense
 				fallback={
@@ -33,7 +30,7 @@ const Header = () => (
 		{/* Mobile version */}
 		<div className="flex justify-between md:hidden">
 			<div />
-			<HeaderLogo />
+			<CurrentPage />
 			<HamburgerMenu />
 		</div>
 	</header>
