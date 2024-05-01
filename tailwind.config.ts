@@ -10,7 +10,7 @@ const config: Config = {
 		extend: {
 			colors: {
 				'almond': {
-					50: '#faf6f2', // background
+					50: '#fdfbf9', // background
 					100: '#f4ebe0',
 					200: '#e5d1b8',
 					300: '#d9ba98',
@@ -39,13 +39,13 @@ const config: Config = {
 
 				// Define colors for shadcn/ui
 				'primary': '#3a4b45',
-				'primary-foreground': '#faf6f2',
+				'primary-foreground': '#fdfbf9',
 				'secondary': '#c9996e',
-				'secondary-foreground': '#faf6f2',
+				'secondary-foreground': '#fdfbf9',
 				'destructive': '#b91c1c',
-				'destructive-foreground': '#faf6f2',
+				'destructive-foreground': '#fdfbf9',
 
-				'background': '#faf6f2',
+				'background': '#fdfbf9',
 				'foreground': '#161d1b',
 				'border': '#3a4b45',
 				'input': '#3a4b45',
@@ -55,13 +55,13 @@ const config: Config = {
 
 				'ring': '#3a4b45',
 
-				'popover': '#faf6f2',
+				'popover': '#fdfbf9',
 				'popover-foreground': '#161d1b',
 
-				'muted': '#faf6f2',
+				'muted': '#fdfbf9',
 				'muted-foreground': '#161d1b',
 
-				'card': '#faf6f2',
+				'card': '#fdfbf9',
 				'card-foreground': '#161d1b'
 			},
 			borderRadius: {

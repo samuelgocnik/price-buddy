@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/lib/cn';
 
@@ -34,20 +35,56 @@ const buttonVariants = cva(
 	}
 );
 
+const ICON_SIZES = {
+	sm: 18,
+	default: 20,
+	lg: 22
+} as const;
+
 export type ButtonProps = {
 	asChild?: boolean;
+	LeadingIcon?: LucideIcon;
+	TrailingIcon?: LucideIcon;
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
 	VariantProps<typeof buttonVariants>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, asChild = false, ...props }, ref) => {
+	(
+		{
+			className,
+			variant,
+			size,
+			asChild = false,
+			LeadingIcon,
+			TrailingIcon,
+			...props
+		},
+		ref
+	) => {
 		const Comp = asChild ? Slot : 'button';
+		const isIconSize = size === 'icon';
 		return (
 			<Comp
 				className={cn(buttonVariants({ variant, size, className }))}
 				ref={ref}
 				{...props}
-			/>
+			>
+				<>
+					{!isIconSize && LeadingIcon && (
+						<LeadingIcon
+							size={ICON_SIZES[size ?? 'default']}
+							className={cn('shrink-0', size === 'sm' ? 'mr-1' : 'mr-2')}
+						/>
+					)}
+					{props.children}
+					{!isIconSize && TrailingIcon && (
+						<TrailingIcon
+							size={ICON_SIZES[size ?? 'default']}
+							className={cn('shrink-0', size === 'sm' ? 'ml-1' : 'ml-2')}
+						/>
+					)}
+				</>
+			</Comp>
 		);
 	}
 );
