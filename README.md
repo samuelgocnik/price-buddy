@@ -20,29 +20,31 @@ Run the development server:
 bun dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+## Database
 Run database locally (in wsl):
 
 ```bash
-turso dev --db-file dev.db
+bun db:locally
 ```
 
 Access drizzle studio locally:
 
 ```bash
-npx drizzle-kit studio
+bun db:studio
 ```
 
 Push changes to database server:
 
 ```bash
-npx drizzle-kit push:sqlite
+bun db:push
 ```
+## Auth
+For our authentication system, we have chosen to utilize GitHub's OAuth provider. This decision is guided by the recommendations from Auth.js, which advocates for OAuth due to its robust and well-tested functionalities. By leveraging these pre-built solutions, we can avoid reinventing the wheel and ensure a secure, reliable authentication process. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+For more information, please refer to the Auth.js [getting started guide on authentication](https://authjs.dev/getting-started/authentication).
 
 ## Branch and commit naming
 
@@ -80,7 +82,6 @@ Preferred folder structure we should stick to:
 - `src`
   - `app`
     - `(app)` - defined pages, route groups etc.
-    - `api` - api related stuff, routes
   - `components`
     - `ui` - generally used components (button, dialog, input etc.) (mostly [shadcn](https://ui.shadcn.com/docs/components) - please check the link for example usage)
     - `component1.tsx`

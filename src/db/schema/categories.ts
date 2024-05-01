@@ -1,12 +1,14 @@
 import { relations } from 'drizzle-orm';
-import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { text, sqliteTable } from 'drizzle-orm/sqlite-core';
 
 import { groups } from './groups';
 
 export const categories = sqliteTable('categories', {
-	categoryId: integer('category_id').primaryKey({ autoIncrement: true }),
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
 	name: text('name').notNull(),
-	color: text('color'),
+	color: text('color').notNull(),
 	createdAt: text('created_at').notNull().default(new Date().toString()),
 	deletedAt: text('deleted_at')
 });
@@ -14,3 +16,7 @@ export const categories = sqliteTable('categories', {
 export const categoriesRelations = relations(categories, ({ many }) => ({
 	groups: many(groups)
 }));
+
+export type Categories = typeof categories.$inferSelect;
+
+export type CategoriesCreate = typeof categories.$inferInsert;

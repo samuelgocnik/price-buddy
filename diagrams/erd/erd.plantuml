@@ -6,7 +6,7 @@
 skinparam linetype ortho
 
 entity "User" as u {
-  *user_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *first_name : text
   *last_name : text
@@ -18,7 +18,7 @@ entity "User" as u {
 }
 
 entity "Group" as g {
-  *group_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *name : text
   *photo_url : text
@@ -28,7 +28,7 @@ entity "Group" as g {
 }
 
 entity "UserGroup" as ug {
-  *user_group_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *user_id : number <<FK>>
   *group_id : number <<FK>>
@@ -38,9 +38,9 @@ entity "UserGroup" as ug {
 }
 
 entity "Expense" as e {
-  *expense_id : number <<generated>>
+  *id : uuid <<generated>>
   --
-  *title : text
+  title : text
   *amount : decimal
   *paid_each : decimal
   *group_id : number <<FK>>
@@ -53,7 +53,7 @@ entity "Expense" as e {
 }
 
 entity "UserExpense" as ue {
-  *user_expense_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *user_id : number <<FK>>
   *expense_id : number <<FK>>
@@ -63,7 +63,7 @@ entity "UserExpense" as ue {
 }
 
 entity "Category" as c {
-  *category_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *name : text
   *color : text
@@ -73,7 +73,7 @@ entity "Category" as c {
 }
 
 entity "UserBalance" as ub {
-  *user_balance_id : number <<generated>>
+  *id : uuid <<generated>>
   --
   *user_id_1 : number <<FK>>
   *user_id_2 : number <<FK>>
