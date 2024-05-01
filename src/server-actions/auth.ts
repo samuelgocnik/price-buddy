@@ -7,6 +7,5 @@ export const signInAction = async () => {
 };
 
 export const signOutAction = async () => {
-	'use server';
 	await signOut({ redirectTo: '/signin' });
 };
