@@ -39,7 +39,7 @@ const ProfileDropdown = async ({
 					{session.user.image && (
 						<AvatarImage src={session.user.image} alt="profile picture" />
 					)}
-					<AvatarFallback className="bg-almond-400">U</AvatarFallback>
+					<AvatarFallback className="bg-secondary">U</AvatarFallback>
 				</Avatar>
 				{showName && <div className="font-medium">{session.user.name}</div>}
 			</DropdownMenuTrigger>
@@ -52,8 +52,11 @@ const ProfileDropdown = async ({
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuLabel>
-					<SignOutButton variant="ghost" size="sm" className="w-full" />
+				<DropdownMenuLabel className="p-0">
+					<SignOutButton
+						variant="ghost"
+						className="w-full justify-start pl-2"
+					/>
 				</DropdownMenuLabel>
 			</DropdownMenuContent>
 		</DropdownMenu>

@@ -32,6 +32,7 @@ const Header = () => (
 
 		{/* Mobile version */}
 		<div className="flex justify-between md:hidden">
+			<div />
 			<HeaderLogo />
 			<HamburgerMenu />
 		</div>
