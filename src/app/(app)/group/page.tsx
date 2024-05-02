@@ -1,35 +1,12 @@
-'use client';
+'use server';
 
 import React from 'react';
 
-import { generateMockGroups } from './mocked-data';
-import { redirectToGroup } from './action';
+import { getGroups } from './action';
+import { GroupLink } from './group-link';
 
-const GroupLink = ({
-	id,
-	activeId,
-	name
-}: {
-	id: number;
-	activeId: number | null;
-	name: string;
-}) => {
-	const handleClick = () => {
-		redirectToGroup({ id });
-	};
-
-	return (
-		<button
-			className={`px-8 py-4 hover:font-bold ${id === activeId ? 'bg-almond-200 font-bold' : ''}`}
-			onClick={handleClick}
-		>
-			<p className="text-left">{name}</p>
-		</button>
-	);
-};
-
-const GroupsPage = ({ activeId }: { activeId: number | null }) => {
-	const groups = generateMockGroups(5);
+const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
+	const groups = await getGroups();
 	return (
 		<div>
 			<div className="flex min-w-64 max-w-2xl flex-col bg-almond-100">

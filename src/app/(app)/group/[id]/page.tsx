@@ -4,13 +4,14 @@ import { Info, X } from 'lucide-react';
 import { useState } from 'react';
 
 import GroupsPage from '../page';
+import { leaveGroupAction } from '../action';
 
 import { generateMockExpenses } from './../mocked-data';
 
 const GroupsDetail = ({ params }: { params: { id: string } }) => {
 	const [info, setInfo] = useState(false);
 	const expenses = generateMockExpenses(5);
-	const groupsPage = <GroupsPage activeId={parseInt(params.id)} />;
+	const groupsPage = <GroupsPage activeId={params.id} />;
 
 	return (
 		<div className="mt-2 flex flex-row">
@@ -32,7 +33,9 @@ const GroupsDetail = ({ params }: { params: { id: string } }) => {
 							</div>
 						</div>
 						<p className="my-2">Add member</p>
-						<button className="my-2">Leave group</button>
+						<button className="my-2" onClick={() => leaveGroupAction()}>
+							Leave group
+						</button>
 					</div>
 				) : (
 					<div>
