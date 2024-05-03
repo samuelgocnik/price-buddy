@@ -58,7 +58,7 @@ const config: Config = {
 				'popover': '#fdfbf9',
 				'popover-foreground': '#161d1b',
 
-				'muted': '#fdfbf9',
+				'muted': '#f4ebe0',
 				'muted-foreground': '#161d1b',
 
 				'card': '#fdfbf9',
