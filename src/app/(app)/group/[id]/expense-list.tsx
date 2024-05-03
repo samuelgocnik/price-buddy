@@ -1,11 +1,12 @@
 'use server';
 
-import { getExpenses } from '../action';
+import { getExpenses, getUsers } from '../action';
 
 export const ExpenseList = async ({ id }: { id: string }) => {
 	//const expenses = generateMockExpenses(5);
 	const allExpenses = await getExpenses();
 	const expenses = allExpenses.filter(expense => expense.groupId === id);
+	const users = await getUsers();
 	return (
 		<div>
 			{expenses.map(expense => (
@@ -14,7 +15,9 @@ export const ExpenseList = async ({ id }: { id: string }) => {
 					className="my-2 flex items-center justify-between"
 				>
 					<p>{expense.title}</p>
-					<p className="mx-32">{expense.paidById}</p>
+					<p className="mx-16">
+						{users.filter(u => u.id === expense.paidById)[0].name}
+					</p>
 					<p>{expense.amount}</p>
 				</div>
 			))}

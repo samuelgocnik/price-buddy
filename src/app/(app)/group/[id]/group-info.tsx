@@ -1,6 +1,11 @@
 'use server';
 
-import { getExpenses, getUserGroups, leaveGroupAction } from '../action';
+import {
+	getExpenses,
+	getUserGroups,
+	getUsers,
+	leaveGroupAction
+} from '../action';
 
 export const GroupInfo = async ({ id }: { id: string }) => {
 	//const expenses = generateMockExpenses(5);
@@ -18,22 +23,25 @@ export const GroupInfo = async ({ id }: { id: string }) => {
 	const usersCount = userGroups.length;
 	const expensesPerPerson = expensesSum / usersCount;
 
+	const allUsers = await getUsers();
+	const usersInGroup = allUsers.filter(user =>
+		userGroups.map(userGroup => userGroup.userId).includes(user.id)
+	);
+
 	return (
 		<div className="flex flex-col">
 			<div className="flex flex-row">
 				<div className="flex flex-col">
-					<p className="w-3/6">Members</p>
-					{userGroups.map(userGroup => (
-						<p key={userGroup.id} className="w-3/6">
-							{userGroup.id}
-						</p>
+					<b className="w-48">Members</b>
+					{usersInGroup.map(user => (
+						<p key={user.id}>{user.name}</p>
 					))}
 				</div>
 				<div className="flex flex-col">
 					<b>Total expenses</b>
 					<p>{expensesSum}</p>
-					<b>Expenses per person</b>
-					<p>{expensesPerPerson}</p>
+					<b className="mt-4">Expenses per person</b>
+					<p className="mb-4">{expensesPerPerson}</p>
 				</div>
 			</div>
 			<p className="my-2">Add member</p>
