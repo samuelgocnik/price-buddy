@@ -1,6 +1,9 @@
 'use server';
 
 import React from 'react';
+import { Users } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 
 import { getGroups } from './action';
 import { GroupLink } from './group-link';
@@ -9,7 +12,7 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 	const groups = await getGroups();
 	return (
 		<div>
-			<div className="flex h-lvh min-w-64 max-w-2xl flex-col bg-almond-100">
+			<div className="flex h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:h-[calc(100vh-6rem)] md:w-64">
 				{groups.map(group => (
 					<GroupLink
 						key={group.id}
@@ -18,6 +21,9 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 						name={group.name}
 					/>
 				))}
+				<Button LeadingIcon={Users} className="fixed bottom-8 ml-8 w-24">
+					New
+				</Button>
 			</div>
 		</div>
 	);

@@ -1,14 +1,18 @@
 'use server';
+import { UserRoundPlus, LogOut } from 'lucide-react';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 import {
 	getExpenses,
+	getGroups,
 	getUserGroups,
 	getUsers,
 	leaveGroupAction
 } from '../action';
 
 export const GroupInfo = async ({ id }: { id: string }) => {
-	//const expenses = generateMockExpenses(5);
 	const allExpenses = await getExpenses();
 	const expenses = allExpenses.filter(expense => expense.groupId === id);
 	const expensesSum = expenses.reduce(
@@ -28,24 +32,43 @@ export const GroupInfo = async ({ id }: { id: string }) => {
 		userGroups.map(userGroup => userGroup.userId).includes(user.id)
 	);
 
+	const allGroups = await getGroups();
+
 	return (
-		<div className="flex flex-col">
-			<div className="flex flex-row">
-				<div className="flex flex-col">
+		<div className="flex h-full flex-col">
+			<div className="flex flex-col md:flex-row">
+				<div className="mb-4 flex flex-col md:hidden">
+					<b className="w-48">Group name</b>
+					{allGroups.filter(group => group.id === id)[0].name}
+				</div>
+				<div className="mb-4 flex flex-col">
 					<b className="w-48">Members</b>
+					{usersInGroup.length === 0 && <p>Empty group</p>}
 					{usersInGroup.map(user => (
 						<p key={user.id}>{user.name}</p>
 					))}
 				</div>
 				<div className="flex flex-col">
 					<b>Total expenses</b>
-					<p>{expensesSum}</p>
+					<p>{expensesSum} €</p>
 					<b className="mt-4">Expenses per person</b>
-					<p className="mb-4">{expensesPerPerson}</p>
+					<p className="mb-4">{expensesPerPerson ? expensesPerPerson : 0} €</p>
 				</div>
 			</div>
-			<p className="my-2">Add member</p>
-			<p>leave group</p>
+			<b className="my-2">Add member</b>
+			<div className="flex flex-row">
+				<Input />
+				<Button LeadingIcon={UserRoundPlus} className="ml-2">
+					Add
+				</Button>
+			</div>
+			<Button
+				TrailingIcon={LogOut}
+				className="fixed bottom-8 mx-32 border-none text-red-800 hover:text-red-600"
+				variant="ghost"
+			>
+				Leave group
+			</Button>
 		</div>
 	);
 };

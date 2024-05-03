@@ -1,7 +1,9 @@
 'use client';
 
-import { Info, X, ArrowLeft } from 'lucide-react';
+import { Info, X, ArrowLeft, TicketPlus } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 
 import { redirectToGroups } from '../action';
 
@@ -19,9 +21,9 @@ const GroupDetail = (params: GroupDetailProps) => {
 	};
 
 	return (
-		<div className="my-2 flex h-full flex-row">
+		<div className="flex h-[calc(100vh-5rem)] w-full flex-row md:h-[calc(100vh-6rem)]">
 			<div className="hidden md:block">{params.groupsPage}</div>
-			<div className="min-w-96 max-w-2xl bg-almond-200 p-8">
+			<div className="w-[40rem] bg-almond-200 p-8">
 				<div className="mb-8 flex items-center justify-between">
 					<button className="block md:hidden" onClick={handleClick}>
 						<ArrowLeft size={20} />
@@ -32,6 +34,15 @@ const GroupDetail = (params: GroupDetailProps) => {
 					</button>
 				</div>
 				{info ? <div>{params.groupInfo}</div> : <div>{params.expenseList}</div>}
+				{!info && (
+					<div className="fixed bottom-8">
+						<div className="flex flex-row-reverse">
+							<Button LeadingIcon={TicketPlus} className="ml-auto w-24">
+								Add
+							</Button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

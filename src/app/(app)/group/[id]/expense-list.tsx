@@ -18,7 +18,7 @@ export const ExpenseList = async ({ id }: { id: string }) => {
 					<p className="mx-16">
 						{users.filter(u => u.id === expense.paidById)[0].name}
 					</p>
-					<p>{expense.amount}</p>
+					<p>{expense.amount} €</p>
 				</div>
 			))}
 		</div>
