@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { cn } from '@/lib/cn';
-import Header from '@/components/header';
 
 import { Providers } from './providers';
 
@@ -21,12 +20,7 @@ const RootLayout = ({
 }>) => (
 	<html lang="en">
 		<body className={cn('flex min-h-screen flex-col', inter.className)}>
-			<Providers>
-				<Header />
-				<main className="container mx-auto flex h-full flex-1 flex-col">
-					{children}
-				</main>
-			</Providers>
+			<Providers>{children}</Providers>
 		</body>
 	</html>
 );

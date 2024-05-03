@@ -91,12 +91,8 @@ Preferred folder structure we should stick to:
     - `hooks` - hooks used across the app
       - `use-toast.tsx`
     - `feature.ts` - functions related to some feature
-  - `queries` - tanstack queries (one query/mutation === one file)
-    - `expenses` - folder grouping all queries for some feature
-      - `useGetExpenses.ts`
-      - `usePatchExpenses.ts`
-  - `store` - contexts folder
-    - `auth-context.tsx`
+  - `queries` - tanstack queries/mutations (one query/mutation === one file)
+    - `expenses.ts` - file grouping all queries/mutations for some feature
   - `schema`
     - `auth.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
     - `feature.ts`
