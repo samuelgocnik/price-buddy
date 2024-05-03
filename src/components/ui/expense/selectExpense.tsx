@@ -1,4 +1,6 @@
+'use client';
 import * as React from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import {
 	Select,
@@ -8,19 +10,26 @@ import {
 	SelectTrigger,
 	SelectValue
 } from '@/components/ui/select';
-import { db } from '@/db';
+import { type Categories } from '@/db/schema/categories';
+import { type Groups } from '@/db/schema/groups';
 
 type SelectProps = {
 	isCategory: boolean;
+	categories: Categories[];
+	groups: Groups[];
 };
 
-export const SelectExpense = async (props: SelectProps) => {
-	const foundCategories = await db.query.categories.findMany();
-	const foundGroups = await db.query.groups.findMany();
+export const SelectExpense = (props: SelectProps) => {
+	const { register } = useFormContext();
 
-	const options = props.isCategory ? foundCategories : foundGroups;
+	const options = props.isCategory ? props.categories : props.groups;
+	const isLoading = options === undefined;
+
 	return (
-		<Select>
+		<Select
+			{...register(props.isCategory ? 'category' : 'group')}
+			disabled={isLoading}
+		>
 			<SelectTrigger className="w-[180px]">
 				<SelectValue />
 			</SelectTrigger>
