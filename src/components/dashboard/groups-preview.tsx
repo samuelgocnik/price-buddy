@@ -15,6 +15,7 @@ import { type Groups } from '@/db/schema/groups';
 import { getGroupsPreview } from '@/queries/groups';
 
 import { LoaderCentered } from '../ui/loader';
+import { AvatarBackground } from '../empty-photo';
 
 export const GroupsPreview = () => (
 	<Card className="xl:col-span-2">
@@ -45,10 +46,7 @@ const GroupList = async () => {
 		<ul className="grid gap-4">
 			{groups.map(group => (
 				<li key={group.id} className="flex items-center gap-4">
-					<div
-						id="group-picture"
-						className="h-10 w-10 rounded-full bg-gray-200"
-					>
+					<AvatarBackground>
 						{group.photoUrl && (
 							<Image
 								src={group.photoUrl}
@@ -58,7 +56,7 @@ const GroupList = async () => {
 								className="h-full w-full rounded-full"
 							/>
 						)}
-					</div>
+					</AvatarBackground>
 					{group.name}
 				</li>
 			))}
