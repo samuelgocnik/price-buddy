@@ -1,6 +1,6 @@
 'use server';
 
-import { desc, eq } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { expenses, type ExpensesWithRelations } from '@/db/schema/expenses';

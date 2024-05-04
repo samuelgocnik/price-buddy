@@ -1,7 +1,5 @@
 'use server';
 
-import { desc } from 'drizzle-orm';
-
 import { db } from '@/db';
 import { type Groups } from '@/db/schema/groups';
 

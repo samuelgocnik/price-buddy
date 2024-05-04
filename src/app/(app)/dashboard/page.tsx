@@ -1,4 +1,4 @@
-import { NextAuthResult, type Session } from 'next-auth';
+import { type Session } from 'next-auth';
 
 import { GroupsPreview } from '@/components/dashboard/groups-preview';
 import { LatestChanges } from '@/components/dashboard/latest-changes';
