@@ -9,6 +9,7 @@ export const ExpenseList = async ({ id }: { id: string }) => {
 	const users = await getUsers();
 	return (
 		<div>
+			{expenses.length === 0 && <p>No expenses</p>}
 			{expenses.map(expense => (
 				<div
 					key={expense.id}
