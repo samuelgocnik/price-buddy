@@ -11,9 +11,9 @@
     "check": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md,mdx}\"",
     "prepare": "husky",
     "lint-staged": "lint-staged",
-    "db:studio": "npx drizzle-kit studio",
+    "db:studio": "bunx drizzle-kit studio",
     "db:locally": "turso dev --db-file dev.db",
-    "db:push": "npx drizzle-kit push:sqlite"
+    "db:push": "bunx drizzle-kit push:sqlite"
   },
   "dependencies": {
     "@auth/core": "^0.30.0",
