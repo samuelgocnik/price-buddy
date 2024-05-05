@@ -11,8 +11,13 @@ import { GroupLink } from './group-link';
 const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 	const allGroups = await getGroups();
 	const userGroups = await getUserGroups();
+	// TODO: fetch user id from session
+	const userId = 'de0b5851-f7cb-4907-b746-28a86aaf9dfe';
 	const groups = allGroups.filter(group =>
-		userGroups.map(userGroup => userGroup.groupId).includes(group.id)
+		userGroups
+			.filter(ug => ug.userId === userId)
+			.map(userGroup => userGroup.groupId)
+			.includes(group.id)
 	);
 	return (
 		<div>

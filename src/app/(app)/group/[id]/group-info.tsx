@@ -1,20 +1,16 @@
 'use server';
-import { UserRoundPlus, LogOut } from 'lucide-react';
+import { UserRoundPlus } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-import {
-	getExpenses,
-	getGroups,
-	getUserGroups,
-	getUsers,
-	leaveGroupAction
-} from '../action';
+import { getExpenses, getGroups, getUserGroups, getUsers } from '../action';
 
-export const GroupInfo = async ({ id }: { id: string }) => {
+import { LeaveGroupButton } from './leave-group-button';
+
+export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 	const allExpenses = await getExpenses();
-	const expenses = allExpenses.filter(expense => expense.groupId === id);
+	const expenses = allExpenses.filter(expense => expense.groupId === groupId);
 	const expensesSum = expenses.reduce(
 		(acc, expense) => acc + parseFloat(expense.amount),
 		0
@@ -22,7 +18,7 @@ export const GroupInfo = async ({ id }: { id: string }) => {
 
 	const allUserGroups = await getUserGroups();
 	const userGroups = allUserGroups.filter(
-		userGroup => userGroup.groupId === id
+		userGroup => userGroup.groupId === groupId
 	);
 	const usersCount = userGroups.length;
 	const expensesPerPerson = expensesSum / usersCount;
@@ -33,13 +29,14 @@ export const GroupInfo = async ({ id }: { id: string }) => {
 	);
 
 	const allGroups = await getGroups();
+	const userId = 'de0b5851-f7cb-4907-b746-28a86aaf9dfe';
 
 	return (
 		<div className="flex h-full flex-col">
 			<div className="flex flex-col md:flex-row">
 				<div className="mb-4 flex flex-col md:hidden">
 					<b className="w-48">Group name</b>
-					{allGroups.filter(group => group.id === id)[0].name}
+					{allGroups.filter(group => group.id === groupId)[0].name}
 				</div>
 				<div className="mb-4 flex flex-col">
 					<b className="w-48">Members</b>
@@ -62,13 +59,7 @@ export const GroupInfo = async ({ id }: { id: string }) => {
 					Add
 				</Button>
 			</div>
-			<Button
-				TrailingIcon={LogOut}
-				className="fixed bottom-8 mx-32 border-none text-red-800 hover:text-red-600"
-				variant="ghost"
-			>
-				Leave group
-			</Button>
+			<LeaveGroupButton userId={userId} groupId={groupId} />
 		</div>
 	);
 };

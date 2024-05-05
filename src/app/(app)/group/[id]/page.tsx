@@ -10,7 +10,7 @@ const GroupDetailPage = ({ params }: { params: { id: string } }) => (
 			id={params.id}
 			groupsPage={<GroupsPage activeId={params.id} />}
 			expenseList={<ExpenseList id={params.id} />}
-			groupInfo={<GroupInfo id={params.id} />}
+			groupInfo={<GroupInfo groupId={params.id} />}
 		/>
 	</div>
 );
