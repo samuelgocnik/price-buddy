@@ -33,8 +33,19 @@ export const getUserSendTotal = async (
 export const getUserOwedTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
-	const owedTotal = 231.89;
-	const owedChange = 19;
+	const balanceBetweenUsers: UserBalances[] =
+		await db.query.userBalances.findMany({
+			where: eq(userBalances.user1Id, userId)
+		});
+
+	// Balance between users:
+	// balance > 0  -> user1 owes user2
+	// balance < 0  -> user2 owes user1
+	const owedTotal = balanceBetweenUsers
+		.filter(b => +b.balance < 0)
+		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+
+	const owedChange = NaN; // TODO
 
 	await sleep(2000);
 
@@ -44,8 +55,19 @@ export const getUserOwedTotal = async (
 export const getUserOweTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
-	const oweTotal = 231.89;
-	const oweChange = 201;
+	const balanceBetweenUsers: UserBalances[] =
+		await db.query.userBalances.findMany({
+			where: eq(userBalances.user1Id, userId)
+		});
+
+	// Balance between users:
+	// balance > 0  -> user1 owes user2
+	// balance < 0  -> user2 owes user1
+	const oweTotal = balanceBetweenUsers
+		.filter(b => +b.balance > 0)
+		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+
+	const oweChange = NaN; // TODO
 
 	await sleep(2000);
 
@@ -68,4 +90,9 @@ export const getExpensesRecent = async (
 
 	await sleep(2000);
 	return result;
+};
+
+const safeAccAdd = (acc: number, num: string) => {
+	const n = Number.parseFloat(num);
+	return acc + (Number.isNaN(n) ? 0.0 : n);
 };
