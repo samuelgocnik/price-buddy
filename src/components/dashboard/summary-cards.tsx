@@ -22,7 +22,11 @@ export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 			icon: debtIcon,
 			queryFunction: getUserReceivedTotal
 		},
-		{ title: 'Total Send', icon: debtIcon, queryFunction: getUserSendTotal },
+		{
+			title: 'Total Expenses',
+			icon: debtIcon,
+			queryFunction: getUserSendTotal
+		},
 		{
 			title: 'You are Owed',
 			icon: expenseIcon,
@@ -89,6 +93,6 @@ const cardData = (title: string, subtext: string): ReactNode => (
 
 const getChangeMessage = (change: number) => {
 	// "+20.1% from last month"
-	const changeString = change > 0 ? `+${change}` : change.toString();
-	return `${changeString}+% from last month`;
+	const changeString = change >= 0 ? `+${change}` : change.toString();
+	return `${changeString}% from last month`;
 };
