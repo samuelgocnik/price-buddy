@@ -2,18 +2,13 @@
 import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from '@/components/ui/select';
 import { type Categories } from '@/db/schema/categories';
 import { type Groups } from '@/db/schema/groups';
 
-type SelectProps = {
+type SelectProps = React.DetailedHTMLProps<
+	React.SelectHTMLAttributes<HTMLSelectElement>,
+	HTMLSelectElement
+> & {
 	isCategory: boolean;
 	categories: Categories[];
 	groups: Groups[];
@@ -21,27 +16,21 @@ type SelectProps = {
 
 export const SelectExpense = (props: SelectProps) => {
 	const { register } = useFormContext();
-
 	const options = props.isCategory ? props.categories : props.groups;
 	const isLoading = options === undefined;
 
 	return (
-		<Select
-			{...register(props.isCategory ? 'category' : 'group')}
+		<select
+			className="disabled:opacity-50, flex h-9 w-64 rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed"
+			id={props.isCategory ? 'category' : 'group'}
 			disabled={isLoading}
+			{...register(props.isCategory ? 'category' : 'group')}
 		>
-			<SelectTrigger className="w-[180px]">
-				<SelectValue />
-			</SelectTrigger>
-			<SelectContent>
-				<SelectGroup>
-					{options.map(option => (
-						<SelectItem key={option.id} value={option.id}>
-							{option.name}
-						</SelectItem>
-					))}
-				</SelectGroup>
-			</SelectContent>
-		</Select>
+			{(options ?? ['Loading...']).map(option => (
+				<option key={option.id} value={option.name}>
+					{option.name}
+				</option>
+			))}
+		</select>
 	);
 };
