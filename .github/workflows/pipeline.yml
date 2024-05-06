@@ -22,3 +22,5 @@ jobs:
         bun-version: latest
     - run: bun install
     - run: bun run build
+      env:
+        DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
