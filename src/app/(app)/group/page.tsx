@@ -20,20 +20,19 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 			.includes(group.id)
 	);
 	return (
-		<div>
-			<div className="flex h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:h-[calc(100vh-6rem)] md:w-64">
-				{groups.map(group => (
-					<GroupLink
-						key={group.id}
-						id={group.id}
-						activeId={activeId}
-						name={group.name}
-					/>
-				))}
-				<Button LeadingIcon={Users} className="fixed bottom-8 ml-8 w-24">
-					New
-				</Button>
-			</div>
+		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)] md:w-64">
+			<Button LeadingIcon={Users} className="m-8 w-24">
+				New
+			</Button>
+			{groups.map(group => (
+				<GroupLink
+					key={group.id}
+					id={group.id}
+					activeId={activeId}
+					name={group.name}
+				/>
+			))}
+			{groups.length === 0 && <p>You are not a member of any group.</p>}
 		</div>
 	);
 };

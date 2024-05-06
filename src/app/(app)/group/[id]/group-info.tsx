@@ -33,7 +33,7 @@ export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 
 	return (
 		<div className="flex h-full flex-col">
-			<div className="flex flex-col md:flex-row">
+			<div className="flex flex-col md:grid md:grid-cols-2">
 				<div className="mb-4 flex flex-col md:hidden">
 					<b className="w-48">Group name</b>
 					{allGroups.filter(group => group.id === groupId)[0].name}

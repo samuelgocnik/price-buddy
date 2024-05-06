@@ -1,6 +1,6 @@
 'use client';
 
-import { redirectToGroup } from './action';
+import Link from 'next/link';
 
 export const GroupLink = ({
 	id,
@@ -10,17 +10,11 @@ export const GroupLink = ({
 	id: string;
 	activeId: string | null;
 	name: string;
-}) => {
-	const handleClick = () => {
-		redirectToGroup({ id });
-	};
-
-	return (
-		<button
-			className={`px-8 py-4 hover:font-bold ${id === activeId ? 'bg-almond-200 font-bold' : ''}`}
-			onClick={handleClick}
-		>
-			<p className="text-left">{name}</p>
-		</button>
-	);
-};
+}) => (
+	<Link
+		className={`px-8 py-4 hover:font-bold ${id === activeId ? 'bg-almond-200 font-bold' : ''}`}
+		href={`/group/${id}`}
+	>
+		<p className="text-left">{name}</p>
+	</Link>
+);
