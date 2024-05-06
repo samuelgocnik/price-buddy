@@ -1,13 +1,19 @@
 'use server';
 
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 import { db } from '@/db';
-import { expenses, type ExpensesWithRelations } from '@/db/schema/expenses';
+import {
+	type Expenses,
+	expenses,
+	type ExpensesWithRelations
+} from '@/db/schema/expenses';
+import { type UserBalances, userBalances } from '@/db/schema/userBalances';
 
 const sleep = (time: number) =>
 	new Promise(resolve => setTimeout(resolve, time));
 
+// TODO not sure how to get amounts send to the user
 export const getUserReceivedTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
@@ -19,15 +25,47 @@ export const getUserReceivedTotal = async (
 	return [receivedTotal, receivedChange];
 };
 
+/**
+ * Calculates the total amount of money for the user
+ * based on the expenses the user created.
+ *
+ * Additionally, takes expenses from the last month and calculates the percentage of change.
+ *
+ * @param userId
+ * @returns
+ */
 export const getUserSendTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
-	const sendTotal = 231.89;
-	const sendChange = 180.1;
+	// Find all expenses for the user
+	const userExpenses: Expenses[] = await db.query.expenses.findMany({
+		where: eq(expenses.paidById, userId)
+	});
+
+	// Calculate the total amount
+	const amountTotal = userExpenses.reduce(
+		(acc, expense) => safeAccAdd(acc, expense.amount),
+		0.0
+	);
+
+	// Get all expenses for the last month
+	const expenseLastMonth = userExpenses.filter(
+		expense => new Date(expense.createdAt).getMonth() === new Date().getMonth()
+	);
+	// Calculate the total amount for the last month
+	const sendLastMonth = expenseLastMonth.reduce(
+		(acc, expense) => safeAccAdd(acc, expense.amount),
+		0.0
+	);
+
+	// TODO did I calculate it correctly? or should it be calculated not from overall total amount, but using expenses before the last month?
+	// Calculate the percentage of change between users total and last month
+	const percentage = (sendLastMonth / amountTotal) * 100;
+	// Fixed 2 decimal places. (no expenses in database would give pertenate NaN, convert to default 0.0)
+	const amountChange = Number.isNaN(percentage) ? 0.0 : +percentage.toFixed(2);
 
 	await sleep(2000);
-
-	return [sendTotal, sendChange];
+	return [amountTotal, amountChange];
 };
 
 export const getUserOwedTotal = async (
@@ -74,6 +112,7 @@ export const getUserOweTotal = async (
 	return [oweTotal, oweChange];
 };
 
+// TODO expenses we show in the dashboard, SHOULD be ralated to the user!!!
 export const getExpensesRecent = async (
 	userId: string,
 	limit?: number
