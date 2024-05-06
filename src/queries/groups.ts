@@ -3,7 +3,10 @@
 import { db } from '@/db';
 import { type Groups } from '@/db/schema/groups';
 
-export const getGroupsPreview = async (limit?: number): Promise<Groups[]> => {
+export const getGroupsPreview = async (
+	userId: string,
+	limit?: number
+): Promise<Groups[]> => {
 	/* TODO We want to show in the dashboard groups that are
 		- relevant (user is member of) groups
 		- recent transactions, or "most used groups" by the user

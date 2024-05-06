@@ -17,7 +17,11 @@ import { getGroupsPreview } from '@/queries/groups';
 import { LoaderCentered } from '../ui/loader';
 import { AvatarBackground } from '../empty-photo';
 
-export const GroupsPreview = () => (
+export type GroupsPreviewProps = {
+	userId: string;
+};
+
+export const GroupsPreview = ({ userId }: GroupsPreviewProps) => (
 	<Card className="xl:col-span-2">
 		<CardHeader className="flex flex-row justify-between">
 			<div className="grid gap-2">
@@ -33,14 +37,14 @@ export const GroupsPreview = () => (
 		</CardHeader>
 		<CardContent>
 			<Suspense fallback={<LoaderCentered size="xl" />}>
-				<GroupList />
+				<GroupList userId={userId} />
 			</Suspense>
 		</CardContent>
 	</Card>
 );
 
-const GroupList = async () => {
-	const groups: Groups[] = await getGroupsPreview();
+const GroupList = async ({ userId }: GroupsPreviewProps) => {
+	const groups: Groups[] = await getGroupsPreview(userId);
 
 	return (
 		<ul className="grid gap-4">

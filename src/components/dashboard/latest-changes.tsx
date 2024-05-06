@@ -8,21 +8,28 @@ import { getExpensesRecent } from '@/queries/expenses';
 import { LoaderCentered } from '../ui/loader';
 import { AvatarBackgroundFallback } from '../empty-photo';
 
-export const LatestChanges = () => (
+export type LatestChangesProps = {
+	userId: string;
+};
+
+export const LatestChanges = ({ userId }: LatestChangesProps) => (
 	<Card>
 		<CardHeader>
 			<CardTitle>Recent Transactions</CardTitle>
 		</CardHeader>
 		<CardContent className="grid gap-8">
 			<Suspense fallback={<LoaderCentered size="xl" />}>
-				<ExpencesList />
+				<ExpencesList userId={userId} />
 			</Suspense>
 		</CardContent>
 	</Card>
 );
 
-const ExpencesList = async () => {
-	const expencesAll: ExpensesWithRelations[] = await getExpensesRecent(5);
+const ExpencesList = async ({ userId }: LatestChangesProps) => {
+	const expencesAll: ExpensesWithRelations[] = await getExpensesRecent(
+		userId,
+		5
+	);
 
 	return (
 		<>

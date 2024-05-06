@@ -53,6 +53,7 @@ export const getUserOweTotal = async (
 };
 
 export const getExpensesRecent = async (
+	userId: string,
 	limit?: number
 ): Promise<ExpensesWithRelations[]> => {
 	const result: ExpensesWithRelations[] = await db.query.expenses.findMany({
