@@ -36,14 +36,14 @@ const ExpencesList = async ({ userId }: LatestChangesProps) => {
 			{expencesAll.map(data => (
 				<div key={data.id} className="flex items-center gap-4">
 					<Avatar className="hidden h-9 w-9 sm:flex">
-						<AvatarImage src={data.paidBy.image ?? undefined} alt="Avatar" />
+						<AvatarImage src={data.paidBy?.image ?? undefined} alt="Avatar" />
 						<AvatarBackgroundFallback />
 					</Avatar>
 					<div className="grid gap-1">
 						<p className="text-sm font-medium leading-none">
-							{data.paidBy.name}
+							{data.paidBy?.name ?? 'Unknown User'}
 						</p>
-						<p className="text-sm">{data.paidBy.email}</p>
+						<p className="text-sm">{data.paidBy?.email ?? 'Unknown Email'}</p>
 					</div>
 					<div className="ml-auto font-medium">{data.amount}</div>
 				</div>
