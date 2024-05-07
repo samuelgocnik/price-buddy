@@ -1,8 +1,10 @@
 'use server';
+import { type Session } from 'next-auth';
 import { UserRoundPlus } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { auth } from '@/auth';
 
 import { getExpenses, getGroups, getUserGroups, getUsers } from '../action';
 
@@ -29,7 +31,12 @@ export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 	);
 
 	const allGroups = await getGroups();
-	const userId = 'de0b5851-f7cb-4907-b746-28a86aaf9dfe';
+
+	const session: Session | null = await auth();
+	const userId = session?.user?.id;
+	if (!userId) {
+		return;
+	}
 
 	return (
 		<div className="flex h-full flex-col">

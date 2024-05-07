@@ -1,9 +1,10 @@
 'use server';
-
+import { type Session } from 'next-auth';
 import React from 'react';
 import { Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { auth } from '@/auth';
 
 import { getGroups, getUserGroups } from './action';
 import { GroupLink } from './group-link';
@@ -11,8 +12,10 @@ import { GroupLink } from './group-link';
 const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 	const allGroups = await getGroups();
 	const userGroups = await getUserGroups();
-	// TODO: fetch user id from session
-	const userId = 'de0b5851-f7cb-4907-b746-28a86aaf9dfe';
+
+	const session: Session | null = await auth();
+	const userId = session?.user?.id;
+
 	const groups = allGroups.filter(group =>
 		userGroups
 			.filter(ug => ug.userId === userId)
@@ -32,7 +35,9 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 					name={group.name}
 				/>
 			))}
-			{groups.length === 0 && <p>You are not a member of any group.</p>}
+			{groups.length === 0 && (
+				<p className="ml-8">You are not a member of any group.</p>
+			)}
 		</div>
 	);
 };
