@@ -1,6 +1,6 @@
 'use server';
 
-import { getExpenses, getUsers } from '../action';
+import { getExpenses, getUsers } from '../../../../queries/group';
 
 export const ExpenseList = async ({ id }: { id: string }) => {
 	const allExpenses = await getExpenses();

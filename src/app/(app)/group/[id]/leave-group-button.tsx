@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
-import { leaveGroupAction } from '../action';
+import { leaveGroupAction } from '../../../../queries/group';
 
 export const LeaveGroupButton = ({
 	userId,
@@ -18,7 +18,7 @@ export const LeaveGroupButton = ({
 	return (
 		<Button
 			TrailingIcon={LogOut}
-			className="fixed bottom-8 mx-32 border-none text-red-800 hover:text-red-600"
+			className="mt-9 w-32 border-none text-red-800 hover:text-red-600"
 			variant="ghost"
 			onClick={() => {
 				leaveGroupAction(userId, groupId);

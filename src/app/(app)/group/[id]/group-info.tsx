@@ -6,7 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 
-import { getExpenses, getGroups, getUserGroups, getUsers } from '../action';
+import {
+	getExpenses,
+	getGroups,
+	getUserGroups,
+	getUsers
+} from '../../../../queries/group';
 
 import { LeaveGroupButton } from './leave-group-button';
 

@@ -3,7 +3,8 @@
 import { and, eq } from 'drizzle-orm';
 
 import { db } from '@/db';
-import { usersGroups } from '@/db/schema/userGroups';
+import { type UsersGroups, usersGroups } from '@/db/schema/userGroups';
+import { type Groups } from '@/db/schema/groups';
 
 export const leaveGroupAction = async (userId: string, groupId: string) => {
 	console.log('User ', userId, ' leaving group ', groupId);
@@ -22,3 +23,7 @@ export const getUsers = async () => await db.query.users.findMany();
 export const getExpenses = async () => await db.query.expenses.findMany();
 
 export const getUserGroups = async () => await db.query.usersGroups.findMany();
+
+type UsersGroupsWithGroup = UsersGroups & {
+	group: Groups;
+};

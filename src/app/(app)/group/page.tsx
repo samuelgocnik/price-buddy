@@ -5,8 +5,8 @@ import { Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
+import { getGroups, getUserGroups } from '@/queries/group';
 
-import { getGroups, getUserGroups } from './action';
 import { GroupLink } from './group-link';
 
 const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
@@ -22,6 +22,7 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 			.map(userGroup => userGroup.groupId)
 			.includes(group.id)
 	);
+
 	return (
 		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)]">
 			<Button LeadingIcon={Users} className="m-8 w-24">
