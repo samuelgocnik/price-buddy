@@ -17,9 +17,9 @@ const GroupDetail = (props: GroupDetailProps) => {
 	const [info, setInfo] = useState(false);
 
 	return (
-		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-row md:min-h-[calc(100vh-6rem)]">
-			<div className="hidden md:block">{props.groupsPage}</div>
-			<div className="w-[40rem] bg-almond-200 p-8">
+		<div className="grid min-h-[calc(100vh-5rem)] gap-0 md:min-h-[calc(100vh-6rem)] md:grid-cols-3">
+			<div className="col-span-1 hidden md:block">{props.groupsPage}</div>
+			<div className="col-span-2 bg-almond-200 p-8">
 				{!info && (
 					<div className="flex flex-row-reverse">
 						<Button LeadingIcon={TicketPlus} className="mb-12 ml-auto w-24">
@@ -32,7 +32,12 @@ const GroupDetail = (props: GroupDetailProps) => {
 						<ArrowLeft size={20} />
 					</Link>
 					{info ? <b>Group info</b> : <b>Expenses</b>}
-					<button onClick={() => setInfo(!info)}>
+					<button
+						onClick={() => {
+							console.log('setting info');
+							setInfo(!info);
+						}}
+					>
 						{info ? <X size={20} /> : <Info size={20} />}
 					</button>
 				</div>

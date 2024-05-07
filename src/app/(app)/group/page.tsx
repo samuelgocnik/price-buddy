@@ -20,7 +20,7 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 			.includes(group.id)
 	);
 	return (
-		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)] md:w-64">
+		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)]">
 			<Button LeadingIcon={Users} className="m-8 w-24">
 				New
 			</Button>
