@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, sqliteTable, numeric, text } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, numeric, text } from 'drizzle-orm/sqlite-core';
 
 import { usersExpenses } from './usersExpenses';
 import { groups } from './groups';
@@ -12,13 +12,13 @@ export const expenses = sqliteTable('expenses', {
 		.$defaultFn(() => crypto.randomUUID()),
 	amount: numeric('amount').notNull(),
 	title: text('title'),
-	groupId: integer('group_id')
+	groupId: text('group_id')
 		.notNull()
 		.references(() => groups.id),
-	paidById: integer('paid_by_id')
+	paidById: text('paid_by_id')
 		.notNull()
 		.references(() => users.id),
-	categoryId: integer('category_id')
+	categoryId: text('category_id')
 		.notNull()
 		.references(() => categories.id),
 	createdAt: text('created_at').notNull().default(new Date().toString()),

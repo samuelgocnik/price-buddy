@@ -5,7 +5,7 @@ export default {
 	driver: 'turso',
 	dbCredentials: {
 		url: process.env.DATABASE_URL!,
-		authToken: process.env.AUTH_TOKEN
+		authToken: process.env.DATABASE_AUTH_TOKEN
 	},
 	out: '.drizzle'
 } satisfies Config;
