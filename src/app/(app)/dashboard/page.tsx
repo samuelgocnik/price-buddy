@@ -1,23 +1,34 @@
 import { Suspense } from 'react';
+import { type Session } from 'next-auth';
 
-import { AddExpense } from '@/components/ui/expense/addExpense';
-import { SelectField } from '@/components/ui/expense/select-field';
+import { AddExpense } from '@/components/expense/add-expense';
+import { SelectField } from '@/components/expense/select-field';
+import { auth } from '@/auth';
 
-const DashboardPage = () => (
-	<div>
-		<AddExpense
-			selectGroup={
-				<Suspense fallback={<div>Loading...</div>}>
-					<SelectField isCategory={false} />
-				</Suspense>
-			}
-			selectCategory={
-				<Suspense fallback={<div>Loading...</div>}>
-					<SelectField isCategory />
-				</Suspense>
-			}
-		/>
-	</div>
-);
+const DashboardPage = async () => {
+	const session: Session | null = await auth();
+
+	const userId = session?.user?.id;
+	if (!userId) {
+		return <p>You must be logged in to view this page.</p>;
+	}
+	return (
+		<div>
+			<AddExpense
+				selectGroup={
+					<Suspense fallback={<div>Loading...</div>}>
+						<SelectField isCategory={false} />
+					</Suspense>
+				}
+				selectCategory={
+					<Suspense fallback={<div>Loading...</div>}>
+						<SelectField isCategory />
+					</Suspense>
+				}
+				userId={userId}
+			/>
+		</div>
+	);
+};
 
 export default DashboardPage;

@@ -1,6 +1,6 @@
 import { db } from '@/db';
 
-import { SelectExpense } from './selectExpense';
+import { SelectExpense } from './select-expense';
 
 type SelectFieldProps = {
 	isCategory: boolean;
