@@ -15,6 +15,6 @@ export const GroupLink = ({
 		className={`px-8 py-4 hover:font-bold ${id === activeId ? 'bg-almond-200 font-bold' : ''}`}
 		href={`/group/${id}`}
 	>
-		<p className="text-left">{name}</p>
+		{name}
 	</Link>
 );
