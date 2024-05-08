@@ -2,9 +2,12 @@
 import NextAuth, { type DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
-	type Session = {
-		user: DefaultSession['user'] & {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+	interface Session extends DefaultSession {
+		user: {
 			id: string;
-		};
-	};
+			firstName: string | null;
+			lastName: string | null;
+		} & DefaultSession['user'];
+	}
 }
