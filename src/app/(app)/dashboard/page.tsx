@@ -17,7 +17,7 @@ const DashboardPage = async () => {
 			<AddExpense
 				selectGroup={
 					<Suspense fallback={<div>Loading...</div>}>
-						<SelectField isCategory={false} />
+						<SelectField isCategory={false} selectedGroup="id1dds" />
 					</Suspense>
 				}
 				selectCategory={
@@ -26,6 +26,7 @@ const DashboardPage = async () => {
 					</Suspense>
 				}
 				userId={userId}
+				selectedGroup="id1"
 			/>
 		</div>
 	);

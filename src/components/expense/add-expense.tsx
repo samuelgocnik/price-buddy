@@ -23,6 +23,7 @@ type AddExpenseProps = {
 	selectGroup: React.ReactNode;
 	selectCategory: React.ReactNode;
 	userId: string;
+	selectedGroup?: string;
 };
 
 type FormSchema = z.infer<typeof addExpenseFormSchema>;
@@ -39,13 +40,16 @@ export const AddExpense = (props: AddExpenseProps) => {
 	});
 
 	const onSubmit = (values: FormSchema) => {
-		console.log(values);
 		setOpen(false);
+		const selectedGroup = props.selectedGroup ?? values.groupId;
+
 		const updatedValues = {
 			...values,
 			amount: String(values.amount),
+			groupId: selectedGroup ?? '',
 			paidById: props.userId
 		};
+		console.log(updatedValues);
 		mutate(updatedValues);
 		form.reset({
 			title: '',
@@ -85,7 +89,7 @@ export const AddExpense = (props: AddExpenseProps) => {
 								className="md:grid md:grid-cols-[1fr_4fr] md:items-center md:gap-4 md:text-right"
 							/>
 							<FormInput
-								label="Amount"
+								label="Amount €"
 								name="amount"
 								type="number"
 								step={0.01}
