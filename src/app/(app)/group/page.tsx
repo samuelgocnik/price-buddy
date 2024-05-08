@@ -5,23 +5,27 @@ import { Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
-import { getGroups, getUserGroups } from '@/queries/group';
+import { getGroups, getUserGroups, getUsersGroups } from '@/queries/group';
 
 import { GroupLink } from './group-link';
 
 const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
-	const allGroups = await getGroups();
-	const userGroups = await getUserGroups();
+	// const allGroups = await getGroups();
+	// const userGroups = await getUserGroups();
 
 	const session: Session | null = await auth();
 	const userId = session?.user?.id;
 
-	const groups = allGroups.filter(group =>
-		userGroups
-			.filter(ug => ug.userId === userId)
-			.map(userGroup => userGroup.groupId)
-			.includes(group.id)
-	);
+	// const groups = allGroups.filter(group =>
+	// 	userGroups
+	// 		.filter(ug => ug.userId === userId)
+	// 		.map(userGroup => userGroup.groupId)
+	// 		.includes(group.id)
+	// );
+
+	const groups = await getUsersGroups();
+
+	return <div>{groups[2].group.name}</div>;
 
 	return (
 		<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)]">
@@ -33,7 +37,7 @@ const GroupsPage = async ({ activeId }: { activeId: string | null }) => {
 					key={group.id}
 					id={group.id}
 					activeId={activeId}
-					name={group.name}
+					name={group.group.name}
 				/>
 			))}
 			{groups.length === 0 && (

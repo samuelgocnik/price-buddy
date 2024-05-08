@@ -27,3 +27,11 @@ export const getUserGroups = async () => await db.query.usersGroups.findMany();
 type UsersGroupsWithGroup = UsersGroups & {
 	group: Groups;
 };
+
+export const getUsersGroups = async () =>
+	await db.query.usersGroups.findMany({
+		where: eq(usersGroups.userId, 'd104b5cf-3957-4718-a88d-8bc1869bd626'),
+		with: {
+			group: true
+		}
+	});
