@@ -23,7 +23,7 @@ const ProfilePage = async () => {
 					src={user.image!}
 					alt="User avatar"
 					fill
-					objectFit="cover"
+					style={{ objectFit: 'cover' }}
 					className="rounded-full shadow"
 				/>
 			</div>
