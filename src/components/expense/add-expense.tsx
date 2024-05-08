@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { type z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -70,7 +71,9 @@ export const AddExpense = (props: AddExpenseProps) => {
 	return (
 		<Dialog open={open} onOpenChange={handleDialogChange}>
 			<DialogTrigger asChild>
-				<Button variant="outline">Add Expense</Button>
+				<Button TrailingIcon={Plus} variant="outline">
+					Add Expense
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="w-full md:w-[600px]">
 				<FormProvider {...form}>

@@ -9,3 +9,15 @@ export const addExpenseFormSchema = z.object({
 	groupId: z.string().optional(),
 	categoryId: z.string()
 });
+
+export const addGroupFormSchema = z.object({
+	name: z
+		.string()
+		.min(3, { message: 'Name must be at least 3 characters long.' })
+		.max(30, { message: 'Name must be no more than 30 characters long.' }),
+	emails: z.array(
+		z.object({
+			email: z.string().email({ message: 'Email must be valid.' })
+		})
+	)
+});

@@ -1,0 +1,14 @@
+'use server';
+import { revalidatePath } from 'next/cache';
+
+import { db } from '@/db';
+import { groups } from '@/db/schema/groups';
+import { type addGroupParams } from '@/queries/groups';
+
+import { addUserToGroupAction } from './usersGroup';
+
+export const addGroupAction = async (data: addGroupParams) => {
+	const result = await db.insert(groups).values(data).returning();
+	await addUserToGroupAction(data.emails, result[0].id, data.authorId);
+	revalidatePath('/dashboard');
+};
