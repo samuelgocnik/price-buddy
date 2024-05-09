@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 
 type GroupDetailProps = {
 	id: string;
+	name: string;
 	groupsPage: ReactNode;
 	expenseList: ReactNode;
 	groupInfo: ReactNode;
@@ -21,8 +22,9 @@ const GroupDetail = (props: GroupDetailProps) => {
 			<div className="col-span-1 hidden md:block">{props.groupsPage}</div>
 			<div className="col-span-2 bg-almond-200 p-8">
 				{!info && (
-					<div className="flex flex-row-reverse">
-						<Button LeadingIcon={TicketPlus} className="mb-12 ml-auto w-24">
+					<div className="mb-8 flex items-center justify-between">
+						<h1 className="text-2xl">{props.name}</h1>
+						<Button LeadingIcon={TicketPlus} className="ml-auto w-24">
 							Add
 						</Button>
 					</div>
@@ -34,7 +36,6 @@ const GroupDetail = (props: GroupDetailProps) => {
 					{info ? <b>Group info</b> : <b>Expenses</b>}
 					<button
 						onClick={() => {
-							console.log('setting info');
 							setInfo(!info);
 						}}
 					>

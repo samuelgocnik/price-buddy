@@ -3,11 +3,10 @@
 import { and, eq } from 'drizzle-orm';
 
 import { db } from '@/db';
-import { type UsersGroups, usersGroups } from '@/db/schema/userGroups';
-import { type Groups } from '@/db/schema/groups';
+import { usersGroups } from '@/db/schema/userGroups';
+import { groups } from '@/db/schema/groups';
 
 export const leaveGroupAction = async (userId: string, groupId: string) => {
-	console.log('User ', userId, ' leaving group ', groupId);
 	await db
 		.delete(usersGroups)
 		.where(
@@ -15,23 +14,30 @@ export const leaveGroupAction = async (userId: string, groupId: string) => {
 		);
 };
 
-export const getGroups = async () => await db.query.groups.findMany();
-
-export const getUsers = async () => await db.query.users.findMany();
-
-// eq didnt work for some reason
-export const getExpenses = async () => await db.query.expenses.findMany();
-
-export const getUserGroups = async () => await db.query.usersGroups.findMany();
-
-type UsersGroupsWithGroup = UsersGroups & {
-	group: Groups;
+export const getGroupName = async (id: string) => {
+	const group = await db.query.groups.findFirst({
+		where: eq(groups.id, id)
+	});
+	return group ? group.name : '';
 };
 
-export const getUsersGroups = async () =>
+export const getUsersGroups = async (id: string) =>
 	await db.query.usersGroups.findMany({
-		where: eq(usersGroups.userId, 'd104b5cf-3957-4718-a88d-8bc1869bd626'),
+		where: eq(usersGroups.userId, id),
 		with: {
 			group: true
 		}
 	});
+
+export const getUserGroupsRelations = async (groupId: string) =>
+	await db.query.usersGroups.findMany({
+		where: eq(usersGroups.groupId, groupId),
+		with: {
+			user: true
+		}
+	});
+
+// -------------------------- to fix --------------------------
+
+// this can be removed after resolving td 3
+export const getUsers = async () => await db.query.users.findMany();

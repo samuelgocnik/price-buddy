@@ -1,4 +1,5 @@
 'use server';
+
 import { type Session } from 'next-auth';
 import { UserRoundPlus } from 'lucide-react';
 
@@ -7,54 +8,44 @@ import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 
 import {
-	getExpenses,
-	getGroups,
-	getUserGroups,
-	getUsers
+	getGroupName,
+	getUserGroupsRelations
 } from '../../../../queries/group';
+import { getGroupsExpenses } from '../../../../queries/expenses';
 
 import { LeaveGroupButton } from './leave-group-button';
 
 export const GroupInfo = async ({ groupId }: { groupId: string }) => {
-	const allExpenses = await getExpenses();
-	const expenses = allExpenses.filter(expense => expense.groupId === groupId);
-	const expensesSum = expenses.reduce(
-		(acc, expense) => acc + parseFloat(expense.amount),
-		0
-	);
-
-	const allUserGroups = await getUserGroups();
-	const userGroups = allUserGroups.filter(
-		userGroup => userGroup.groupId === groupId
-	);
-	const usersCount = userGroups.length;
-	const expensesPerPerson = expensesSum / usersCount;
-
-	const allUsers = await getUsers();
-	const usersInGroup = allUsers.filter(user =>
-		userGroups.map(userGroup => userGroup.userId).includes(user.id)
-	);
-
-	const allGroups = await getGroups();
-
 	const session: Session | null = await auth();
 	const userId = session?.user?.id;
 	if (!userId) {
 		return;
 	}
 
+	const expenses = await getGroupsExpenses(groupId);
+	const expensesSum = expenses.reduce(
+		(acc, expense) => acc + parseFloat(expense.amount),
+		0
+	);
+
+	const userGroups = await getUserGroupsRelations(groupId);
+	const usersCount = userGroups.length;
+	const expensesPerPerson = expensesSum / usersCount;
+
+	const groupName = await getGroupName(groupId);
+
 	return (
 		<div className="flex h-full flex-col">
 			<div className="flex flex-col md:grid md:grid-cols-2">
-				<div className="mb-4 flex flex-col md:hidden">
+				<div className="mb-4 flex flex-col">
 					<b className="w-48">Group name</b>
-					{allGroups.filter(group => group.id === groupId)[0].name}
+					{groupName}
 				</div>
 				<div className="mb-4 flex flex-col">
 					<b className="w-48">Members</b>
-					{usersInGroup.length === 0 && <p>Empty group</p>}
-					{usersInGroup.map(user => (
-						<p key={user.id}>{user.name}</p>
+					{userGroups.length === 0 && <p>Empty group</p>}
+					{userGroups.map(ug => (
+						<p key={ug.id}>here should be ug.user.name</p> // TODO 1 - accesible but null
 					))}
 				</div>
 				<div className="flex flex-col">
