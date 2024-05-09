@@ -1,9 +1,8 @@
 import { type Session } from 'next-auth';
-import { Edit2Icon } from 'lucide-react';
 import Image from 'next/image';
 
 import { auth } from '@/auth';
-import { Button } from '@/components/ui/button';
+import { EditProfileModal } from '@/components/profile/edit-profile-modal';
 
 const ProfilePage = async () => {
 	const session: Session | null = await auth();
@@ -46,7 +45,9 @@ const ProfilePage = async () => {
 						</>
 					) : (
 						<div className="grid grid-cols-[1fr_3fr] gap-x-3">
-							<span className="text-right text-blue-smoke-600">Name:</span>
+							<span className="text-right text-blue-smoke-600">
+								Github name:
+							</span>
 							<span className="font-medium">{user.name}</span>
 						</div>
 					)}
@@ -56,7 +57,7 @@ const ProfilePage = async () => {
 					</div>
 				</div>
 				<div className="max-md:flex max-md:justify-center">
-					<Button TrailingIcon={Edit2Icon}>Edit name</Button>
+					<EditProfileModal userId={user.id} hasSetName={hasSetName} />
 				</div>
 			</div>
 		</div>
