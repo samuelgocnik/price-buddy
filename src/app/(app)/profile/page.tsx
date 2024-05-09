@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import { auth } from '@/auth';
 import { EditProfileModal } from '@/components/profile/edit-profile-modal';
+import { RevertGithubNameButton } from '@/components/profile/revert-github-name-button';
 
 const ProfilePage = async () => {
 	const session: Session | null = await auth();
@@ -56,8 +57,9 @@ const ProfilePage = async () => {
 						<span className="font-medium">{user.email}</span>
 					</div>
 				</div>
-				<div className="max-md:flex max-md:justify-center">
+				<div className="max-md:flex max-md:flex-col max-md:justify-center max-md:space-y-3 md:space-x-3">
 					<EditProfileModal userId={user.id} hasSetName={hasSetName} />
+					<RevertGithubNameButton userId={user.id} />
 				</div>
 			</div>
 		</div>

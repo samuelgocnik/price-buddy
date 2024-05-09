@@ -22,3 +22,18 @@ export const getUserById = (userId: User['id']) =>
 	db.query.users.findFirst({
 		where: eq(users.id, userId)
 	});
+
+export const revertToGithubNameAction = async (userId: User['id']) => {
+	const result = await db
+		.update(users)
+		.set({
+			firstName: null,
+			lastName: null
+		})
+		.where(eq(users.id, userId));
+	if (result.rowsAffected === 0) {
+		throw new Error('Failed to revert to github name.');
+	}
+	revalidatePath('/profile');
+	return result.rowsAffected;
+};
