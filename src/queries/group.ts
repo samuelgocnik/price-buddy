@@ -36,8 +36,3 @@ export const getUserGroupsRelations = async (groupId: string) =>
 			user: true
 		}
 	});
-
-// -------------------------- to fix --------------------------
-
-// this can be removed after resolving td 3
-export const getUsers = async () => await db.query.users.findMany();
