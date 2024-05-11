@@ -23,9 +23,9 @@ export const SelectExpense = (props: SelectProps) => {
 
 	return (
 		<>
-			<FormLabel>Group</FormLabel>
+			<FormLabel>{props.isCategory ? 'Category' : 'Group'}</FormLabel>
 			<select
-				className="disabled:opacity-50, flex h-9  rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed"
+				className="disabled:opacity-50, flex h-9 rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed"
 				id={props.isCategory ? 'categoryId' : 'groupId'}
 				disabled={props.selectedGroup !== undefined && !props.isCategory}
 				{...register(props.isCategory ? 'categoryId' : 'groupId')}

@@ -1,24 +1,25 @@
 'use client';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
+import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
 } from '@/components/ui/dialog';
-import { addExpenseFormSchema } from '@/schema/schema';
+import {
+	type AddExpenseFormSchema,
+	addExpenseFormSchema
+} from '@/schema/schema';
 import { useAddExpense } from '@/queries/expenses';
 
-import { FormInput } from '../ui/form-input';
+import { FormTextInput } from '../forms/form-input';
 
 type AddExpenseProps = {
 	selectGroup: React.ReactNode;
@@ -27,20 +28,18 @@ type AddExpenseProps = {
 	selectedGroup?: string;
 };
 
-type FormSchema = z.infer<typeof addExpenseFormSchema>;
-
 export const AddExpense = (props: AddExpenseProps) => {
 	const [open, setOpen] = useState(false);
 	const { mutate } = useAddExpense();
-	const form = useForm<FormSchema>({
-		resolver: zodResolver(addExpenseFormSchema),
+	const form = useForm<AddExpenseFormSchema>({
+		resolver: valibotResolver(addExpenseFormSchema),
 		defaultValues: {
 			title: '',
 			amount: 0.01
 		}
 	});
 
-	const onSubmit = (values: FormSchema) => {
+	const onSubmit = (values: AddExpenseFormSchema) => {
 		setOpen(false);
 		const selectedGroup = props.selectedGroup ?? values.groupId;
 
@@ -80,26 +79,20 @@ export const AddExpense = (props: AddExpenseProps) => {
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 						<DialogHeader>
 							<DialogTitle>New Expense</DialogTitle>
-							<DialogDescription>Create new Expense</DialogDescription>
 						</DialogHeader>
 						<div className="grid gap-4 py-4">
-							<FormInput
+							<FormTextInput
+								formControl={form.control}
 								label="Title"
 								name="title"
-								formControl={form.control}
-								placeholder=""
-								autoComplete="off"
-								className="md:grid md:grid-cols-[1fr_4fr] md:items-center md:gap-4 md:text-right"
+								placeholder="title"
 							/>
-							<FormInput
+							<FormTextInput
+								formControl={form.control}
 								label="Amount €"
 								name="amount"
 								type="number"
 								step={0.01}
-								formControl={form.control}
-								placeholder=""
-								autoComplete="off"
-								className="md:grid md:grid-cols-[1fr_4fr] md:items-center md:gap-4 md:text-right"
 							/>
 							<div className="grid items-center gap-4 md:grid md:grid-cols-[1fr_4fr] md:text-right">
 								{props.selectGroup}

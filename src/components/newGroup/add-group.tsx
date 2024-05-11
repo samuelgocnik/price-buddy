@@ -1,36 +1,32 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm, useFieldArray, FormProvider } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { type z } from 'zod';
 import { Users, UserPlus, Trash2 } from 'lucide-react';
+import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogTitle,
 	DialogTrigger,
 	DialogFooter,
 	DialogHeader
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { addGroupFormSchema } from '@/schema/schema';
+import { type AddGroupFormSchema, addGroupFormSchema } from '@/schema/schema';
 import { useAddGroup } from '@/queries/groups';
 
-import { FormInput } from '../ui/form-input';
+import { FormTextInput } from '../forms/form-input';
 
 type AddGroupProps = {
 	userId: string;
 };
 
-type FormSchema = z.infer<typeof addGroupFormSchema>;
-
 export const AddGroup = (props: AddGroupProps) => {
 	const [open, setOpen] = useState(false);
 	const { mutate } = useAddGroup();
-	const form = useForm<FormSchema>({
-		resolver: zodResolver(addGroupFormSchema),
+	const form = useForm<AddGroupFormSchema>({
+		resolver: valibotResolver(addGroupFormSchema),
 		defaultValues: {
 			name: '',
 			emails: []
@@ -49,7 +45,7 @@ export const AddGroup = (props: AddGroupProps) => {
 		}
 	};
 
-	const onSubmit = (values: FormSchema) => {
+	const onSubmit = (values: AddGroupFormSchema) => {
 		setOpen(false);
 		form.reset({
 			name: '',
@@ -71,40 +67,32 @@ export const AddGroup = (props: AddGroupProps) => {
 					Add Group
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-full md:w-[600px]">
+			<DialogContent className="max-h-screen w-full overflow-y-scroll md:w-[600px]">
 				<FormProvider {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 						<DialogHeader>
 							<DialogTitle>New Group</DialogTitle>
-							<DialogDescription>Create new Group</DialogDescription>
 						</DialogHeader>
 						<div className="grid gap-4 py-4">
-							<FormInput
+							<FormTextInput
+								formControl={form.control}
 								label="Name"
 								name="name"
-								formControl={form.control}
-								placeholder=""
-								autoComplete="off"
-								className="md:grid md:grid-cols-[1fr_3fr] md:items-center md:gap-4 md:text-left"
+								placeholder="group name"
 							/>
 							{fields.map((field, index) => (
-								<div
-									key={field.id}
-									className="md:grid md:grid-cols-[4fr_1fr] md:items-center md:gap-4"
-								>
-									<FormInput
+								<div key={field.id} className="grid gap-4 py-2">
+									<FormTextInput
+										formControl={form.control}
 										label={`Email ${index + 1}`}
 										name={`emails.${index}.email`}
-										formControl={form.control}
-										placeholder="Email"
-										autoComplete="off"
-										className="md:grid md:grid-cols-[1fr_2fr] md:items-center md:gap-4 md:text-left"
+										placeholder="yourEmail@gmail.com"
 									/>
 									<Button
 										TrailingIcon={Trash2}
 										type="button"
 										onClick={() => remove(index)}
-										className="bg-red-700 hover:bg-red-500"
+										className="grid-cols-4 bg-red-700 hover:bg-red-500"
 									>
 										Remove
 									</Button>

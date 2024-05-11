@@ -1,23 +1,48 @@
-import { z } from 'zod';
+import {
+	string,
+	minLength,
+	maxLength,
+	object,
+	type Input,
+	number,
+	email,
+	optional,
+	minValue,
+	array
+} from 'valibot';
 
-export const addExpenseFormSchema = z.object({
-	title: z
-		.string()
-		.min(3, { message: 'Title must be at least 3 characters long.' })
-		.max(30, { message: 'Title must be no more than 30 characters long.' }),
-	amount: z.number().positive({ message: 'Amount must be greater than 0.' }),
-	groupId: z.string().optional(),
-	categoryId: z.string()
+export const addExpenseFormSchema = object({
+	title: string([
+		minLength(3, 'Title must be at least 3 characters long.'),
+		maxLength(30, 'Title must be no more than 30 characters long.')
+	]),
+	amount: number('Amount must be greater than 0.', [minValue(0.01)]),
+	groupId: optional(string(), ''),
+	categoryId: string([])
 });
 
-export const addGroupFormSchema = z.object({
-	name: z
-		.string()
-		.min(3, { message: 'Name must be at least 3 characters long.' })
-		.max(30, { message: 'Name must be no more than 30 characters long.' }),
-	emails: z.array(
-		z.object({
-			email: z.string().email({ message: 'Email must be valid.' })
+export type AddExpenseFormSchema = Input<typeof addExpenseFormSchema>;
+
+export const addGroupFormSchema = object({
+	name: string([
+		minLength(3, 'Name must be at least 3 characters long.'),
+		maxLength(30, 'Name must be no more than 30 characters long.')
+	]),
+	emails: array(
+		object({
+			email: string([
+				minLength(1, 'Please enter your email.'),
+				email('The email is badly formatted.'),
+				maxLength(30, 'Your email is too long.')
+				/* 	customAsync(
+					async email =>
+						(await db.query.users.findFirst({
+							where: eq(users.email, email)
+						})) !== undefined
+				) */
+			])
 		})
 	)
 });
+
+export type AddGroupFormSchema = Input<typeof addGroupFormSchema>;
