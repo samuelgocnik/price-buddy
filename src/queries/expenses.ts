@@ -10,7 +10,7 @@ export const getUsersExpenes = async (userId: string) => {
 	const ug = await db.query.usersGroups.findMany({
 		where: eq(usersGroups.userId, userId)
 	});
-	const userGroupsIds = ug.map(ug => ug.groupId);
+	const userGroupsIds = ug.filter(x => !x.deletedAt).map(ug => ug.groupId);
 
 	const expensesInUsersGroups = await db.query.expenses.findMany({
 		where: inArray(expenses.groupId, userGroupsIds),
