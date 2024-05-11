@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 
+import { cn } from '@/lib/cn';
+
 export const GroupLink = ({
 	id,
 	activeId,
@@ -12,7 +14,10 @@ export const GroupLink = ({
 	name: string;
 }) => (
 	<Link
-		className={`px-8 py-4 hover:font-bold ${id === activeId ? 'bg-almond-200 font-bold' : ''}`}
+		className={cn(
+			'px-8 py-4 hover:font-bold',
+			id === activeId && 'bg-almond-200 font-bold'
+		)}
 		href={`/group/${id}`}
 	>
 		{name}
