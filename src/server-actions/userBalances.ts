@@ -19,15 +19,15 @@ export const updateBalancesAfterExpense = async (
 		const balance = await findUsersBalance(paid_by_id, group_user_id);
 		if (balance === undefined) {
 			const data = {
-				user1Id: paid_by_id,
-				user2Id: group_user_id,
+				user2Id: paid_by_id,
+				user1Id: group_user_id,
 				balance: amountEach.toString()
 			};
 			await db.insert(userBalances).values(data).returning();
 		} else {
 			const oldBalance = parseFloat(balance.balance);
 			const newBalance =
-				balance.user1Id === paid_by_id
+				balance.user2Id === paid_by_id
 					? oldBalance + amountEach
 					: oldBalance - amountEach;
 			await db

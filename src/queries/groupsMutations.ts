@@ -25,6 +25,11 @@ export const useAddGroup = () => {
 				}, index * 1000)
 			);
 		},
+		onSuccess: () => {
+			toast({
+				title: 'Group successfully created!'
+			});
+		},
 		onError: () => {
 			toast({
 				title: 'Failed to create the group',

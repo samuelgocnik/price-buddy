@@ -45,7 +45,7 @@ export const AddExpense = (props: AddExpenseProps) => {
 
 		const updatedValues = {
 			...values,
-			amount: String(values.amount),
+			amount: String(values.amount.toFixed(2)),
 			groupId: selectedGroup ?? '',
 			paidById: props.userId
 		};
