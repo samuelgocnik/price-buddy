@@ -12,6 +12,7 @@ type GroupDetailProps = {
 	groupsPage: ReactNode;
 	expenseList: ReactNode;
 	groupInfo: ReactNode;
+	addExpense: ReactNode;
 };
 
 const GroupDetail = (props: GroupDetailProps) => {
@@ -24,9 +25,7 @@ const GroupDetail = (props: GroupDetailProps) => {
 				{!info && (
 					<div className="mb-8 flex items-center justify-between">
 						<h1 className="text-2xl">{props.name}</h1>
-						<Button LeadingIcon={TicketPlus} className="ml-auto w-24">
-							Add
-						</Button>
+						{props.addExpense}
 					</div>
 				)}
 				<div className="mb-8 flex items-center justify-between">

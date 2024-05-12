@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 
 import { db } from '@/db';
 import { groups } from '@/db/schema/groups';
-import { type addGroupParams } from '@/queries/groups';
+import { type addGroupParams } from '@/queries/groupsMutations';
 
 import { addUserToGroupAction } from './usersGroup';
 

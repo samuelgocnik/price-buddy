@@ -66,7 +66,7 @@ export const AddGroup = (props: AddGroupProps) => {
 	return (
 		<Dialog open={open} onOpenChange={handleDialogChange}>
 			<DialogTrigger asChild>
-				<Button TrailingIcon={Users} variant="outline">
+				<Button TrailingIcon={Users} className="m-8 w-32">
 					Add Group
 				</Button>
 			</DialogTrigger>

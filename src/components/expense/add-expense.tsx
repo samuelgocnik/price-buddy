@@ -72,9 +72,7 @@ export const AddExpense = (props: AddExpenseProps) => {
 	return (
 		<Dialog open={open} onOpenChange={handleDialogChange}>
 			<DialogTrigger asChild>
-				<Button TrailingIcon={Plus} variant="outline">
-					Add Expense
-				</Button>
+				<Button TrailingIcon={Plus}>Add Expense</Button>
 			</DialogTrigger>
 			<DialogContent className="w-full md:w-[600px]">
 				<FormProvider {...form}>
