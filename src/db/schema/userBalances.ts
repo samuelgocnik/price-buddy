@@ -20,10 +20,12 @@ export const userBalances = sqliteTable('userBalances', {
 
 export const userBalancesRelations = relations(userBalances, ({ one }) => ({
 	user1: one(users, {
+		relationName: 'user1Balance',
 		fields: [userBalances.user1Id],
 		references: [users.id]
 	}),
 	user2: one(users, {
+		relationName: 'user2Balance',
 		fields: [userBalances.user2Id],
 		references: [users.id]
 	})
