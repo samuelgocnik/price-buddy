@@ -1,6 +1,6 @@
 'use server';
 
-import { getGroupName } from '@/queries/group';
+import { getGroupName } from '@/queries/groups';
 
 import GroupsPage from '../page';
 

@@ -3,6 +3,7 @@
 import { type Session } from 'next-auth';
 import { UserRoundPlus } from 'lucide-react';
 
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
@@ -10,9 +11,10 @@ import { auth } from '@/auth';
 import {
 	getGroupName,
 	getUserGroupsRelations
-} from '../../../../queries/group';
+} from '../../../../queries/groups';
 import { getGroupsExpenses } from '../../../../queries/expenses';
 
+import { AvatarBackgroundFallback } from './../../../../components/empty-photo';
 import { LeaveGroupButton } from './leave-group-button';
 
 export const GroupInfo = async ({ groupId }: { groupId: string }) => {
@@ -45,7 +47,13 @@ export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 					<b className="w-48">Members</b>
 					{userGroups.length === 0 && <p>Empty group</p>}
 					{userGroups.map(ug => (
-						<p key={ug.id}>here should be ug.user.name</p> // TODO 1 - accesible but null
+						<div key={ug.id} className="flex flex-row items-center py-2">
+							<Avatar className="mr-4 h-9 w-9">
+								<AvatarImage src={ug.user.image ?? undefined} alt="Avatar" />
+								<AvatarBackgroundFallback />
+							</Avatar>
+							<p>{ug.user.name}</p>
+						</div>
 					))}
 				</div>
 				<div className="flex flex-col">

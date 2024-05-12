@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/lib/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 
-import { leaveGroupAction } from '../../../../queries/group';
+import { leaveGroupAction } from '../../../../queries/groups';
 
 type LeaveGroupMutationParams = {
 	userId: string;

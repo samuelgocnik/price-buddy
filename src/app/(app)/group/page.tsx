@@ -6,7 +6,7 @@ import { Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
-import { getUsersGroups } from '@/queries/group';
+import { getUsersGroups } from '@/queries/groups';
 
 import { GroupLink } from './group-link';
 
@@ -22,14 +22,14 @@ const GroupsPage = async () => {
 	return (
 		<div>
 			{groups.length === 0 ? (
-				<div className="mx-auto mt-16 flex flex-col items-center rounded-lg bg-almond-100 p-8">
+				<div className="mx-auto mt-16 flex flex-col items-center rounded-lg bg-almond-100 p-8 shadow">
 					<p>You are not a member of any group.</p>
 					<Button LeadingIcon={Users} className="mt-8 w-24">
 						New
 					</Button>
 				</div>
 			) : (
-				<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col rounded-lg bg-almond-100 md:min-h-[calc(100vh-6rem)] md:rounded-none md:rounded-l-lg">
+				<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col rounded-lg bg-almond-100 shadow md:min-h-[calc(100vh-6rem)] md:rounded-none md:rounded-l-lg">
 					<Button LeadingIcon={Users} className="m-8 w-24">
 						New
 					</Button>
