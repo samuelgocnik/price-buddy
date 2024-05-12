@@ -40,7 +40,6 @@ export const AddExpense = (props: AddExpenseProps) => {
 	});
 
 	const onSubmit = (values: AddExpenseFormSchema) => {
-		setOpen(false);
 		const selectedGroup = props.selectedGroup ?? values.groupId;
 
 		const updatedValues = {
@@ -49,11 +48,14 @@ export const AddExpense = (props: AddExpenseProps) => {
 			groupId: selectedGroup ?? '',
 			paidById: props.userId
 		};
-		console.log(updatedValues);
-		mutate(updatedValues);
-		form.reset({
-			title: '',
-			amount: 0.01
+		mutate(updatedValues, {
+			onSuccess: () => {
+				form.reset({
+					title: '',
+					amount: 0.01
+				});
+				setOpen(false);
+			}
 		});
 	};
 

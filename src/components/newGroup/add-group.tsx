@@ -41,23 +41,26 @@ export const AddGroup = (props: AddGroupProps) => {
 	const handleDialogChange = (isOpen: boolean) => {
 		setOpen(isOpen);
 		if (!isOpen) {
-			form.reset({ name: '', emails: [{ email: '' }] });
+			form.reset({ name: '', emails: [] });
 		}
 	};
 
 	const onSubmit = (values: AddGroupFormSchema) => {
-		setOpen(false);
-		form.reset({
-			name: '',
-			emails: [{ email: '' }]
-		});
 		const updatedValues = {
 			name: values.name,
 			emails: values.emails.map(x => x.email),
 			authorId: props.userId
 		};
 		console.log(updatedValues);
-		mutate(updatedValues);
+		mutate(updatedValues, {
+			onSuccess: () => {
+				setOpen(false);
+				form.reset({
+					name: '',
+					emails: []
+				});
+			}
+		});
 	};
 
 	return (
