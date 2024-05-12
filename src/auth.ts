@@ -4,6 +4,7 @@ import GitHub from 'next-auth/providers/github';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 
 import { db } from './db';
+import { getUserById } from './server-actions/user';
 
 // Define the paths that require authentication
 const PROTECTED_PATHS = ['/group', '/dashboard', '/profile'];
@@ -18,6 +19,9 @@ const SIGNIN_PATH = '/signin';
 export const authConfig = {
 	providers: [GitHub],
 	adapter: DrizzleAdapter(db),
+	session: {
+		strategy: 'database'
+	},
 	callbacks: {
 		authorized: ({ auth, request: { nextUrl } }) => {
 			const isLoggedIn = !!auth?.user;
@@ -39,10 +43,18 @@ export const authConfig = {
 			return true;
 		},
 
-		session: ({ session, user }) => {
+		session: async ({ session, user }) => {
 			// Assign user.id to session.user.id as we need it for relations in
 			// database and it's not included in the default session object
+			const userDb = await getUserById(user.id);
+
+			if (!userDb) {
+				throw new Error('User not found');
+			}
+
 			session.user.id = user.id;
+			session.user.firstName = userDb.firstName;
+			session.user.lastName = userDb.lastName;
 
 			return session;
 		}
