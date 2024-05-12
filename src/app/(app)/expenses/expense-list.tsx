@@ -12,9 +12,9 @@ export const ExpenseList = async () => {
 		return;
 	}
 	const expenses = await getUsersExpenes(userId);
-	return (
-		<div className="bg-almond-100 p-8">
-			<div className="mb-4 grid grid-cols-4">
+	return expenses ? (
+		<div className="rounded-b-lg bg-almond-100 p-8">
+			<div className="mb-4 grid grid-cols-4 border-b border-black pb-4">
 				<b className="my-auto">Expense</b>
 				<b className="my-auto">Group</b>
 				<b className="my-auto">Paid by</b>
@@ -28,6 +28,10 @@ export const ExpenseList = async () => {
 					<p className="my-auto mr-2 text-right">{expense.amount} €</p>
 				</div>
 			))}
+		</div>
+	) : (
+		<div className="rounded-b-lg bg-almond-100 p-8">
+			You have no expenses...
 		</div>
 	);
 };
