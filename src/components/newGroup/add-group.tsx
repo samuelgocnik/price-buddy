@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { type AddGroupFormSchema, addGroupFormSchema } from '@/schema/schema';
-import { useAddGroup } from '@/queries/groups';
+import { useAddGroup } from '@/queries/groupsMutations';
 
 import { FormTextInput } from '../forms/form-input';
 

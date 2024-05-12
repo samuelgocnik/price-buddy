@@ -39,3 +39,8 @@ next-env.d.ts
 .flaskenv*
 !.env.project
 !.env.vault
+
+# turso local database
+dev.db
+dev.db-shm
+dev.db-wal

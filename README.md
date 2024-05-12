@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Production app link:
+[price-buddy-two.vercel.app](https://price-buddy-two.vercel.app)
+
 ## Getting Started
 
 Firstly, install `bun`:
@@ -12,6 +15,15 @@ Install packages:
 
 ```bash
 bun i
+```
+
+Pull development environment variables:
+```bash
+bunx dotenv-vault pull development 
+```
+to pull production environment variables run:
+```bash
+bunx dotenv-vault pull production 
 ```
 
 Run the development server:
@@ -96,6 +108,8 @@ Preferred folder structure we should stick to:
   - `schema`
     - `auth.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
     - `feature.ts`
+  - `server-actions`
+    - `expenses.ts` - file grouping all server actions for some feature
 
 ## App routes
 

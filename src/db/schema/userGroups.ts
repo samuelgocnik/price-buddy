@@ -20,11 +20,11 @@ export const usersGroups = sqliteTable('usersGroups', {
 
 export const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
 	user: one(users, {
-		fields: [usersGroups.id],
+		fields: [usersGroups.userId],
 		references: [users.id]
 	}),
 	group: one(groups, {
-		fields: [usersGroups.id],
+		fields: [usersGroups.groupId],
 		references: [groups.id]
 	})
 }));

@@ -30,8 +30,8 @@ entity "Group" as g {
 entity "UserGroup" as ug {
   *id : uuid <<generated>>
   --
-  *user_id : number <<FK>>
-  *group_id : number <<FK>>
+  *user_id : uuid <<FK>>
+  *group_id : uuid <<FK>>
   --
   *created_at : date
   deleted_at : date
@@ -43,10 +43,10 @@ entity "Expense" as e {
   title : text
   *amount : decimal
   *paid_each : decimal
-  *group_id : number <<FK>>
+  *group_id : uuid <<FK>>
   ' references user
-  *paid_by_id : number <<FK>> 
-  *category_id: number <<FK>>
+  *paid_by_id : uuid <<FK>> 
+  *category_id: uuid <<FK>>
   --
   *created_at : date
   deleted_at : date
@@ -55,8 +55,8 @@ entity "Expense" as e {
 entity "UserExpense" as ue {
   *id : uuid <<generated>>
   --
-  *user_id : number <<FK>>
-  *expense_id : number <<FK>>
+  *user_id : uuid <<FK>>
+  *expense_id : uuid <<FK>>
   --
   *created_at : date
   deleted_at : date
@@ -75,8 +75,8 @@ entity "Category" as c {
 entity "UserBalance" as ub {
   *id : uuid <<generated>>
   --
-  *user_id_1 : number <<FK>>
-  *user_id_2 : number <<FK>>
+  *user_id_1 : uuid <<FK>>
+  *user_id_2 : uuid <<FK>>
   *balance : decimal
   --
   *created_at : date
