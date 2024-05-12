@@ -2,10 +2,9 @@ import NextAuth from 'next-auth';
 import type { NextAuthConfig } from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { eq } from 'drizzle-orm';
 
 import { db } from './db';
-import { users } from './db/schema/users';
+import { getUserById } from './server-actions/user';
 
 // Define the paths that require authentication
 const PROTECTED_PATHS = ['/group', '/dashboard', '/profile'];
@@ -47,9 +46,7 @@ export const authConfig = {
 		session: async ({ session, user }) => {
 			// Assign user.id to session.user.id as we need it for relations in
 			// database and it's not included in the default session object
-			const userDb = await db.query.users.findFirst({
-				where: eq(users.id, user.id)
-			});
+			const userDb = await getUserById(user.id);
 
 			if (!userDb) {
 				throw new Error('User not found');

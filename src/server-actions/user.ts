@@ -1,6 +1,6 @@
 'use server';
 
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 import { db } from '@/db';
@@ -20,7 +20,7 @@ export const updateUserNameAction = async (
 
 export const getUserById = (userId: User['id']) =>
 	db.query.users.findFirst({
-		where: eq(users.id, userId)
+		where: and(eq(users.id, userId), isNull(users.deletedAt))
 	});
 
 export const revertToGithubNameAction = async (userId: User['id']) => {
