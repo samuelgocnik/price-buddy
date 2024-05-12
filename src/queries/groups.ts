@@ -14,12 +14,16 @@ export const useAddGroup = () => {
 
 	return useMutation({
 		mutationFn: async (data: addGroupParams) => {
-			await addGroupAction(data);
-		},
-		onSuccess: () => {
-			toast({
-				title: 'Group successfully created!'
-			});
+			const result = await addGroupAction(data);
+			const notFoundUsers = data.emails.filter(x => !result.includes(x));
+			notFoundUsers.forEach((email, index) =>
+				setTimeout(() => {
+					toast({
+						title: `Failed to find user with email: ${email}`,
+						variant: 'destructive'
+					});
+				}, index * 1000)
+			);
 		},
 		onError: () => {
 			toast({

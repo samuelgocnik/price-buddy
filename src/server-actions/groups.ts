@@ -9,6 +9,11 @@ import { addUserToGroupAction } from './usersGroup';
 
 export const addGroupAction = async (data: addGroupParams) => {
 	const result = await db.insert(groups).values(data).returning();
-	await addUserToGroupAction(data.emails, result[0].id, data.authorId);
+	const insertedUsers = await addUserToGroupAction(
+		data.emails,
+		result[0].id,
+		data.authorId
+	);
 	revalidatePath('/dashboard');
+	return insertedUsers;
 };

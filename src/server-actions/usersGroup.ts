@@ -9,7 +9,7 @@ export const addUserToGroupAction = async (
 	emails: string[],
 	groupId: string,
 	authorId: string
-): Promise<void> => {
+): Promise<string[]> => {
 	const inserted: string[] = [];
 	for (const email of emails) {
 		try {
@@ -27,6 +27,7 @@ export const addUserToGroupAction = async (
 		}
 	}
 	await db.insert(usersGroups).values({ groupId, userId: authorId });
+	return inserted;
 };
 
 const findUserByEmail = async (email: string) =>
