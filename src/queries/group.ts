@@ -1,6 +1,6 @@
 'use server';
 
-import { and, eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { usersGroups } from '@/db/schema/userGroups';
@@ -22,15 +22,13 @@ export const getGroupName = async (id: string) => {
 	return group ? group.name : '';
 };
 
-export const getUsersGroups = async (id: string) => {
-	const ug = await db.query.usersGroups.findMany({
-		where: eq(usersGroups.userId, id),
+export const getUsersGroups = async (id: string) =>
+	await db.query.usersGroups.findMany({
+		where: and(eq(usersGroups.userId, id), isNull(usersGroups.deletedAt)),
 		with: {
 			group: true
 		}
 	});
-	return ug.filter(u => !u.deletedAt);
-};
 
 export const getUserGroupsRelations = async (groupId: string) =>
 	await db.query.usersGroups.findMany({

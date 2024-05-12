@@ -20,7 +20,7 @@ const GroupDetail = (props: GroupDetailProps) => {
 	return (
 		<div className="grid min-h-[calc(100vh-5rem)] gap-0 md:min-h-[calc(100vh-6rem)] md:grid-cols-3">
 			<div className="col-span-1 hidden md:block">{props.groupsPage}</div>
-			<div className="col-span-2 bg-almond-200 p-8">
+			<div className="col-span-2 rounded-lg bg-almond-200 p-8 md:rounded-none md:rounded-r-lg">
 				{!info && (
 					<div className="mb-8 flex items-center justify-between">
 						<h1 className="text-2xl">{props.name}</h1>

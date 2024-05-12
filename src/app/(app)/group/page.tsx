@@ -29,7 +29,7 @@ const GroupsPage = async () => {
 					</Button>
 				</div>
 			) : (
-				<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col bg-almond-100 md:min-h-[calc(100vh-6rem)]">
+				<div className="flex min-h-[calc(100vh-5rem)] w-full flex-col rounded-lg bg-almond-100 md:min-h-[calc(100vh-6rem)] md:rounded-none md:rounded-l-lg">
 					<Button LeadingIcon={Users} className="m-8 w-24">
 						New
 					</Button>
