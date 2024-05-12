@@ -30,7 +30,12 @@ export const users = sqliteTable('user', {
 export const usersRelations = relations(users, ({ many }) => ({
 	expenses: many(usersExpenses),
 	groups: many(usersGroups),
-	balances: many(userBalances)
+	balanceOwe: many(userBalances, {
+		relationName: 'user1Balance'
+	}),
+	balanceOwed: many(userBalances, {
+		relationName: 'user2Balance'
+	})
 }));
 
 // Auth.js OAuth related stuff

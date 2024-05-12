@@ -24,4 +24,10 @@ const Loader = ({ size = 'xs', className }: LoaderProps) => (
 	</div>
 );
 
+export const LoaderCentered = ({ size = 'xs', className }: LoaderProps) => (
+	<div className="flex items-center justify-center">
+		<Loader size={size} className={className} />
+	</div>
+);
+
 export default Loader;
