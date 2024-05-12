@@ -39,4 +39,3 @@ next-env.d.ts
 .flaskenv*
 !.env.project
 !.env.vault
-package-lock.json
