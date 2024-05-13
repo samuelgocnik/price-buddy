@@ -2,9 +2,9 @@ import { relations } from 'drizzle-orm';
 import { sqliteTable, numeric, text } from 'drizzle-orm/sqlite-core';
 
 import { usersExpenses } from './usersExpenses';
-import { groups } from './groups';
-import { users } from './users';
-import { categories } from './categories';
+import { type Groups, groups } from './groups';
+import { type User, users } from './users';
+import { type Categories, categories } from './categories';
 
 export const expenses = sqliteTable('expenses', {
 	id: text('id')
@@ -44,3 +44,9 @@ export const expensesRelations = relations(expenses, ({ many, one }) => ({
 export type Expenses = typeof expenses.$inferSelect;
 
 export type ExpensesCreate = typeof expenses.$inferInsert;
+
+export type ExpensesWithRelations = typeof expenses.$inferSelect & {
+	group: Groups;
+	paidBy: User;
+	category: Categories;
+};
