@@ -1,14 +1,19 @@
-'use server';
-
 import { type Session } from 'next-auth';
 import React from 'react';
 import { Users } from 'lucide-react';
+import { type Metadata } from 'next';
 
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 import { getUsersGroups } from '@/queries/groups';
 
-import { GroupLink } from './group-link';
+import { GroupLink } from '../../../components/groups/group-link';
+
+export const metadata: Metadata = {
+	title: 'My groups - PriceBuddy',
+	description:
+		'View and manage your groups on PriceBuddy. Share expenses and settle up with your friends.'
+};
 
 const GroupsPage = async () => {
 	const session: Session | null = await auth();
