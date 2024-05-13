@@ -37,12 +37,7 @@ const GroupsPage = async () => {
 						New
 					</Button>
 					{groups.map(group => (
-						<GroupLink
-							key={group.id}
-							id={group.id}
-							activeId={null}
-							name={group.group.name}
-						/>
+						<GroupLink key={group.id} id={group.id} name={group.group.name} />
 					))}
 				</div>
 			)}
