@@ -33,10 +33,10 @@ export const ExpenseList = async () => {
 						<td className="py-2 pl-8">{expense.title}</td>
 						<td className="py-2 pl-4">
 							<Link
-								className="rounded-md bg-almond-200 p-1 hover:shadow-md"
+								className="block rounded-md bg-almond-200 p-1 hover:shadow-md"
 								href={`/group/${expense.group.id}`}
 							>
-								{expense.group.name}
+								<div>{expense.group.name}</div>
 							</Link>
 						</td>
 						<td className="hidden py-2 pl-4 md:table-cell">
