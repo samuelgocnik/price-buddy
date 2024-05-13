@@ -4,8 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/lib/hooks/use-toast';
 import {
 	addGroupAction,
-	addSingleUserToGroupAction,
-	type addUserToGroupParams
+	addSingleUserToGroupAction
 } from '@/server-actions/groups';
 
 export type addGroupParams = {
