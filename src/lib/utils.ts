@@ -35,7 +35,7 @@ export const calculateAmountAndMonthChange = (
 	return [amount, percentage];
 };
 
-const safeAccAdd = (acc: number, num: string) => {
+export const safeAccAdd = (acc: number, num: string) => {
 	const n = Number.parseFloat(num);
 	return acc + (Number.isNaN(n) ? 0.0 : n);
 };
