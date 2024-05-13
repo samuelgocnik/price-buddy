@@ -7,7 +7,7 @@ const AppLayout = ({
 }>) => (
 	<>
 		<Header />
-		<main className="container mx-auto flex h-full flex-1 flex-col px-4 py-2 md:px-6 md:py-4">
+		<main className="container mx-auto flex h-[calc(100vh-4rem)] flex-1 flex-col px-4 py-2 md:px-6 md:py-4">
 			{children}
 		</main>
 	</>

@@ -19,7 +19,9 @@ const RootLayout = ({
 	children: React.ReactNode;
 }>) => (
 	<html lang="en">
-		<body className={cn('flex min-h-screen flex-col', inter.className)}>
+		<body
+			className={cn('flex h-screen max-h-screen flex-col', inter.className)}
+		>
 			<Providers>{children}</Providers>
 		</body>
 	</html>

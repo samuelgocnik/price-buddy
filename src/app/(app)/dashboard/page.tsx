@@ -21,14 +21,12 @@ const DashboardPage = async () => {
 	}
 
 	return (
-		<div className="container rounded-lg bg-almond-100 shadow">
-			<div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-				<UserSummaryCards userId={userId} />
+		<div className="rounded-lg bg-almond-100 shadow">
+			<UserSummaryCards userId={userId} />
 
-				<div className="grid gap-4 md:gap-8 lg:grid-cols-2">
-					<GroupsPreview userId={userId} />
-					<LatestChanges userId={userId} />
-				</div>
+			<div className="grid gap-4 md:gap-8 lg:grid-cols-2">
+				<GroupsPreview userId={userId} />
+				<LatestChanges userId={userId} />
 			</div>
 		</div>
 	);

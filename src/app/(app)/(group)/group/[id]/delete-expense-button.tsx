@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/lib/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 
-import { deleteExpense } from '../../../../queries/expenses';
+import { deleteExpense } from '../../../../../queries/expenses';
 
 type DeleteExpenseMutationParams = {
 	expenseId: string;
