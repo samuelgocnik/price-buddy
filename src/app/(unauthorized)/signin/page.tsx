@@ -1,7 +1,14 @@
 import { CoinsIcon } from 'lucide-react';
+import { type Metadata } from 'next';
 
 import { SignInButton } from '@/components/auth/signin-button';
 import { Card } from '@/components/ui/card';
+
+export const metadata: Metadata = {
+	title: 'Sign In - PriceBuddy',
+	description:
+		'Sign in to your PriceBuddy account to track and manage your expenses.'
+};
 
 const SigInPage = () => (
 	<Card className="flex w-full items-center bg-almond-200/75 p-6">

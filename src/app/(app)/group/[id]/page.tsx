@@ -1,4 +1,4 @@
-'use server';
+import { type Metadata } from 'next';
 
 import { getGroupName } from '@/queries/groups';
 
@@ -8,7 +8,20 @@ import { ExpenseList } from './expense-list';
 import GroupDetail from './group-detail';
 import { GroupInfo } from './group-info';
 
-const GroupDetailPage = async ({ params }: { params: { id: string } }) => {
+type GroupDetailPageProps = { params: { id: string } };
+
+export const generateMetadata = async ({
+	params
+}: GroupDetailPageProps): Promise<Metadata> => {
+	const groupName = await getGroupName(params.id);
+
+	return {
+		title: `${groupName} - Group detail - PriceBuddy`,
+		description: `View and manage details of the group ${groupName} on PriceBuddy. See expenses and group information.`
+	};
+};
+
+const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const groupName = await getGroupName(params.id);
 	return (
 		<div>
