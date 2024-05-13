@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	getUserOwedTotal,
 	getUserOweTotal,
-	getUserReceivedTotal,
 	getUserSendTotal
 } from '@/queries/expenses';
 
@@ -18,12 +17,7 @@ export type UserSummaryCardsProps = {
 export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	const summaryCardsData = [
 		{
-			title: 'Total Received',
-			icon: debtIcon,
-			queryFunction: getUserReceivedTotal
-		},
-		{
-			title: 'Total Expenses',
+			title: 'Your Total Expenses',
 			icon: debtIcon,
 			queryFunction: getUserSendTotal
 		},
@@ -36,7 +30,7 @@ export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	];
 
 	return (
-		<div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+		<div className="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-8">
 			{summaryCardsData.map(cardData => (
 				<SummaryCard
 					key={cardData.title}

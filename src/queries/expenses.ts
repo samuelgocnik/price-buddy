@@ -13,18 +13,6 @@ import { type UserBalances, userBalances } from '@/db/schema/userBalances';
 const sleep = (time: number) =>
 	new Promise(resolve => setTimeout(resolve, time));
 
-// TODO not sure how to get amounts send to the user
-export const getUserReceivedTotal = async (
-	userId: string
-): Promise<[number, number]> => {
-	const receivedTotal = 231.89;
-	const receivedChange = 20.1;
-
-	await sleep(2000);
-
-	return [receivedTotal, receivedChange];
-};
-
 /**
  * Calculates the total amount of money for the user
  * based on the expenses the user created.
