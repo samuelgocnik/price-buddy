@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { groups } from '@/db/schema/groups';
 import { type addGroupParams } from '@/queries/groupsMutations';
-import { users, type User } from '@/db/schema/users';
+import { users } from '@/db/schema/users';
 import { usersGroups } from '@/db/schema/userGroups';
 
 import { addUserToGroupAction } from './usersGroup';
