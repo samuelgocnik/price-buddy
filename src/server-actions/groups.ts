@@ -1,6 +1,6 @@
 'use server';
 import { revalidatePath } from 'next/cache';
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { groups } from '@/db/schema/groups';
@@ -30,7 +30,7 @@ export const addSingleUserToGroupAction = async (
 	data: addUserToGroupParams
 ) => {
 	const foundUser = await db.query.users.findFirst({
-		where: eq(users.email, data.email)
+		where: and(eq(users.email, data.email), isNull(users.deletedAt))
 	});
 
 	if (foundUser === undefined) {

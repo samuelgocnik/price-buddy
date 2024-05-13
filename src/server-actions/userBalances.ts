@@ -1,5 +1,5 @@
 'use server';
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { usersGroups } from '@/db/schema/userGroups';
@@ -50,11 +50,12 @@ const findUsersBalance = async (user_1_id: string, user_2_id: string) =>
 					eq(userBalances.user2Id, user_1_id),
 					eq(userBalances.user2Id, user_2_id)
 				),
-				ne(userBalances.user1Id, userBalances.user2Id)
+				ne(userBalances.user1Id, userBalances.user2Id),
+				isNull(userBalances.deletedAt)
 			)
 	});
 
 const findGroupUsersByGroupId = async (group_id: string) =>
 	await db.query.usersGroups.findMany({
-		where: eq(usersGroups.groupId, group_id)
+		where: and(eq(usersGroups.groupId, group_id), isNull(usersGroups.deletedAt))
 	});

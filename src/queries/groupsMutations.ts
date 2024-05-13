@@ -23,10 +23,16 @@ export const useAddGroup = () => {
 			const notFoundUsers = data.emails.filter(x => !result.includes(x));
 			const emailList = notFoundUsers.join(', ');
 
-			toast({
-				title: `Failed to find users with emails: ${emailList}`,
-				variant: 'destructive'
-			});
+			if (notFoundUsers.length !== 0) {
+				toast({
+					title: `Failed to find users with emails: ${emailList}`,
+					variant: 'destructive'
+				});
+			} else {
+				toast({
+					title: 'Group successfully created!'
+				});
+			}
 
 			// Prepend the prefix "Not found users: " to the joined string
 		},

@@ -1,8 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { usersGroups } from '@/db/schema/userGroups';
 import { type Groups } from '@/db/schema/groups';
+import { categories } from '@/db/schema/categories';
 
 import { SelectExpense } from './select-expense';
 
@@ -13,10 +14,15 @@ type SelectFieldProps = {
 };
 
 export const SelectField = async (props: SelectFieldProps) => {
-	const foundCategories = await db.query.categories.findMany();
+	const foundCategories = await db.query.categories.findMany({
+		where: isNull(categories.deletedAt)
+	});
 
 	const userGroups = await db.query.usersGroups.findMany({
-		where: eq(usersGroups.userId, props.userId),
+		where: and(
+			eq(usersGroups.userId, props.userId),
+			isNull(usersGroups.deletedAt)
+		),
 		with: {
 			group: true
 		}
