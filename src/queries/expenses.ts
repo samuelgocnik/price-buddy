@@ -161,7 +161,7 @@ export const getUsersExpenes = async (userId: string) => {
 	const userGroupsIds = ug.map(ug => ug.groupId);
 
 	if (userGroupsIds.length === 0) {
-		return null;
+		return [];
 	}
 
 	return await db.query.expenses.findMany({
