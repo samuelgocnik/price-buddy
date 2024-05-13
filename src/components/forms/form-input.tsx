@@ -18,7 +18,7 @@ type FormInputProps<T extends FieldValues> = HTMLProps<HTMLInputElement> & {
 	name: Path<T>;
 };
 
-export const FormTextInput = <T extends FieldValues>({
+export const FormInput = <T extends FieldValues>({
 	label,
 	name,
 	className,

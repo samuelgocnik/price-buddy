@@ -1,13 +1,16 @@
-'use server';
-
 import { type Session } from 'next-auth';
-import React from 'react';
+import { type Metadata } from 'next';
 
 import { auth } from '@/auth';
 import { getUsersGroups } from '@/queries/groups';
+import { GroupLink } from '@/components/groups/group-link';
 import { AddGroup } from '@/components/newGroup/add-group';
 
-import { GroupLink } from './group-link';
+export const metadata: Metadata = {
+	title: 'My groups - PriceBuddy',
+	description:
+		'View and manage your groups on PriceBuddy. Share expenses and settle up with your friends.'
+};
 
 const GroupsPage = async () => {
 	const session: Session | null = await auth();
@@ -32,7 +35,6 @@ const GroupsPage = async () => {
 						<GroupLink
 							key={group.group.id}
 							id={group.group.id}
-							activeId={null}
 							name={group.group.name}
 						/>
 					))}

@@ -5,9 +5,9 @@ import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
 import { useAddUserToGroupMutation } from '@/queries/groupsMutations';
-import { FormTextInput } from '@/components/forms/form-input';
 import { cn } from '@/lib/cn';
 import { addUserFormSchema, type AddUserFormSchema } from '@/schema/group';
+import { FormInput } from '@/components/forms/form-input';
 
 type AddUserProps = {
 	groupId: string;
@@ -44,7 +44,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 						'max-md:space-y-2 md:grid md:grid-cols-[3fr_1fr] md:gap-3'
 					)}
 				>
-					<FormTextInput
+					<FormInput
 						formControl={form.control}
 						label="Enter e-mail"
 						name="email"

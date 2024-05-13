@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { useAddGroup } from '@/queries/groupsMutations';
 import { type AddGroupFormSchema, addGroupFormSchema } from '@/schema/group';
 
-import { FormTextInput } from '../forms/form-input';
+import { FormInput } from '../forms/form-input';
 
 type AddGroupProps = {
 	userId: string;
@@ -76,7 +76,7 @@ export const AddGroup = (props: AddGroupProps) => {
 							<DialogTitle>New Group</DialogTitle>
 						</DialogHeader>
 						<div className="grid gap-4 py-4">
-							<FormTextInput
+							<FormInput
 								formControl={form.control}
 								label="Name"
 								name="name"
@@ -84,7 +84,7 @@ export const AddGroup = (props: AddGroupProps) => {
 							/>
 							{fields.map((field, index) => (
 								<div key={field.id} className="grid gap-4 py-2">
-									<FormTextInput
+									<FormInput
 										formControl={form.control}
 										label={`Email ${index + 1}`}
 										name={`emails.${index}.email`}

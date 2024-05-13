@@ -19,7 +19,7 @@ import {
 } from '@/schema/expense';
 import { useAddExpense } from '@/queries/expensesMutations';
 
-import { FormTextInput } from '../forms/form-input';
+import { FormInput } from '../forms/form-input';
 
 type AddExpenseProps = {
 	selectGroup: React.ReactNode;
@@ -81,13 +81,13 @@ export const AddExpense = (props: AddExpenseProps) => {
 							<DialogTitle>New Expense</DialogTitle>
 						</DialogHeader>
 						<div className="grid gap-4 py-4">
-							<FormTextInput
+							<FormInput
 								formControl={form.control}
 								label="Title"
 								name="title"
 								placeholder="title"
 							/>
-							<FormTextInput
+							<FormInput
 								formControl={form.control}
 								label="Amount €"
 								name="amount"
