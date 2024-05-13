@@ -13,22 +13,22 @@ export const ExpenseList = async () => {
 	}
 	const expenses = await getUsersExpenes(userId);
 	return expenses ? (
-		<div className="rounded-b-lg bg-almond-100 p-8">
-			<div className="mb-4 grid grid-cols-4 border-b border-black pb-4">
-				<b className="my-auto">Expense</b>
-				<b className="my-auto">Group</b>
-				<b className="my-auto">Paid by</b>
-				<b className="my-auto mr-2 text-right">Total amount</b>
-			</div>
+		<table className="w-full rounded-b-lg bg-almond-100 py-8">
+			<tr className="mb-4 border-b border-black pb-4">
+				<th className="py-4 pl-8 text-left">Expense</th>
+				<th className="py-4 pl-4 text-left">Group</th>
+				<th className="py-4 pl-16 text-left">Paid by</th>
+				<th className="py-4 text-left">Total amount</th>
+			</tr>
 			{expenses.map(expense => (
-				<div key={expense.id} className="my-2 grid grid-cols-4">
-					<p className="my-auto">{expense.title}</p>
-					<p className="my-auto">{expense.group.name}</p>
-					<p className="my-auto">{expense.paidBy.name}</p>
-					<p className="my-auto mr-2 text-right">{expense.amount} €</p>
-				</div>
+				<tr key={expense.id}>
+					<td className="py-2 pl-8">{expense.title}</td>
+					<td className="py-2 pl-4">{expense.group.name}</td>
+					<td className="py-2 pl-16">{expense.paidBy.name}</td>
+					<td className="py-2">{expense.amount} €</td>
+				</tr>
 			))}
-		</div>
+		</table>
 	) : (
 		<div className="rounded-b-lg bg-almond-100 p-8">
 			You have no expenses...
