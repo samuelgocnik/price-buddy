@@ -1,4 +1,4 @@
-import { CreditCard, DollarSign } from 'lucide-react';
+import { CreditCard, EuroIcon } from 'lucide-react';
 import { type PropsWithChildren, type ReactNode, Suspense } from 'react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -53,7 +53,7 @@ export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	);
 };
 
-const expenseIcon = <DollarSign className="h-4 w-4 text-muted-foreground" />;
+const expenseIcon = <EuroIcon className="h-4 w-4 text-muted-foreground" />;
 const debtIcon = <CreditCard className="h-4 w-4 text-muted-foreground" />;
 
 type SummaryCardProps = PropsWithChildren & {
