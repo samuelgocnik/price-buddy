@@ -1,6 +1,13 @@
 import { SearchXIcon } from 'lucide-react';
+import { type Metadata } from 'next';
 
 import NotFoundControls from '@/components/not-found-controls';
+
+export const metadata: Metadata = {
+	title: 'Page not found - PriceBuddy',
+	description:
+		'The page you are looking for was not found. Please check the URL or navigate to another page.'
+};
 
 const NotFoundPage = () => (
 	<main className="flex flex-1 flex-col items-center justify-center space-y-8 p-4">
