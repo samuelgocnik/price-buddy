@@ -171,7 +171,8 @@ export const getUsersExpenes = async (userId: string) => {
 		),
 		with: {
 			paidBy: true,
-			group: true
+			group: true,
+			category: true
 		},
 		orderBy: [desc(expenses.createdAt)]
 	});
