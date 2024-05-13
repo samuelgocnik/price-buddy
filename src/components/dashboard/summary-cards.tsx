@@ -86,6 +86,9 @@ const cardData = (title: string, subtext: string): ReactNode => (
 );
 
 const getChangeMessage = (change: number) => {
+	if (isNaN(change)) {
+		return '';
+	}
 	// "+20.1% from last month"
 	const changeString = change >= 0 ? `+${change}` : change.toString();
 	return `${changeString}% from last month`;

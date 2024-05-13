@@ -1,6 +1,6 @@
 'use server';
 
-import { desc, eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import {
@@ -9,9 +9,11 @@ import {
 	type ExpensesWithRelations
 } from '@/db/schema/expenses';
 import { type UserBalances, userBalances } from '@/db/schema/userBalances';
-
-const sleep = (time: number) =>
-	new Promise(resolve => setTimeout(resolve, time));
+import {
+	type AmountAndDate,
+	calculateAmountAndMonthChange,
+	sleep
+} from '@/lib/utils';
 
 /**
  * Calculates the total amount of money for the user
@@ -25,35 +27,21 @@ const sleep = (time: number) =>
 export const getUserSendTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
-	// Find all expenses for the user
+	// Find all expenses created by the user
 	const userExpenses: Expenses[] = await db.query.expenses.findMany({
-		where: eq(expenses.paidById, userId)
+		where: and(eq(expenses.paidById, userId), isNull(expenses.deletedAt))
 	});
 
-	// Calculate the total amount
-	const amountTotal = userExpenses.reduce(
-		(acc, expense) => safeAccAdd(acc, expense.amount),
-		0.0
-	);
+	const amountAndDate: AmountAndDate[] = userExpenses.map(expense => ({
+		amount: expense.amount,
+		date: expense.createdAt
+	}));
 
-	// Get all expenses for the last month
-	const expenseLastMonth = userExpenses.filter(
-		expense => new Date(expense.createdAt).getMonth() === new Date().getMonth()
-	);
-	// Calculate the total amount for the last month
-	const sendLastMonth = expenseLastMonth.reduce(
-		(acc, expense) => safeAccAdd(acc, expense.amount),
-		0.0
-	);
-
-	// TODO did I calculate it correctly? or should it be calculated not from overall total amount, but using expenses before the last month?
-	// Calculate the percentage of change between users total and last month
-	const percentage = (sendLastMonth / amountTotal) * 100;
-	// Fixed 2 decimal places. (no expenses in database would give pertenate NaN, convert to default 0.0)
-	const amountChange = Number.isNaN(percentage) ? 0.0 : +percentage.toFixed(2);
+	const [amountTotal, monthChangePercentage] =
+		calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-	return [amountTotal, amountChange];
+	return [amountTotal, monthChangePercentage];
 };
 
 export const getUserOwedTotal = async (
@@ -61,21 +49,26 @@ export const getUserOwedTotal = async (
 ): Promise<[number, number]> => {
 	const balanceBetweenUsers: UserBalances[] =
 		await db.query.userBalances.findMany({
-			where: eq(userBalances.user1Id, userId)
+			where: and(
+				eq(userBalances.user1Id, userId),
+				isNull(userBalances.deletedAt)
+			)
 		});
 
 	// Balance between users:
 	// balance > 0  -> user1 owes user2
 	// balance < 0  -> user2 owes user1
-	const owedTotal = balanceBetweenUsers
-		.filter(b => +b.balance < 0)
-		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+	const amountAndDate: AmountAndDate[] = balanceBetweenUsers
+		.filter(balance => +balance.balance < 0)
+		.map(balance => ({
+			amount: balance.balance,
+			date: balance.createdAt
+		}));
 
-	const owedChange = NaN; // TODO
+	const [amount, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-
-	return [owedTotal, owedChange];
+	return [amount, percentage];
 };
 
 export const getUserOweTotal = async (
@@ -89,15 +82,17 @@ export const getUserOweTotal = async (
 	// Balance between users:
 	// balance > 0  -> user1 owes user2
 	// balance < 0  -> user2 owes user1
-	const oweTotal = balanceBetweenUsers
-		.filter(b => +b.balance > 0)
-		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+	const amountAndDate: AmountAndDate[] = balanceBetweenUsers
+		.filter(balance => +balance.balance > 0)
+		.map(balance => ({
+			amount: balance.balance,
+			date: balance.createdAt
+		}));
 
-	const oweChange = NaN; // TODO
+	const [owe, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-
-	return [oweTotal, oweChange];
+	return [owe, percentage];
 };
 
 // TODO expenses we show in the dashboard, SHOULD be ralated to the user!!!
@@ -117,11 +112,6 @@ export const getExpensesRecent = async (
 
 	await sleep(2000);
 	return result;
-};
-
-const safeAccAdd = (acc: number, num: string) => {
-	const n = Number.parseFloat(num);
-	return acc + (Number.isNaN(n) ? 0.0 : n);
 };
 
 export const getGroupsExpenses = async (id: string) => {
