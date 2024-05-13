@@ -17,7 +17,7 @@ const GroupDetail = (props: GroupDetailProps) => {
 	const [info, setInfo] = useState(false);
 
 	return (
-		<div className="h-full flex-1 p-8 md:rounded-l-lg md:bg-almond-200">
+		<div className="flex h-full flex-1 flex-col p-8 md:rounded-l-lg md:bg-almond-200">
 			{!info && (
 				<div className="mb-8 flex items-center justify-between">
 					<h1 className="text-2xl">{props.name}</h1>
@@ -35,7 +35,11 @@ const GroupDetail = (props: GroupDetailProps) => {
 					{info ? <X size={24} /> : <Info size={24} />}
 				</button>
 			</div>
-			{info ? <div>{props.groupInfo}</div> : <div>{props.expenseList}</div>}
+			{info ? (
+				<div>{props.groupInfo}</div>
+			) : (
+				<div className="overflow-y-auto">{props.expenseList}</div>
+			)}
 		</div>
 	);
 };
