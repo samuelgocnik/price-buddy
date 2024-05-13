@@ -14,7 +14,7 @@ import {
 	calculateAmountAndMonthChange,
 	sleep
 } from '@/lib/utils';
-import { usersGroups, usersGroupsRelations } from '@/db/schema/userGroups';
+import { usersGroups } from '@/db/schema/userGroups';
 
 /**
  * Calculates the total amount of money for the user
@@ -77,7 +77,10 @@ export const getUserOweTotal = async (
 ): Promise<[number, number]> => {
 	const balanceBetweenUsers: UserBalances[] =
 		await db.query.userBalances.findMany({
-			where: eq(userBalances.user1Id, userId)
+			where: and(
+				eq(userBalances.user1Id, userId),
+				isNull(userBalances.deletedAt)
+			)
 		});
 
 	// Balance between users:
