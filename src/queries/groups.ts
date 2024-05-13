@@ -76,7 +76,13 @@ export const getGroupsPreview = async (
 const sleep = (time: number) =>
 	new Promise(resolve => setTimeout(resolve, time));
 
-export const leaveGroupAction = async (userId: string, groupId: string) => {
+export const leaveGroupAction = async ({
+	userId,
+	groupId
+}: {
+	userId: string;
+	groupId: string;
+}) => {
 	await db
 		.update(usersGroups)
 		.set({ deletedAt: new Date().toString() })
