@@ -46,3 +46,13 @@ export const addGroupFormSchema = object({
 });
 
 export type AddGroupFormSchema = Input<typeof addGroupFormSchema>;
+
+export const addUserFormSchema = object({
+	email: string([
+		minLength(1, 'Please enter the email.'),
+		email('The email is badly formatted.'),
+		maxLength(30, 'Your email is too long.')
+	])
+});
+
+export type AddUserFormSchema = Input<typeof addUserFormSchema>;

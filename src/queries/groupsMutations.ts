@@ -1,7 +1,12 @@
+'use client';
 import { useMutation } from '@tanstack/react-query';
 
 import { useToast } from '@/lib/hooks/use-toast';
-import { addGroupAction } from '@/server-actions/groups';
+import {
+	addGroupAction,
+	addSingleUserToGroupAction,
+	type addUserToGroupParams
+} from '@/server-actions/groups';
 
 export type addGroupParams = {
 	name: string;
@@ -35,6 +40,26 @@ export const useAddGroup = () => {
 				title: 'Failed to create the group',
 				variant: 'destructive'
 			});
+		}
+	});
+};
+
+export const useAddUserToGroupMutation = () => {
+	const { toast } = useToast();
+
+	return useMutation({
+		mutationFn: async (data: addUserToGroupParams) => {
+			const result = await addSingleUserToGroupAction(data);
+			if (result !== undefined && result !== null && result.length !== 0) {
+				toast({
+					title: result,
+					variant: 'destructive'
+				});
+			} else {
+				toast({
+					title: 'User successfully added!'
+				});
+			}
 		}
 	});
 };

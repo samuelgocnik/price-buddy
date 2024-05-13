@@ -2,10 +2,8 @@
 
 import { Suspense } from 'react';
 import { type Session } from 'next-auth';
-import { param } from 'drizzle-orm';
 
 import { getGroupName } from '@/queries/groups';
-import { Button } from '@/components/ui/button';
 import { AddExpense } from '@/components/expense/add-expense';
 import { SelectField } from '@/components/expense/select-field';
 import { auth } from '@/auth';
