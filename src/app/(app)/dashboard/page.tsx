@@ -1,9 +1,16 @@
 import { type Session } from 'next-auth';
+import { type Metadata } from 'next';
 
 import { GroupsPreview } from '@/components/dashboard/groups-preview';
 import { LatestChanges } from '@/components/dashboard/latest-changes';
 import { UserSummaryCards } from '@/components/dashboard/summary-cards';
 import { auth } from '@/auth';
+
+export const metadata: Metadata = {
+	title: 'Dashboard - PriceBuddy',
+	description:
+		'Access your summary cards, group previews, and latest changes on your PriceBuddy dashboard.'
+};
 
 const DashboardPage = async () => {
 	const session: Session | null = await auth();

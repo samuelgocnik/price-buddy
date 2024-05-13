@@ -1,9 +1,26 @@
 import { type Session } from 'next-auth';
 import Image from 'next/image';
+import { type Metadata } from 'next';
 
 import { auth } from '@/auth';
 import { EditProfileModal } from '@/components/profile/edit-profile-modal';
 import { RevertGithubNameButton } from '@/components/profile/revert-github-name-button';
+
+export const generateMetadata = async (): Promise<Metadata> => {
+	const session: Session | null = await auth();
+
+	const hasSetName =
+		session?.user.firstName !== null && session?.user.lastName !== null;
+
+	const userName = hasSetName
+		? `${session?.user.firstName} ${session?.user.lastName}`
+		: session?.user.name;
+
+	return {
+		title: `${userName}'s profile - PriceBuddy`,
+		description: `View and edit ${userName}'s profile details on PriceBuddy.`
+	};
+};
 
 const ProfilePage = async () => {
 	const session: Session | null = await auth();
