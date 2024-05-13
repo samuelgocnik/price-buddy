@@ -1,11 +1,10 @@
-import { CreditCard, DollarSign } from 'lucide-react';
+import { CreditCard, EuroIcon } from 'lucide-react';
 import { type PropsWithChildren, type ReactNode, Suspense } from 'react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	getUserOwedTotal,
 	getUserOweTotal,
-	getUserReceivedTotal,
 	getUserSendTotal
 } from '@/queries/expenses';
 
@@ -18,12 +17,7 @@ export type UserSummaryCardsProps = {
 export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	const summaryCardsData = [
 		{
-			title: 'Total Received',
-			icon: debtIcon,
-			queryFunction: getUserReceivedTotal
-		},
-		{
-			title: 'Total Expenses',
+			title: 'Your Total Expenses',
 			icon: debtIcon,
 			queryFunction: getUserSendTotal
 		},
@@ -36,7 +30,7 @@ export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	];
 
 	return (
-		<div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+		<div className="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-8">
 			{summaryCardsData.map(cardData => (
 				<SummaryCard
 					key={cardData.title}
@@ -53,7 +47,7 @@ export const UserSummaryCards = ({ userId }: UserSummaryCardsProps) => {
 	);
 };
 
-const expenseIcon = <DollarSign className="h-4 w-4 text-muted-foreground" />;
+const expenseIcon = <EuroIcon className="h-4 w-4 text-muted-foreground" />;
 const debtIcon = <CreditCard className="h-4 w-4 text-muted-foreground" />;
 
 type SummaryCardProps = PropsWithChildren & {
@@ -81,7 +75,8 @@ const SummaryCardContent = async ({
 	queryFunction
 }: SummaryCardContentProps): Promise<JSX.Element> => {
 	const [total, change] = await queryFunction(userId);
-	return <>{cardData(total.toString(), getChangeMessage(change))}</>;
+	const totalStr: string = Math.abs(total).toFixed(2);
+	return <>{cardData(totalStr, getChangeMessage(change))}</>;
 };
 
 const cardData = (title: string, subtext: string): ReactNode => (
@@ -92,6 +87,9 @@ const cardData = (title: string, subtext: string): ReactNode => (
 );
 
 const getChangeMessage = (change: number) => {
+	if (isNaN(change)) {
+		return '';
+	}
 	// "+20.1% from last month"
 	const changeString = change >= 0 ? `+${change}` : change.toString();
 	return `${changeString}% from last month`;
