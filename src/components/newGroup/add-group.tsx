@@ -51,7 +51,6 @@ export const AddGroup = (props: AddGroupProps) => {
 			emails: values.emails.map(x => x.email),
 			authorId: props.userId
 		};
-		console.log(updatedValues);
 		mutate(updatedValues, {
 			onSuccess: () => {
 				setOpen(false);

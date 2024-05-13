@@ -93,6 +93,7 @@ export const AddExpense = (props: AddExpenseProps) => {
 								name="amount"
 								type="number"
 								step={0.01}
+								min={0.01}
 							/>
 							<div className="grid items-center gap-4 md:grid md:grid-cols-[1fr_4fr] md:text-right">
 								{props.selectGroup}

@@ -27,13 +27,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 			email: values.email,
 			groupId: props.groupId
 		};
-		mutate(updatedValues, {
-			onSuccess: () => {
-				form.reset({
-					email: ''
-				});
-			}
-		});
+		mutate(updatedValues);
 	};
 
 	return (
@@ -50,10 +44,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 						name="email"
 						placeholder="email@gmail.com"
 					/>
-					<Button
-						type="submit"
-						className="px-4 py-2 max-md:space-y-2 md:grid md:grid-cols-[1fr_4fr] md:gap-3"
-					>
+					<Button type="submit" className="px-4 py-2 max-md:space-y-2 md:gap-3">
 						Add User
 					</Button>
 				</div>

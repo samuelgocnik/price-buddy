@@ -21,19 +21,14 @@ export const useAddGroup = () => {
 		mutationFn: async (data: addGroupParams) => {
 			const result = await addGroupAction(data);
 			const notFoundUsers = data.emails.filter(x => !result.includes(x));
-			notFoundUsers.forEach((email, index) =>
-				setTimeout(() => {
-					toast({
-						title: `Failed to find user with email: ${email}`,
-						variant: 'destructive'
-					});
-				}, index * 1000)
-			);
-		},
-		onSuccess: () => {
+			const emailList = notFoundUsers.join(', ');
+
 			toast({
-				title: 'Group successfully created!'
+				title: `Failed to find users with emails: ${emailList}`,
+				variant: 'destructive'
 			});
+
+			// Prepend the prefix "Not found users: " to the joined string
 		},
 		onError: () => {
 			toast({
