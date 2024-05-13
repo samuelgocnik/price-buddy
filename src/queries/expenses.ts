@@ -1,6 +1,6 @@
 'use server';
 
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import {
@@ -14,6 +14,7 @@ import {
 	calculateAmountAndMonthChange,
 	sleep
 } from '@/lib/utils';
+import { usersGroups, usersGroupsRelations } from '@/db/schema/userGroups';
 
 /**
  * Calculates the total amount of money for the user
@@ -95,23 +96,41 @@ export const getUserOweTotal = async (
 	return [owe, percentage];
 };
 
-// TODO expenses we show in the dashboard, SHOULD be ralated to the user!!!
 export const getExpensesRecent = async (
 	userId: string,
 	limit?: number
 ): Promise<ExpensesWithRelations[]> => {
-	const result: ExpensesWithRelations[] = await db.query.expenses.findMany({
+	// Get all groups for the user
+	const foundGroups: { groupId: string }[] =
+		await db.query.usersGroups.findMany({
+			columns: {
+				groupId: true
+			},
+			where: and(eq(usersGroups.userId, userId), isNull(usersGroups.deletedAt))
+		});
+	const groupIds: string[] = foundGroups.map(group => group.groupId);
+
+	if (groupIds.length === 0) {
+		return [];
+	}
+
+	// Find all expenses from the groups
+	// Display the latests [limit] expenses
+	const relatedExpenses = await db.query.expenses.findMany({
+		where: and(inArray(expenses.groupId, groupIds), isNull(expenses.deletedAt)),
+		orderBy: [desc(expenses.createdAt)],
 		with: {
 			group: true,
 			paidBy: true,
 			category: true
 		},
-		orderBy: [desc(expenses.createdAt)],
 		limit
 	});
 
+	// console.log("Latest expenses:", relatedExpenses);
+
 	await sleep(2000);
-	return result;
+	return relatedExpenses;
 };
 
 export const getGroupsExpenses = async (id: string) => {
