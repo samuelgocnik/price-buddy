@@ -1,10 +1,8 @@
 'use client';
 
-import { Info, X, ArrowLeft, TicketPlus } from 'lucide-react';
+import { Info, X, ArrowLeft } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import Link from 'next/link';
-
-import { Button } from '@/components/ui/button';
 
 type GroupDetailProps = {
 	id: string;
