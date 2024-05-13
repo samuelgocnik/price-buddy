@@ -1,13 +1,11 @@
 import { type Session } from 'next-auth';
-import React from 'react';
 import { Users } from 'lucide-react';
 import { type Metadata } from 'next';
 
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 import { getUsersGroups } from '@/queries/groups';
-
-import { GroupLink } from '../../../components/groups/group-link';
+import { GroupLink } from '@/components/groups/group-link';
 
 export const metadata: Metadata = {
 	title: 'My groups - PriceBuddy',

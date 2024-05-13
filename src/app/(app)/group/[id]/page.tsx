@@ -8,11 +8,11 @@ import { ExpenseList } from './expense-list';
 import GroupDetail from './group-detail';
 import { GroupInfo } from './group-info';
 
-type Props = { params: { id: string } };
+type GroupDetailPageProps = { params: { id: string } };
 
 export const generateMetadata = async ({
 	params
-}: Props): Promise<Metadata> => {
+}: GroupDetailPageProps): Promise<Metadata> => {
 	const groupName = await getGroupName(params.id);
 
 	return {
@@ -21,7 +21,7 @@ export const generateMetadata = async ({
 	};
 };
 
-const GroupDetailPage = async ({ params }: Props) => {
+const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const groupName = await getGroupName(params.id);
 	return (
 		<div>
