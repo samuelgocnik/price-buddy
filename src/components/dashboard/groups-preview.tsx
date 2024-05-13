@@ -22,7 +22,7 @@ export type GroupsPreviewProps = {
 };
 
 export const GroupsPreview = ({ userId }: GroupsPreviewProps) => (
-	<Card className="xl:col-span-2">
+	<Card>
 		<CardHeader className="flex flex-row justify-between">
 			<div className="grid gap-2">
 				<CardTitle>Groups</CardTitle>
