@@ -1,6 +1,6 @@
 'use server';
 
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import {
@@ -9,21 +9,12 @@ import {
 	type ExpensesWithRelations
 } from '@/db/schema/expenses';
 import { type UserBalances, userBalances } from '@/db/schema/userBalances';
-
-const sleep = (time: number) =>
-	new Promise(resolve => setTimeout(resolve, time));
-
-// TODO not sure how to get amounts send to the user
-export const getUserReceivedTotal = async (
-	userId: string
-): Promise<[number, number]> => {
-	const receivedTotal = 231.89;
-	const receivedChange = 20.1;
-
-	await sleep(2000);
-
-	return [receivedTotal, receivedChange];
-};
+import {
+	type AmountAndDate,
+	calculateAmountAndMonthChange,
+	sleep
+} from '@/lib/utils';
+import { usersGroups } from '@/db/schema/userGroups';
 
 /**
  * Calculates the total amount of money for the user
@@ -37,35 +28,21 @@ export const getUserReceivedTotal = async (
 export const getUserSendTotal = async (
 	userId: string
 ): Promise<[number, number]> => {
-	// Find all expenses for the user
+	// Find all expenses created by the user
 	const userExpenses: Expenses[] = await db.query.expenses.findMany({
-		where: eq(expenses.paidById, userId)
+		where: and(eq(expenses.paidById, userId), isNull(expenses.deletedAt))
 	});
 
-	// Calculate the total amount
-	const amountTotal = userExpenses.reduce(
-		(acc, expense) => safeAccAdd(acc, expense.amount),
-		0.0
-	);
+	const amountAndDate: AmountAndDate[] = userExpenses.map(expense => ({
+		amount: expense.amount,
+		date: expense.createdAt
+	}));
 
-	// Get all expenses for the last month
-	const expenseLastMonth = userExpenses.filter(
-		expense => new Date(expense.createdAt).getMonth() === new Date().getMonth()
-	);
-	// Calculate the total amount for the last month
-	const sendLastMonth = expenseLastMonth.reduce(
-		(acc, expense) => safeAccAdd(acc, expense.amount),
-		0.0
-	);
-
-	// TODO did I calculate it correctly? or should it be calculated not from overall total amount, but using expenses before the last month?
-	// Calculate the percentage of change between users total and last month
-	const percentage = (sendLastMonth / amountTotal) * 100;
-	// Fixed 2 decimal places. (no expenses in database would give pertenate NaN, convert to default 0.0)
-	const amountChange = Number.isNaN(percentage) ? 0.0 : +percentage.toFixed(2);
+	const [amountTotal, monthChangePercentage] =
+		calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-	return [amountTotal, amountChange];
+	return [amountTotal, monthChangePercentage];
 };
 
 export const getUserOwedTotal = async (
@@ -73,21 +50,26 @@ export const getUserOwedTotal = async (
 ): Promise<[number, number]> => {
 	const balanceBetweenUsers: UserBalances[] =
 		await db.query.userBalances.findMany({
-			where: eq(userBalances.user1Id, userId)
+			where: and(
+				eq(userBalances.user1Id, userId),
+				isNull(userBalances.deletedAt)
+			)
 		});
 
 	// Balance between users:
 	// balance > 0  -> user1 owes user2
 	// balance < 0  -> user2 owes user1
-	const owedTotal = balanceBetweenUsers
-		.filter(b => +b.balance < 0)
-		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+	const amountAndDate: AmountAndDate[] = balanceBetweenUsers
+		.filter(balance => +balance.balance < 0)
+		.map(balance => ({
+			amount: balance.balance,
+			date: balance.createdAt
+		}));
 
-	const owedChange = NaN; // TODO
+	const [amount, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-
-	return [owedTotal, owedChange];
+	return [amount, percentage];
 };
 
 export const getUserOweTotal = async (
@@ -95,43 +77,78 @@ export const getUserOweTotal = async (
 ): Promise<[number, number]> => {
 	const balanceBetweenUsers: UserBalances[] =
 		await db.query.userBalances.findMany({
-			where: eq(userBalances.user1Id, userId)
+			where: and(
+				eq(userBalances.user1Id, userId),
+				isNull(userBalances.deletedAt)
+			)
 		});
 
 	// Balance between users:
 	// balance > 0  -> user1 owes user2
 	// balance < 0  -> user2 owes user1
-	const oweTotal = balanceBetweenUsers
-		.filter(b => +b.balance > 0)
-		.reduce((acc, b) => safeAccAdd(acc, b.balance), 0.0);
+	const amountAndDate: AmountAndDate[] = balanceBetweenUsers
+		.filter(balance => +balance.balance > 0)
+		.map(balance => ({
+			amount: balance.balance,
+			date: balance.createdAt
+		}));
 
-	const oweChange = NaN; // TODO
+	const [owe, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
 	await sleep(2000);
-
-	return [oweTotal, oweChange];
+	return [owe, percentage];
 };
 
-// TODO expenses we show in the dashboard, SHOULD be ralated to the user!!!
 export const getExpensesRecent = async (
 	userId: string,
 	limit?: number
 ): Promise<ExpensesWithRelations[]> => {
-	const result: ExpensesWithRelations[] = await db.query.expenses.findMany({
+	// Get all groups for the user
+	const foundGroups: { groupId: string }[] =
+		await db.query.usersGroups.findMany({
+			columns: {
+				groupId: true
+			},
+			where: and(eq(usersGroups.userId, userId), isNull(usersGroups.deletedAt))
+		});
+	const groupIds: string[] = foundGroups.map(group => group.groupId);
+
+	if (groupIds.length === 0) {
+		return [];
+	}
+
+	// Find all expenses from the groups
+	// Display the latests [limit] expenses
+	const relatedExpenses = await db.query.expenses.findMany({
+		where: and(inArray(expenses.groupId, groupIds), isNull(expenses.deletedAt)),
+		orderBy: [desc(expenses.createdAt)],
 		with: {
 			group: true,
 			paidBy: true,
 			category: true
 		},
-		orderBy: [desc(expenses.createdAt)],
 		limit
 	});
 
+	// console.log("Latest expenses:", relatedExpenses);
+
 	await sleep(2000);
-	return result;
+	return relatedExpenses;
 };
 
-const safeAccAdd = (acc: number, num: string) => {
-	const n = Number.parseFloat(num);
-	return acc + (Number.isNaN(n) ? 0.0 : n);
+export const getGroupsExpenses = async (id: string) => {
+	const ge = await db.query.expenses.findMany({
+		where: eq(expenses.groupId, id),
+		with: {
+			paidBy: true
+		}
+	});
+	return ge.filter(e => !e.deletedAt);
+};
+
+export const deleteExpense = async (id: string) => {
+	await db
+		.update(expenses)
+		.set({ deletedAt: new Date().toString() })
+		.where(eq(expenses.id, id));
 };
