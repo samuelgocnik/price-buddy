@@ -5,9 +5,9 @@ import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
 import { useAddUserToGroupMutation } from '@/queries/groupsMutations';
-import { addUserFormSchema, type AddUserFormSchema } from '@/schema/schema';
 import { FormTextInput } from '@/components/forms/form-input';
 import { cn } from '@/lib/cn';
+import { addUserFormSchema, type AddUserFormSchema } from '@/schema/group';
 
 type AddUserProps = {
 	groupId: string;
@@ -27,7 +27,13 @@ export const AddUserToGroup = (props: AddUserProps) => {
 			email: values.email,
 			groupId: props.groupId
 		};
-		mutate(updatedValues);
+		mutate(updatedValues, {
+			onSuccess: () => {
+				form.reset({
+					email: ''
+				});
+			}
+		});
 	};
 
 	return (

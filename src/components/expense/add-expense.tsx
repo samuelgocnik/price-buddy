@@ -16,7 +16,7 @@ import {
 import {
 	type AddExpenseFormSchema,
 	addExpenseFormSchema
-} from '@/schema/schema';
+} from '@/schema/expense';
 import { useAddExpense } from '@/queries/expensesMutations';
 
 import { FormTextInput } from '../forms/form-input';

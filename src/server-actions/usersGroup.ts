@@ -1,5 +1,5 @@
 'use server';
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { users } from '@/db/schema/users';
@@ -32,5 +32,5 @@ export const addUserToGroupAction = async (
 
 const findUserByEmail = async (email: string) =>
 	await db.query.users.findFirst({
-		where: eq(users.email, email)
+		where: and(eq(users.email, email), isNull(users.deletedAt))
 	});

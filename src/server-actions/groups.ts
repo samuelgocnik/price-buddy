@@ -12,6 +12,9 @@ import { addUserToGroupAction } from './usersGroup';
 
 export const addGroupAction = async (data: addGroupParams) => {
 	const result = await db.insert(groups).values(data).returning();
+	if (result.length === 0) {
+		throw new Error('Failed to insert group!');
+	}
 	const insertedUsers = await addUserToGroupAction(
 		data.emails,
 		result[0].id,
@@ -34,7 +37,7 @@ export const addSingleUserToGroupAction = async (
 	});
 
 	if (foundUser === undefined) {
-		return 'User is not registered in our application';
+		throw new Error('User not registered in our application');
 	}
 
 	const usersAlreadyInGroup = await db.query.groups.findFirst({
@@ -45,11 +48,16 @@ export const addSingleUserToGroupAction = async (
 	});
 
 	if (usersAlreadyInGroup?.users.map(x => x.userId).includes(foundUser.id)) {
-		return 'User is already in the group!';
+		throw new Error('User is already in the group!');
 	}
 
-	await db
+	const userGroupsResult = await db
 		.insert(usersGroups)
-		.values({ groupId: data.groupId, userId: foundUser.id });
+		.values({ groupId: data.groupId, userId: foundUser.id })
+		.returning();
+	if (userGroupsResult.length === 0) {
+		throw new Error('Failed to add the user in the group!');
+	}
 	revalidatePath('/group/id');
+	return userGroupsResult;
 };

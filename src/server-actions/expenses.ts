@@ -10,15 +10,23 @@ import { updateBalancesAfterExpense } from './userBalances';
 export const addExpenseAction = async (expense: ExpensesCreate) => {
 	const expenseResult = await db.insert(expenses).values(expense).returning();
 	if (expenseResult.length > 0) {
-		await db.insert(usersExpenses).values({
-			userId: expense.paidById,
-			expenseId: expenseResult[0].id
-		});
+		const relationResult = await db
+			.insert(usersExpenses)
+			.values({
+				userId: expense.paidById,
+				expenseId: expenseResult[0].id
+			})
+			.returning();
+		if (relationResult.length === 0) {
+			throw new Error('Failed to insert expense relation to user!');
+		}
 		await updateBalancesAfterExpense(
 			expense.paidById,
 			expense.groupId,
 			parseFloat(expense.amount)
 		);
+	} else {
+		throw new Error('Failed to insert expense!');
 	}
 	revalidatePath('/dashboard');
 };

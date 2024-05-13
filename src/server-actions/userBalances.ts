@@ -23,17 +23,24 @@ export const updateBalancesAfterExpense = async (
 				user1Id: group_user_id,
 				balance: amountEach.toString()
 			};
-			await db.insert(userBalances).values(data).returning();
+			const result = await db.insert(userBalances).values(data).returning();
+			if (result.length === 0) {
+				throw new Error('Failed to update balances!');
+			}
 		} else {
 			const oldBalance = parseFloat(balance.balance);
 			const newBalance =
 				balance.user2Id === paid_by_id
 					? oldBalance + amountEach
 					: oldBalance - amountEach;
-			await db
+			const result = await db
 				.update(userBalances)
 				.set({ balance: newBalance.toString() })
-				.where(eq(userBalances.id, balance.id));
+				.where(eq(userBalances.id, balance.id))
+				.returning();
+			if (result.length === 0) {
+				throw new Error('Failed to update balances!');
+			}
 		}
 	});
 };
