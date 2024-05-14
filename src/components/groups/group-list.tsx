@@ -3,7 +3,7 @@
 import { UsersIcon } from 'lucide-react';
 import { useParams, usePathname } from 'next/navigation';
 
-import { useIsBreakpoint } from '@/lib/hooks/useIsBreakpoint';
+import { useIsBreakpoint } from '@/lib/hooks/use-is-breakpoint';
 import { cn } from '@/lib/cn';
 import { type UsersGroups } from '@/db/schema/userGroups';
 import { type Groups } from '@/db/schema/groups';
