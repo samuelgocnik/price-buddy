@@ -17,14 +17,8 @@ export const addGroupFormSchema = object({
 		object({
 			email: string([
 				minLength(1, 'Please enter your email.'),
-				email('The email is badly formatted.'),
-				maxLength(30, 'Your email is too long.')
-				/* 	customAsync(
-					async email =>
-						(await db.query.users.findFirst({
-							where: eq(users.email, email)
-						})) !== undefined
-				) */
+				email('Email has invalid format.'),
+				maxLength(64, 'Your email is too long.')
 			])
 		})
 	)
@@ -35,8 +29,8 @@ export type AddGroupFormSchema = Input<typeof addGroupFormSchema>;
 export const addUserFormSchema = object({
 	email: string([
 		minLength(1, 'Please enter the email.'),
-		email('The email is badly formatted.'),
-		maxLength(30, 'Your email is too long.')
+		email('Email has invalid format.'),
+		maxLength(64, 'Your email is too long.')
 	])
 });
 
