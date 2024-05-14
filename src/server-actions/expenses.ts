@@ -12,11 +12,7 @@ import {
 	type ExpensesWithRelations
 } from '@/db/schema/expenses';
 import { type UserBalances, userBalances } from '@/db/schema/userBalances';
-import {
-	type AmountAndDate,
-	calculateAmountAndMonthChange,
-	sleep
-} from '@/lib/utils';
+import { type AmountAndDate, calculateAmountAndMonthChange } from '@/lib/utils';
 import { usersGroups } from '@/db/schema/userGroups';
 
 import { updateBalancesAfterExpense } from './userBalances';
