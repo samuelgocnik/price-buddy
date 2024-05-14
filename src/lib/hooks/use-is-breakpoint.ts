@@ -1,6 +1,6 @@
 import { BREAKPOINTS } from '../theme';
 
-import { useMediaQuery } from './useMediaQuery';
+import { useMediaQuery } from './use-media-query';
 
 /**
  * Custom hook to determine if the viewport is in a mobile view.
