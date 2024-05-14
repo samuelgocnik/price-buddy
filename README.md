@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Production app link:
 [price-buddy-two.vercel.app](https://price-buddy-two.vercel.app)
 
@@ -103,20 +101,19 @@ Preferred folder structure we should stick to:
     - `hooks` - hooks used across the app
       - `use-toast.tsx`
     - `feature.ts` - functions related to some feature
-  - `queries` - tanstack queries/mutations (one query/mutation === one file)
-    - `expenses.ts` - file grouping all queries/mutations for some feature
+  - `mutations` - tanstack queries/mutations (one query/mutation === one file)
+    - `features.ts` - file grouping all mutations for some feature
   - `schema`
-    - `auth.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
-    - `feature.ts`
+    - `feature.ts` - all schemas for some feature (eg. loginSchema, registerSchema)
+    - `user.ts`
   - `server-actions`
-    - `expenses.ts` - file grouping all server actions for some feature
+    - `feature.ts` - file grouping all server actions for some feature
 
 ## App routes
 
 **(unauthorized)**
 
-- /login
-- /register
+- /signin
 
 **(authorized)**
 
@@ -124,7 +121,8 @@ Preferred folder structure we should stick to:
 - /group - all users groups, filter groups, create group, invitation by email
 - /group/[id] - group detail, members, expenses (filterable by category or payer)
 - /profile - user info (edit)
-- /expenses -> all expenses among two(or more) people
+- /balances - all expenses among two(or more) people
+- /expenses - user recent expenses
 
 ## Entity Relationship Diagram
 

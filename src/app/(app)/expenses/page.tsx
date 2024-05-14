@@ -1,20 +1,27 @@
 import { Hourglass } from 'lucide-react';
 import { Suspense } from 'react';
+import { type Metadata } from 'next';
 
 import Loader from '@/components/ui/loader';
 
 import { ExpenseList } from './expense-list';
 
+export const metadata: Metadata = {
+	title: 'Expenses - PriceBuddy',
+	description:
+		'View and manage your recent expenses on PriceBuddy. Keep track of your spending.'
+};
+
 const ExpensesPage = () => (
-	<div>
-		<h1 className="flex flex-row rounded-t-lg bg-almond-200 py-4 pl-8 text-lg">
-			<Hourglass className="mr-6 mt-0.5" />
-			My recent expenses
+	<div className="overflow-hidden rounded-lg bg-almond-100 shadow">
+		<h1 className="flex flex-row items-center space-x-4 bg-almond-200 px-8 py-4 text-lg">
+			<Hourglass />
+			<span className="font-bold">My recent expenses</span>
 		</h1>
 		<Suspense
 			fallback={
-				<div className="flex h-32 items-center justify-center rounded-b-lg bg-almond-100">
-					<Loader size="md" className="text-black-700" />
+				<div className="flex h-32 items-center justify-center">
+					<Loader size="lg" className="text-primary" />
 				</div>
 			}
 		>

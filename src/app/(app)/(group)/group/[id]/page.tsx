@@ -36,7 +36,7 @@ const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const addExpense = (
 		<AddExpense
 			selectGroup={
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Skeleton className="h-9 bg-almond-300" />}>
 					<SelectField
 						isCategory={false}
 						selectedGroup={params.id}
@@ -45,7 +45,7 @@ const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 				</Suspense>
 			}
 			selectCategory={
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Skeleton className="h-9 bg-almond-300" />}>
 					<SelectField isCategory userId={userId} />
 				</Suspense>
 			}
