@@ -21,7 +21,7 @@ export const BalanceHeader = ({ userId }: BalanceHeaderProps) => {
 					<h1 className="mb-2 text-3xl font-bold">{headerText}</h1>
 					<p className="text-gray-600">{subText}</p>
 				</div>
-				<div className="rounded-full bg-white px-5 py-3 font-semibold text-indigo-600">
+				<div className="rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground">
 					<Suspense
 						fallback={
 							<div className="w-44">
