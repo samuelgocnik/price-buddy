@@ -6,8 +6,8 @@ import d from 'dayjs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ExpensesWithRelations } from '@/db/schema/expenses';
-import { getExpensesRecent } from '@/queries/expenses';
 import { Button } from '@/components/ui/button';
+import { getExpensesRecent } from '@/server-actions/expenses';
 
 import { LoaderCentered } from '../ui/loader';
 import { AvatarBackgroundFallback } from '../empty-photo';

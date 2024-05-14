@@ -2,9 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { useToast } from '@/lib/hooks/use-toast';
-import { addExpenseAction } from '@/server-actions/expenses';
-
-import { deleteExpense } from './expenses';
+import { addExpenseAction, deleteExpense } from '@/server-actions/expenses';
 
 export const useAddExpense = () => {
 	const { toast } = useToast();

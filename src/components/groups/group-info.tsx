@@ -5,9 +5,9 @@ import { type Session } from 'next-auth';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { auth } from '@/auth';
 import { AddUserToGroup } from '@/app/(app)/(group)/group/[id]/add-user-to-group';
+import { getGroupsExpenses } from '@/server-actions/expenses';
+import { getGroupName, getUserGroupsRelations } from '@/server-actions/groups';
 
-import { getGroupName, getUserGroupsRelations } from '../../queries/groups';
-import { getGroupsExpenses } from '../../queries/expenses';
 import { AvatarBackgroundFallback } from '../empty-photo';
 import { LeaveGroupButton } from '../../app/(app)/(group)/group/[id]/leave-group-button';
 

@@ -13,7 +13,7 @@ import {
 	DialogHeader
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useAddGroup } from '@/queries/groupsMutations';
+import { useAddGroup } from '@/mutations/groups';
 import { type AddGroupFormSchema, addGroupFormSchema } from '@/schema/group';
 
 import { FormInput } from '../forms/form-input';

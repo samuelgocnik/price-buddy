@@ -3,7 +3,7 @@
 import { Trash2, Loader } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { useDeleteExpense } from '@/queries/expensesMutations';
+import { useDeleteExpense } from '@/mutations/expenses';
 
 export const DeleteExpenseButton = ({ expenseId }: { expenseId: string }) => {
 	const { mutate, isPending } = useDeleteExpense();

@@ -2,7 +2,6 @@ import { type Metadata } from 'next';
 import { Suspense } from 'react';
 import { type Session } from 'next-auth';
 
-import { getGroupName } from '@/queries/groups';
 import { Skeleton, SkeletonMap } from '@/components/ui/skeleton';
 import { GroupName } from '@/components/groups/group-name';
 import { GroupInfo } from '@/components/groups/group-info';
@@ -10,6 +9,7 @@ import { ExpenseList } from '@/components/groups/expense-list';
 import { AddExpense } from '@/components/expense/add-expense';
 import { SelectField } from '@/components/expense/select-field';
 import { auth } from '@/auth';
+import { getGroupName } from '@/server-actions/groups';
 
 import GroupDetail from './group-detail';
 

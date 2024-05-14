@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
-import { useAddUserToGroup } from '@/queries/groupsMutations';
+import { useAddUserToGroup } from '@/mutations/groups';
 import { addUserFormSchema, type AddUserFormSchema } from '@/schema/group';
 import { FormInput } from '@/components/forms/form-input';
 

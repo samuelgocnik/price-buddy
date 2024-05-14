@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 
 import { auth } from '@/auth';
 import { RedirectToGroupDetail } from '@/components/groups/redirect-to-group-detail';
-import { getUsersGroups } from '@/queries/groups';
+import { getUsersGroups } from '@/server-actions/groups';
 
 export const metadata: Metadata = {
 	title: 'My groups - PriceBuddy',

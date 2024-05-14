@@ -3,7 +3,7 @@
 import { LogOut } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { useLeaveGroup } from '@/queries/groupsMutations';
+import { useLeaveGroup } from '@/mutations/groups';
 
 export const LeaveGroupButton = ({
 	userId,

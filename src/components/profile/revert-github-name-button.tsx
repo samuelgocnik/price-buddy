@@ -1,6 +1,6 @@
 'use client';
 
-import { useRevertToGithubName } from '@/queries/profile';
+import { useRevertToGithubName } from '@/mutations/profile';
 import { type User } from '@/db/schema/users';
 
 import { Button } from '../ui/button';

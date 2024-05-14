@@ -1,14 +1,14 @@
 'use client';
+
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { useToast } from '@/lib/hooks/use-toast';
 import {
 	addGroupAction,
-	addSingleUserToGroupAction
+	addSingleUserToGroupAction,
+	leaveGroupAction
 } from '@/server-actions/groups';
-
-import { leaveGroupAction } from './groups';
 
 export type AddGroupParams = {
 	name: string;

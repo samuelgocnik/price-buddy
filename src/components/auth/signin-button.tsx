@@ -2,7 +2,7 @@
 
 import { GithubIcon } from 'lucide-react';
 
-import { useSignIn } from '@/queries/auth';
+import { useSignIn } from '@/mutations/auth';
 
 import { Button, type ButtonProps } from '../ui/button';
 

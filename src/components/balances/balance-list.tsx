@@ -1,5 +1,5 @@
 import { type BalancesWithUsers } from '@/db/schema/userBalances';
-import { getAllBalances } from '@/queries/balance';
+import { getAllBalances } from '@/server-actions/balance';
 
 export type BalanceListProps = {
 	userId: string;
