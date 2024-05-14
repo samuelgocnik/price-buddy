@@ -25,7 +25,7 @@ const GroupLayout = async ({ children }: PropsWithChildren) => {
 			)}
 		>
 			<aside className="overflow-y-auto">
-				<GroupsList groups={groups} />
+				<GroupsList groups={groups} userId={userId} />
 			</aside>
 			<section className="overflow-y-auto">{children}</section>
 		</div>

@@ -1,10 +1,10 @@
 import { type Session } from 'next-auth';
 import { type Metadata } from 'next';
 
+import { auth } from '@/auth';
 import { GroupsPreview } from '@/components/dashboard/groups-preview';
 import { LatestChanges } from '@/components/dashboard/latest-changes';
 import { UserSummaryCards } from '@/components/dashboard/summary-cards';
-import { auth } from '@/auth';
 
 export const metadata: Metadata = {
 	title: 'Dashboard - PriceBuddy',
