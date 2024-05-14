@@ -16,7 +16,7 @@ const GroupDetail = (props: GroupDetailProps) => {
 	const [info, setInfo] = useState(false);
 
 	return (
-		<div className="flex min-h-full flex-1 flex-col p-8 md:rounded-l-lg md:bg-almond-200">
+		<div className="flex min-h-full flex-1 flex-col p-8 md:rounded-l-lg md:bg-almond-100">
 			{!info && (
 				<div className="mb-8 flex items-center justify-between">
 					<h1 className="text-2xl">{props.name}</h1>

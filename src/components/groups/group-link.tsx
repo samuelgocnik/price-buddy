@@ -11,8 +11,8 @@ type GroupLinkProps = {
 export const GroupLink = ({ id, name, activeGroupId }: GroupLinkProps) => (
 	<Link
 		className={cn(
-			'block px-8 py-4 hover:bg-almond-200/65 md:rounded-l-lg',
-			id === activeGroupId && 'bg-almond-200 font-bold hover:bg-almond-200'
+			'block px-8 py-4 hover:bg-almond-100/65 max-md:m-2 max-md:rounded-lg max-md:bg-almond-200/65 max-md:text-center md:rounded-l-lg',
+			id === activeGroupId && 'bg-almond-100 font-bold hover:bg-almond-100'
 		)}
 		href={`/group/${id}`}
 	>
