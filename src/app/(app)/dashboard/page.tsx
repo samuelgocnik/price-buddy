@@ -21,7 +21,7 @@ const DashboardPage = async () => {
 	}
 
 	return (
-		<div className="container rounded-lg bg-almond-100 shadow">
+		<div className="rounded-lg bg-almond-100 shadow">
 			<div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
 				<UserSummaryCards userId={userId} />
 

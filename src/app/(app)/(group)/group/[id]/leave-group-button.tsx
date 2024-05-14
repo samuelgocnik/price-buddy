@@ -6,30 +6,32 @@ import { useMutation } from '@tanstack/react-query';
 
 import { useToast } from '@/lib/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-
-import { leaveGroupAction } from '../../../../queries/groups';
+import { leaveGroupAction } from '@/queries/groups';
 
 type LeaveGroupMutationParams = {
 	userId: string;
 	groupId: string;
 };
 
+// TODO: move to queries folder after everything is done
 const useLeaveGroupMutation = () => {
 	const r = useRouter();
 	const { toast } = useToast();
 
-	const mutation = useMutation({
-		mutationFn: async (params: LeaveGroupMutationParams) => {
-			await leaveGroupAction(params.userId, params.groupId);
+	return useMutation<void, Error, LeaveGroupMutationParams>({
+		mutationFn: leaveGroupAction,
+		onSuccess: () => {
 			toast({ title: 'Group left!' });
 			r.push('/group');
+		},
+		onError: error => {
+			toast({
+				title: 'Failed to leave group',
+				description: error.message,
+				variant: 'destructive'
+			});
 		}
 	});
-
-	return {
-		mutate: mutation.mutate,
-		isPending: mutation.isPending
-	};
 };
 
 export const LeaveGroupButton = ({
@@ -42,19 +44,17 @@ export const LeaveGroupButton = ({
 	const { mutate, isPending } = useLeaveGroupMutation();
 	return (
 		<div>
-			{isPending && <div className="mt-9">Leaving group...</div>}
-			{!isPending && (
-				<Button
-					TrailingIcon={LogOut}
-					className="mt-9 w-32 border-none text-red-800 hover:text-red-600"
-					variant="ghost"
-					onClick={() => {
-						mutate({ userId, groupId });
-					}}
-				>
-					Leave group
-				</Button>
-			)}
+			<Button
+				TrailingIcon={LogOut}
+				className="mt-9 border-none text-red-800 hover:bg-destructive/20 hover:text-red-800"
+				variant="ghost"
+				onClick={() => {
+					mutate({ userId, groupId });
+				}}
+				disabled={isPending}
+			>
+				{isPending ? 'Leaving group...' : 'Leave group'}
+			</Button>
 		</div>
 	);
 };

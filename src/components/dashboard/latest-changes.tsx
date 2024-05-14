@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import d from 'dayjs';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -56,9 +57,11 @@ const ExpencesList = async ({ userId }: LatestChangesProps) => {
 							{expense.paidBy?.name ?? 'Unknown User'}
 						</p>
 						{/* <p className="text-sm">{expense.paidBy?.email ?? 'Unknown Email'}</p> */}
-						<p className="text-sm">{expense.createdAt}</p>
+						<p className="text-sm">
+							{d(expense.createdAt).format('DD/MM/YYYY - HH:mm')}
+						</p>
 					</div>
-					<div className="ml-auto font-medium">{expense.amount}</div>
+					<div className="ml-auto font-medium">{expense.amount} €</div>
 				</div>
 			))}
 		</>
