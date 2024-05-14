@@ -10,6 +10,7 @@ import { ExpenseList } from '@/components/groups/expense-list';
 import { AddExpense } from '@/components/expense/add-expense';
 import { SelectField } from '@/components/expense/select-field';
 import { auth } from '@/auth';
+import { sleep } from '@/lib/utils';
 
 import GroupDetail from './group-detail';
 
@@ -29,6 +30,8 @@ export const generateMetadata = async ({
 const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const session: Session | null = await auth();
 
+	await sleep(2000);
+
 	const userId = session?.user?.id;
 	if (!userId) {
 		return <p>You must be logged in to view this page.</p>;
@@ -36,7 +39,7 @@ const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const addExpense = (
 		<AddExpense
 			selectGroup={
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Skeleton className="h-9 bg-almond-300" />}>
 					<SelectField
 						isCategory={false}
 						selectedGroup={params.id}
@@ -45,7 +48,7 @@ const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 				</Suspense>
 			}
 			selectCategory={
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Skeleton className="h-9 bg-almond-300" />}>
 					<SelectField isCategory userId={userId} />
 				</Suspense>
 			}

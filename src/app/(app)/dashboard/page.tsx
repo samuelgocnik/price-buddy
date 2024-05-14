@@ -5,6 +5,7 @@ import { auth } from '@/auth';
 import { GroupsPreview } from '@/components/dashboard/groups-preview';
 import { LatestChanges } from '@/components/dashboard/latest-changes';
 import { UserSummaryCards } from '@/components/dashboard/summary-cards';
+import { sleep } from '@/lib/utils';
 
 export const metadata: Metadata = {
 	title: 'Dashboard - PriceBuddy',
