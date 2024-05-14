@@ -8,14 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
 
-import {
-	getGroupName,
-	getUserGroupsRelations
-} from '../../../../queries/groups';
-import { getGroupsExpenses } from '../../../../queries/expenses';
-
-import { AvatarBackgroundFallback } from './../../../../components/empty-photo';
-import { LeaveGroupButton } from './leave-group-button';
+import { getGroupName, getUserGroupsRelations } from '../../queries/groups';
+import { getGroupsExpenses } from '../../queries/expenses';
+import { AvatarBackgroundFallback } from '../empty-photo';
+import { LeaveGroupButton } from '../../app/(app)/(group)/group/[id]/leave-group-button';
 
 export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 	const session: Session | null = await auth();

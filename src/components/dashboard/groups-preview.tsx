@@ -22,7 +22,7 @@ export type GroupsPreviewProps = {
 };
 
 export const GroupsPreview = ({ userId }: GroupsPreviewProps) => (
-	<Card className="xl:col-span-2">
+	<Card>
 		<CardHeader className="flex flex-row justify-between">
 			<div className="grid gap-2">
 				<CardTitle>Groups</CardTitle>
@@ -31,7 +31,7 @@ export const GroupsPreview = ({ userId }: GroupsPreviewProps) => (
 			<Button asChild size="sm" className="ml-auto">
 				<Link href="/group" className="flex">
 					View All
-					<ArrowUpRight className="ml-1 mt-1 h-4 w-4" />
+					<ArrowUpRight className="ml-1 mt-0.5 h-5 w-5" />
 				</Link>
 			</Button>
 		</CardHeader>
@@ -45,23 +45,29 @@ export const GroupsPreview = ({ userId }: GroupsPreviewProps) => (
 
 const GroupList = async ({ userId }: GroupsPreviewProps) => {
 	const groups: Groups[] = await getGroupsPreview(userId);
+	console.log('groups', groups);
 
 	return (
 		<ul className="grid gap-4">
 			{groups.map(group => (
-				<li key={group.id} className="flex items-center gap-4">
-					<AvatarBackground>
-						{group.photoUrl && (
-							<Image
-								src={group.photoUrl}
-								alt="Group Picture"
-								width={10}
-								height={10}
-								className="h-full w-full rounded-full"
-							/>
-						)}
-					</AvatarBackground>
-					{group.name}
+				<li key={group.id}>
+					<Link
+						href={`/group/${group.id}`}
+						className="inline-flex items-center gap-4"
+					>
+						<AvatarBackground>
+							{group.photoUrl && (
+								<Image
+									src={group.photoUrl}
+									alt="Group Picture"
+									width={10}
+									height={10}
+									className="h-full w-full rounded-full"
+								/>
+							)}
+						</AvatarBackground>
+						{group.name}
+					</Link>
 				</li>
 			))}
 		</ul>
