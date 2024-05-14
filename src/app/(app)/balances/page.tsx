@@ -17,7 +17,7 @@ const BalancesPage = async () => {
 	}
 
 	return (
-		<div className="container rounded-lg bg-almond-100 shadow">
+		<div className="rounded-lg bg-almond-100 shadow">
 			<div className="flex flex-col items-center">
 				<BalanceHeader userId={userId} />
 				<div className="w-full max-w-4xl py-5">
