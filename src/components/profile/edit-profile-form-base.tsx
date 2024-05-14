@@ -9,7 +9,7 @@ import {
 	editProfileFormSchema
 } from '@/schema/user';
 import { type User } from '@/db/schema/users';
-import { useUpdateUserProfile } from '@/queries/profile';
+import { useUpdateUserProfile } from '@/mutations/profile';
 
 import { FormInput } from '../forms/form-input';
 import { Button } from '../ui/button';

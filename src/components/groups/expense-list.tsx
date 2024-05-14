@@ -1,6 +1,6 @@
 'use server';
 
-import { getGroupsExpenses } from '@/queries/expenses';
+import { getGroupsExpenses } from '@/server-actions/expenses';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
 import { AvatarBackgroundFallback } from '../empty-photo';

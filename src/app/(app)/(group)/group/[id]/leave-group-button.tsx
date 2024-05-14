@@ -1,38 +1,9 @@
 'use client';
 
 import { LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
 
-import { useToast } from '@/lib/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { leaveGroupAction } from '@/queries/groups';
-
-type LeaveGroupMutationParams = {
-	userId: string;
-	groupId: string;
-};
-
-// TODO: move to queries folder after everything is done
-const useLeaveGroupMutation = () => {
-	const r = useRouter();
-	const { toast } = useToast();
-
-	return useMutation<void, Error, LeaveGroupMutationParams>({
-		mutationFn: leaveGroupAction,
-		onSuccess: () => {
-			toast({ title: 'Group left!' });
-			r.push('/group');
-		},
-		onError: error => {
-			toast({
-				title: 'Failed to leave group',
-				description: error.message,
-				variant: 'destructive'
-			});
-		}
-	});
-};
+import { useLeaveGroup } from '@/mutations/groups';
 
 export const LeaveGroupButton = ({
 	userId,
@@ -41,7 +12,7 @@ export const LeaveGroupButton = ({
 	userId: string;
 	groupId: string;
 }) => {
-	const { mutate, isPending } = useLeaveGroupMutation();
+	const { mutate, isPending } = useLeaveGroup();
 	return (
 		<div>
 			<Button

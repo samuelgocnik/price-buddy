@@ -2,9 +2,9 @@ import { type Session } from 'next-auth';
 import { type PropsWithChildren } from 'react';
 
 import { auth } from '@/auth';
-import { getUsersGroups } from '@/queries/groups';
 import { GroupsList } from '@/components/groups/group-list';
 import { cn } from '@/lib/cn';
+import { getUsersGroups } from '@/server-actions/groups';
 
 const GroupLayout = async ({ children }: PropsWithChildren) => {
 	const session: Session | null = await auth();

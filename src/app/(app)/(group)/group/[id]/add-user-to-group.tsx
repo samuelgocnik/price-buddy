@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
-import { useAddUserToGroup } from '@/queries/groupsMutations';
+import { useAddUserToGroup } from '@/mutations/groups';
 import { addUserFormSchema, type AddUserFormSchema } from '@/schema/group';
 import { FormInput } from '@/components/forms/form-input';
 
@@ -41,7 +41,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 				<div className="max-md:space-y-2 md:grid md:grid-cols-[3fr_1fr] md:gap-3">
 					<FormInput
 						formControl={form.control}
-						label="Enter e-mail"
+						label="E-mail"
 						name="email"
 						placeholder="email@gmail.com"
 					/>

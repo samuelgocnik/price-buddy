@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { type User } from '@/db/schema/users';
-import { getUserTotalBalance } from '@/queries/balance';
+import { getUserTotalBalance } from '@/server-actions/balance';
 
 import { LoaderCentered } from '../ui/loader';
 

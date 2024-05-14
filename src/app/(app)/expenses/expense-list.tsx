@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import { type Session } from 'next-auth';
 
-import { getUsersExpenes } from '@/queries/expenses';
 import { auth } from '@/auth';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { AvatarBackgroundFallback } from '@/components/empty-photo';
+import { getUsersExpenes } from '@/server-actions/expenses';
 
 export const ExpenseList = async () => {
 	const session: Session | null = await auth();

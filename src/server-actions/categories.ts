@@ -1,3 +1,5 @@
+'use server';
+
 import { isNull } from 'drizzle-orm';
 
 import { db } from '@/db';

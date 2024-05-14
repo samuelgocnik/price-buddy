@@ -12,7 +12,7 @@ import {
 	CardTitle
 } from '@/components/ui/card';
 import { type Groups } from '@/db/schema/groups';
-import { getGroupsPreview } from '@/queries/groups';
+import { getGroupsPreview } from '@/server-actions/groups';
 
 import { LoaderCentered } from '../ui/loader';
 import { AvatarBackground } from '../empty-photo';

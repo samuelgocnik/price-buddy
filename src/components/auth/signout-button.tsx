@@ -2,7 +2,7 @@
 
 import { GithubIcon } from 'lucide-react';
 
-import { useSignOut } from '@/queries/auth';
+import { useSignOut } from '@/mutations/auth';
 
 import { Button, type ButtonProps } from '../ui/button';
 

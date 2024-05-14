@@ -6,7 +6,7 @@ import {
 	getUserOwedTotal,
 	getUserOweTotal,
 	getUserSendTotal
-} from '@/queries/expenses';
+} from '@/server-actions/expenses';
 
 import { LoaderCentered } from '../ui/loader';
 
