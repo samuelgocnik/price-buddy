@@ -7,7 +7,7 @@ import {
 	addSingleUserToGroupAction
 } from '@/server-actions/groups';
 
-export type addGroupParams = {
+export type AddGroupParams = {
 	name: string;
 	emails: string[];
 	authorId: string;
@@ -17,7 +17,7 @@ export const useAddGroup = () => {
 	const { toast } = useToast();
 
 	return useMutation({
-		mutationFn: async (data: addGroupParams) => {
+		mutationFn: async (data: AddGroupParams) => {
 			const result = await addGroupAction(data);
 			const notFoundUsers = data.emails.filter(x => !result.includes(x));
 			const emailList = notFoundUsers.join(', ');
@@ -42,7 +42,7 @@ export const useAddGroup = () => {
 	});
 };
 
-export const useAddUserToGroupMutation = () => {
+export const useAddUserToGroup = () => {
 	const { toast } = useToast();
 
 	return useMutation({
@@ -52,9 +52,9 @@ export const useAddUserToGroupMutation = () => {
 				title: 'User successfully added!'
 			});
 		},
-		onError: e => {
+		onError: () => {
 			toast({
-				title: e.message,
+				title: 'Failed to add the user in the group!',
 				variant: 'destructive'
 			});
 		}

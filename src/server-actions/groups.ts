@@ -4,13 +4,13 @@ import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { groups } from '@/db/schema/groups';
-import { type addGroupParams } from '@/queries/groupsMutations';
+import { type AddGroupParams } from '@/queries/groupsMutations';
 import { users } from '@/db/schema/users';
 import { usersGroups } from '@/db/schema/userGroups';
 
 import { addUserToGroupAction } from './usersGroup';
 
-export const addGroupAction = async (data: addGroupParams) => {
+export const addGroupAction = async (data: AddGroupParams) => {
 	const result = await db.insert(groups).values(data).returning();
 	if (result.length === 0) {
 		throw new Error('Failed to insert group!');
@@ -24,13 +24,13 @@ export const addGroupAction = async (data: addGroupParams) => {
 	return insertedUsers;
 };
 
-export type addUserToGroupParams = {
+export type AddUserToGroupParams = {
 	email: string;
 	groupId: string;
 };
 
 export const addSingleUserToGroupAction = async (
-	data: addUserToGroupParams
+	data: AddUserToGroupParams
 ) => {
 	const foundUser = await db.query.users.findFirst({
 		where: and(eq(users.email, data.email), isNull(users.deletedAt))
@@ -41,7 +41,7 @@ export const addSingleUserToGroupAction = async (
 	}
 
 	const usersAlreadyInGroup = await db.query.groups.findFirst({
-		where: eq(groups.id, data.groupId),
+		where: and(eq(groups.id, data.groupId), isNull(groups.deletedAt)),
 		with: {
 			users: true
 		}

@@ -4,8 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { Button } from '@/components/ui/button';
-import { useAddUserToGroupMutation } from '@/queries/groupsMutations';
-import { cn } from '@/lib/cn';
+import { useAddUserToGroup } from '@/queries/groupsMutations';
 import { addUserFormSchema, type AddUserFormSchema } from '@/schema/group';
 import { FormInput } from '@/components/forms/form-input';
 
@@ -14,7 +13,7 @@ type AddUserProps = {
 };
 
 export const AddUserToGroup = (props: AddUserProps) => {
-	const { mutate, isPending } = useAddUserToGroupMutation();
+	const { mutate, isPending } = useAddUserToGroup();
 	const form = useForm<AddUserFormSchema>({
 		resolver: valibotResolver(addUserFormSchema),
 		defaultValues: {
@@ -39,11 +38,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 	return (
 		<FormProvider {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-				<div
-					className={cn(
-						'max-md:space-y-2 md:grid md:grid-cols-[3fr_1fr] md:gap-3'
-					)}
-				>
+				<div className="max-md:space-y-2 md:grid md:grid-cols-[3fr_1fr] md:gap-3">
 					<FormInput
 						formControl={form.control}
 						label="Enter e-mail"
