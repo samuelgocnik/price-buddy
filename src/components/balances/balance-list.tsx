@@ -33,7 +33,11 @@ const BalanceItem = ({ balanceWithUsers }: BalanceItemProps) => {
 	if (Number.isNaN(balanceValue)) {
 		balanceValue = 0.0;
 	}
-	const isPositive = balanceValue >= 0;
+
+	// Balance between users:
+	// balance > 0  -> user1 owes user2
+	// balance < 0  -> user2 owes user1
+	const meInDepth = balanceValue >= 0;
 
 	const friendName =
 		user2.firstName !== null && user2.lastName !== null
@@ -51,13 +55,13 @@ const BalanceItem = ({ balanceWithUsers }: BalanceItemProps) => {
 			<div className="flex-1 text-right">
 				<div
 					className={`text-lg font-bold ${
-						isPositive ? 'text-green-600' : 'text-red-600'
+						meInDepth ? 'text-red-600' : 'text-green-600'
 					}`}
 				>
 					{amount}
 				</div>
 				<div className="text-sm text-gray-500">
-					{isPositive ? 'You are owed' : 'You are in depth'}
+					{meInDepth ? 'You are in depth' : 'You are owed'}
 				</div>
 			</div>
 		</div>
