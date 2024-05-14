@@ -26,7 +26,6 @@ export const getAllBalances = async (
 		}
 	});
 
-	// console.log('Balances:', balances);
 	await sleep(2000);
 	return balances;
 };

@@ -130,8 +130,6 @@ export const getExpensesRecent = async (
 		limit
 	});
 
-	// console.log("Latest expenses:", relatedExpenses);
-
 	await sleep(2000);
 	return relatedExpenses;
 };
