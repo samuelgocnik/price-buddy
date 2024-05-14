@@ -44,7 +44,7 @@ const BalanceItem = ({ balanceWithUsers }: BalanceItemProps) => {
 			? `${user2.firstName} ${user2.lastName}`
 			: user2.name;
 	console.log('Friend name:', friendName);
-	const amount: string = `${balanceValue.toFixed(2)}€`;
+	const amount: string = `${(-1 * balanceValue).toFixed(2)}€`;
 
 	return (
 		<div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 last:border-b-0">
