@@ -13,7 +13,7 @@ import { addUserToGroupAction } from './usersGroup';
 export const addGroupAction = async (data: AddGroupParams) => {
 	const result = await db.insert(groups).values(data).returning();
 	if (result.length === 0) {
-		throw new Error('Failed to insert group!');
+		throw new Error('Failed to create group!');
 	}
 	const insertedUsers = await addUserToGroupAction(
 		data.emails,
@@ -56,7 +56,7 @@ export const addSingleUserToGroupAction = async (
 		.values({ groupId: data.groupId, userId: foundUser.id })
 		.returning();
 	if (userGroupsResult.length === 0) {
-		throw new Error('Failed to add the user in the group!');
+		throw new Error('Failed to add the user to the group!');
 	}
 	revalidatePath('/group/id');
 	return userGroupsResult;

@@ -56,7 +56,7 @@ export const useAddUserToGroup = () => {
 		},
 		onError: () => {
 			toast({
-				title: 'Failed to add the user in the group!',
+				title: 'Failed to add the user to the group!',
 				variant: 'destructive'
 			});
 		}
