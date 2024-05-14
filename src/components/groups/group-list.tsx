@@ -52,7 +52,7 @@ export const GroupsList = ({ groups }: GroupsListProps) => {
 						{groups.map(group => (
 							<li key={`group-${group.id}`}>
 								<GroupLink
-									id={group.id}
+									id={group.groupId}
 									name={group.group.name}
 									activeGroupId={params.id}
 								/>
