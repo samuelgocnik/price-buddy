@@ -41,7 +41,7 @@ export const AddUserToGroup = (props: AddUserProps) => {
 				<div className="max-md:space-y-2 md:grid md:grid-cols-[3fr_1fr] md:gap-3">
 					<FormInput
 						formControl={form.control}
-						label="Enter e-mail"
+						label="E-mail"
 						name="email"
 						placeholder="email@gmail.com"
 					/>
