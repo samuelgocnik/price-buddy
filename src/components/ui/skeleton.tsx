@@ -8,3 +8,15 @@ export const Skeleton = ({ className, ...props }: SkeletonProps) => (
 		{...props}
 	/>
 );
+
+export const SkeletonMap = ({
+	wrapperClassName,
+	count,
+	...props
+}: SkeletonProps & { count: number; wrapperClassName?: string }) => (
+	<div className={cn('space-y-2', wrapperClassName)}>
+		{Array.from({ length: count }).map((_, index) => (
+			<Skeleton key={`skeleton-${index}`} {...props} />
+		))}
+	</div>
+);

@@ -18,7 +18,7 @@ const Navigation = () => {
 							href={link.href}
 							className={cn(
 								'rounded-lg px-4 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-smoke-100 max-md:flex max-md:items-center max-md:space-x-2 md:hover:bg-secondary/50',
-								pathname === link.href &&
+								pathname.startsWith(link.href) &&
 									'bg-blue-smoke-200 hover:bg-blue-smoke-200 md:bg-secondary md:text-secondary-foreground md:hover:bg-secondary/60'
 							)}
 						>

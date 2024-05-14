@@ -3,8 +3,8 @@
 import { getGroupsExpenses } from '@/queries/expenses';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
-import { DeleteExpenseButton } from './delete-expense-button';
-import { AvatarBackgroundFallback } from './../../../../components/empty-photo';
+import { AvatarBackgroundFallback } from '../empty-photo';
+import { DeleteExpenseButton } from '../../app/(app)/(group)/group/[id]/delete-expense-button';
 
 export const ExpenseList = async ({ id }: { id: string }) => {
 	const expenses = await getGroupsExpenses(id);

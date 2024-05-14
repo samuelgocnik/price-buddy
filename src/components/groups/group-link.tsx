@@ -1,29 +1,21 @@
-'use client';
-
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 import { cn } from '@/lib/cn';
 
 type GroupLinkProps = {
 	id: string;
 	name: string;
+	activeGroupId: string;
 };
 
-export const GroupLink = ({ id, name }: GroupLinkProps) => {
-	const params = useParams<{ id: string }>();
-
-	const currentOpenedGroupId = params.id;
-
-	return (
-		<Link
-			className={cn(
-				'px-8 py-4 hover:bg-almond-200 hover:font-bold',
-				id === currentOpenedGroupId && 'bg-almond-200 font-bold'
-			)}
-			href={`/group/${id}`}
-		>
-			{name}
-		</Link>
-	);
-};
+export const GroupLink = ({ id, name, activeGroupId }: GroupLinkProps) => (
+	<Link
+		className={cn(
+			'block px-8 py-4 hover:bg-almond-200/65 md:rounded-l-lg',
+			id === activeGroupId && 'bg-almond-200 font-bold hover:bg-almond-200'
+		)}
+		href={`/group/${id}`}
+	>
+		{name}
+	</Link>
+);

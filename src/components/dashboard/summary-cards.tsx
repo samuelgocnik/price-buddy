@@ -76,7 +76,7 @@ const SummaryCardContent = async ({
 }: SummaryCardContentProps): Promise<JSX.Element> => {
 	const [total, change] = await queryFunction(userId);
 	const totalStr: string = Math.abs(total).toFixed(2);
-	return <>{cardData(totalStr, getChangeMessage(change))}</>;
+	return <>{cardData(`${totalStr} €`, getChangeMessage(change))}</>;
 };
 
 const cardData = (title: string, subtext: string): ReactNode => (
