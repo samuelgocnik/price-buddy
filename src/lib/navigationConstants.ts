@@ -2,7 +2,8 @@ import {
 	HandCoinsIcon,
 	LayoutDashboardIcon,
 	UserIcon,
-	UsersIcon
+	UsersIcon,
+	SheetIcon
 } from 'lucide-react';
 
 export const NAVIGATION_LINKS = [
@@ -20,6 +21,11 @@ export const NAVIGATION_LINKS = [
 		title: 'Expenses',
 		href: '/expenses',
 		Icon: HandCoinsIcon
+	},
+	{
+		title: 'Balances',
+		href: '/balances',
+		Icon: SheetIcon
 	}
 ];
 
