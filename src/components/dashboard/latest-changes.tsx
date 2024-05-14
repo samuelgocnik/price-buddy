@@ -23,7 +23,7 @@ export const LatestChanges = ({ userId }: LatestChangesProps) => (
 			<Button asChild size="sm" className="ml-auto">
 				<Link href="/expenses" className="flex">
 					View All
-					<ArrowUpRight className="ml-1 mt-1 h-4 w-4" />
+					<ArrowUpRight className="ml-1 mt-0.5 h-5 w-5" />
 				</Link>
 			</Button>
 		</CardHeader>
