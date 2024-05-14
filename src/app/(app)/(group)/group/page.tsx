@@ -4,7 +4,6 @@ import { type Metadata } from 'next';
 import { auth } from '@/auth';
 import { RedirectToGroupDetail } from '@/components/groups/redirect-to-group-detail';
 import { getUsersGroups } from '@/queries/groups';
-import { sleep } from '@/lib/utils';
 
 export const metadata: Metadata = {
 	title: 'My groups - PriceBuddy',
@@ -15,8 +14,6 @@ export const metadata: Metadata = {
 const GroupsPage = async () => {
 	const session: Session | null = await auth();
 	const userId = session?.user?.id;
-
-	await sleep(3000);
 
 	if (!userId) {
 		return;

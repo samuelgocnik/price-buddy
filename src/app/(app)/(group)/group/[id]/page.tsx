@@ -10,7 +10,6 @@ import { ExpenseList } from '@/components/groups/expense-list';
 import { AddExpense } from '@/components/expense/add-expense';
 import { SelectField } from '@/components/expense/select-field';
 import { auth } from '@/auth';
-import { sleep } from '@/lib/utils';
 
 import GroupDetail from './group-detail';
 
@@ -29,8 +28,6 @@ export const generateMetadata = async ({
 
 const GroupDetailPage = async ({ params }: GroupDetailPageProps) => {
 	const session: Session | null = await auth();
-
-	await sleep(2000);
 
 	const userId = session?.user?.id;
 	if (!userId) {

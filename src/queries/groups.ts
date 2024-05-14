@@ -57,11 +57,6 @@ export const getGroupsPreview = async (
 		return aDate - bDate;
 	});
 
-	// groupsForUser.forEach(group => {
-	// 	console.log("Group:", group.name, "\nExpenses:");
-	// 	console.log(group.expenses)
-	// });
-
 	// limit the number of groups based on the limit
 
 	console.log(

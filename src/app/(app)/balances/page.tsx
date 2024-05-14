@@ -5,12 +5,10 @@ import { auth } from '@/auth';
 import { BalanceList } from '@/components/balances/balance-list';
 import { BalanceHeader } from '@/components/balances/balance-header';
 import { LoaderCentered } from '@/components/ui/loader';
-import { sleep } from '@/lib/utils';
 
 const BalancesPage = async () => {
 	const session: Session | null = await auth();
 
-	await sleep(3000);
 	const userId = session?.user?.id;
 	if (!userId) {
 		return <p>You must be logged in to view this page.</p>;

@@ -5,7 +5,6 @@ import { type Metadata } from 'next';
 import { auth } from '@/auth';
 import { EditProfileModal } from '@/components/profile/edit-profile-modal';
 import { RevertGithubNameButton } from '@/components/profile/revert-github-name-button';
-import { sleep } from '@/lib/utils';
 
 export const generateMetadata = async (): Promise<Metadata> => {
 	const session: Session | null = await auth();
@@ -25,8 +24,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const ProfilePage = async () => {
 	const session: Session | null = await auth();
-
-	await sleep(3000);
 
 	const user = session?.user;
 	// Should not happen, but just in case
