@@ -4,16 +4,12 @@ import { type Session } from 'next-auth';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { auth } from '@/auth';
+import { AddUserToGroup } from '@/app/(app)/(group)/group/[id]/add-user-to-group';
 
-import {
-	getGroupName,
-	getUserGroupsRelations
-} from '../../../../queries/groups';
-import { getGroupsExpenses } from '../../../../queries/expenses';
-
-import { AvatarBackgroundFallback } from './../../../../components/empty-photo';
-import { LeaveGroupButton } from './leave-group-button';
-import { AddUserToGroup } from './add-user-to-group';
+import { getGroupName, getUserGroupsRelations } from '../../queries/groups';
+import { getGroupsExpenses } from '../../queries/expenses';
+import { AvatarBackgroundFallback } from '../empty-photo';
+import { LeaveGroupButton } from '../../app/(app)/(group)/group/[id]/leave-group-button';
 
 export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 	const session: Session | null = await auth();
