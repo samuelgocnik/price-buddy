@@ -24,7 +24,7 @@ type AddGroupProps = {
 
 export const AddGroup = (props: AddGroupProps) => {
 	const [open, setOpen] = useState(false);
-	const { mutate } = useAddGroup();
+	const { mutate, isPending } = useAddGroup();
 	const form = useForm<AddGroupFormSchema>({
 		resolver: valibotResolver(addGroupFormSchema),
 		defaultValues: {
@@ -65,7 +65,7 @@ export const AddGroup = (props: AddGroupProps) => {
 	return (
 		<Dialog open={open} onOpenChange={handleDialogChange}>
 			<DialogTrigger asChild>
-				<Button TrailingIcon={Users} className="m-8 w-32">
+				<Button TrailingIcon={Users} className="w-32">
 					Add Group
 				</Button>
 			</DialogTrigger>
@@ -95,6 +95,7 @@ export const AddGroup = (props: AddGroupProps) => {
 										type="button"
 										onClick={() => remove(index)}
 										className="grid-cols-4 bg-red-700 hover:bg-red-500"
+										disabled={isPending}
 									>
 										Remove
 									</Button>
@@ -104,12 +105,15 @@ export const AddGroup = (props: AddGroupProps) => {
 								TrailingIcon={UserPlus}
 								type="button"
 								onClick={() => append({ email: '' })}
+								disabled={isPending}
 							>
 								Add Member
 							</Button>
 						</div>
 						<DialogFooter>
-							<Button type="submit">Save changes</Button>
+							<Button type="submit" disabled={isPending}>
+								Save changes
+							</Button>
 						</DialogFooter>
 					</form>
 				</FormProvider>

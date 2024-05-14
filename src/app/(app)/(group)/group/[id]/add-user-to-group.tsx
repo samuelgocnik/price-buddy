@@ -14,7 +14,7 @@ type AddUserProps = {
 };
 
 export const AddUserToGroup = (props: AddUserProps) => {
-	const { mutate } = useAddUserToGroupMutation();
+	const { mutate, isPending } = useAddUserToGroupMutation();
 	const form = useForm<AddUserFormSchema>({
 		resolver: valibotResolver(addUserFormSchema),
 		defaultValues: {
@@ -50,7 +50,11 @@ export const AddUserToGroup = (props: AddUserProps) => {
 						name="email"
 						placeholder="email@gmail.com"
 					/>
-					<Button type="submit" className="px-4 py-2 max-md:space-y-2 md:gap-3">
+					<Button
+						disabled={isPending}
+						type="submit"
+						className="px-4 py-2 max-md:space-y-2 md:gap-3"
+					>
 						Add User
 					</Button>
 				</div>

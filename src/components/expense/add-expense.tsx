@@ -30,7 +30,7 @@ type AddExpenseProps = {
 
 export const AddExpense = (props: AddExpenseProps) => {
 	const [open, setOpen] = useState(false);
-	const { mutate } = useAddExpense();
+	const { mutate, isPending } = useAddExpense();
 	const form = useForm<AddExpenseFormSchema>({
 		resolver: valibotResolver(addExpenseFormSchema),
 		defaultValues: {
@@ -103,7 +103,9 @@ export const AddExpense = (props: AddExpenseProps) => {
 							</div>
 						</div>
 						<DialogFooter>
-							<Button type="submit">Save changes</Button>
+							<Button type="submit" disabled={isPending}>
+								Save changes
+							</Button>
 						</DialogFooter>
 					</form>
 				</FormProvider>
