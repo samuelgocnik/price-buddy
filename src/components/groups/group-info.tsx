@@ -1,12 +1,10 @@
 'use server';
 
 import { type Session } from 'next-auth';
-import { UserRoundPlus } from 'lucide-react';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { auth } from '@/auth';
+import { AddUserToGroup } from '@/app/(app)/(group)/group/[id]/add-user-to-group';
 
 import { getGroupName, getUserGroupsRelations } from '../../queries/groups';
 import { getGroupsExpenses } from '../../queries/expenses';
@@ -61,10 +59,7 @@ export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 			</div>
 			<b className="my-2">Add member</b>
 			<div className="flex flex-row">
-				<Input />
-				<Button LeadingIcon={UserRoundPlus} className="ml-2">
-					Add
-				</Button>
+				<AddUserToGroup groupId={groupId} />
 			</div>
 			<LeaveGroupButton userId={userId} groupId={groupId} />
 		</div>

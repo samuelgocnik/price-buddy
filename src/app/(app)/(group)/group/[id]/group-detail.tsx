@@ -1,16 +1,15 @@
 'use client';
 
-import { Info, X, ArrowLeft, TicketPlus } from 'lucide-react';
+import { Info, X, ArrowLeft } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import Link from 'next/link';
-
-import { Button } from '@/components/ui/button';
 
 type GroupDetailProps = {
 	id: string;
 	name: ReactNode;
 	expenseList: ReactNode;
 	groupInfo: ReactNode;
+	addExpense: ReactNode;
 };
 
 const GroupDetail = (props: GroupDetailProps) => {
@@ -21,9 +20,7 @@ const GroupDetail = (props: GroupDetailProps) => {
 			{!info && (
 				<div className="mb-8 flex items-center justify-between">
 					<h1 className="text-2xl">{props.name}</h1>
-					<Button LeadingIcon={TicketPlus} className="ml-auto w-24">
-						Add
-					</Button>
+					{props.addExpense}
 				</div>
 			)}
 			<div className="mb-8 flex items-center justify-between">

@@ -1,6 +1,5 @@
 'use client';
 
-import { UsersIcon } from 'lucide-react';
 import { useParams, usePathname } from 'next/navigation';
 
 import { useIsBreakpoint } from '@/lib/hooks/use-is-breakpoint';
@@ -8,7 +7,7 @@ import { cn } from '@/lib/cn';
 import { type UsersGroups } from '@/db/schema/userGroups';
 import { type Groups } from '@/db/schema/groups';
 
-import { Button } from '../ui/button';
+import { AddGroup } from '../newGroup/add-group';
 
 import { GroupLink } from './group-link';
 
@@ -18,9 +17,10 @@ type GroupsListProps = {
 			group: Groups;
 		}
 	>;
+	userId: string;
 };
 
-export const GroupsList = ({ groups }: GroupsListProps) => {
+export const GroupsList = ({ groups, userId }: GroupsListProps) => {
 	const pathname = usePathname();
 	const params = useParams<{ id: string }>();
 	const isMobile = useIsBreakpoint('md');
@@ -37,16 +37,12 @@ export const GroupsList = ({ groups }: GroupsListProps) => {
 			{!hasGroups ? (
 				<div className="space-y-4 p-8 text-center">
 					<p>You are not a member of any group.</p>
-					<Button LeadingIcon={UsersIcon} className="md:w-1/3">
-						New group
-					</Button>
+					<AddGroup userId={userId} />
 				</div>
 			) : (
 				<>
 					<div className="m-8">
-						<Button LeadingIcon={UsersIcon} className="mx-auto">
-							New group
-						</Button>
+						<AddGroup userId={userId} />
 					</div>
 					<ul className="h-full space-y-1 overflow-y-auto">
 						{groups.map(group => (

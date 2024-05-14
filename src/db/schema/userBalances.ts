@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm';
 
 import { type User, users } from './users';
 
+// what user2Id owes to user1Id
 export const userBalances = sqliteTable('userBalances', {
 	id: text('id')
 		.primaryKey()
