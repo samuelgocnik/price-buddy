@@ -38,6 +38,7 @@ export const BalanceHeader = ({ userId }: BalanceHeaderProps) => {
 };
 
 const TotalBalance = async ({ userId }: BalanceHeaderProps) => {
-	const totalBalance = await getUserTotalBalance(userId);
+	let totalBalance = await getUserTotalBalance(userId);
+	totalBalance = -1 * totalBalance;
 	return <>Total Balance: {totalBalance.toFixed(2)}€</>;
 };
