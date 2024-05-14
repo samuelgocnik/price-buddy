@@ -11,6 +11,7 @@ import { groups } from '@/db/schema/groups';
 // TODO fix after DB reset
 export const getGroupsPreview = async (
 	userId: string,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	limit?: number
 ): Promise<Groups[]> => {
 	// We want to show in the dashboard groups that are relevant (user is member of) groups and recent activities

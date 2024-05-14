@@ -1,10 +1,17 @@
 import { type Session } from 'next-auth';
 import { Suspense } from 'react';
+import { type Metadata } from 'next';
 
 import { auth } from '@/auth';
 import { BalanceList } from '@/components/balances/balance-list';
 import { BalanceHeader } from '@/components/balances/balance-header';
 import { LoaderCentered } from '@/components/ui/loader';
+
+export const metadata: Metadata = {
+	title: 'Balances - PriceBuddy',
+	description:
+		'View and manage your balances with friends on PriceBuddy. Keep track of who owes you and who you owe.'
+};
 
 const BalancesPage = async () => {
 	const session: Session | null = await auth();
