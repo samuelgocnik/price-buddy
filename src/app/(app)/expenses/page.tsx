@@ -1,6 +1,8 @@
 import { Hourglass } from 'lucide-react';
 import { Suspense } from 'react';
 
+import Loader from '@/components/ui/loader';
+
 import { ExpenseList } from './expense-list';
 
 const ExpensesPage = () => (
@@ -12,7 +14,7 @@ const ExpensesPage = () => (
 		<Suspense
 			fallback={
 				<div className="flex h-32 items-center justify-center rounded-b-lg bg-almond-100">
-					Loading...
+					<Loader size="md" className="text-black-700" />
 				</div>
 			}
 		>
