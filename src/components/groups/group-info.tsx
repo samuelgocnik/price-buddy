@@ -7,6 +7,7 @@ import { auth } from '@/auth';
 import { AddUserToGroup } from '@/app/(app)/(group)/group/[id]/add-user-to-group';
 import { getGroupsExpenses } from '@/server-actions/expenses';
 import { getGroupName, getUserGroupsRelations } from '@/server-actions/groups';
+import { userDisplayName } from '@/lib/utils';
 
 import { AvatarBackgroundFallback } from '../empty-photo';
 import { LeaveGroupButton } from '../../app/(app)/(group)/group/[id]/leave-group-button';
@@ -46,7 +47,7 @@ export const GroupInfo = async ({ groupId }: { groupId: string }) => {
 								<AvatarImage src={ug.user.image ?? undefined} alt="Avatar" />
 								<AvatarBackgroundFallback />
 							</Avatar>
-							<p>{ug.user.name}</p>
+							<p>{userDisplayName(ug.user)}</p>
 						</div>
 					))}
 				</div>
