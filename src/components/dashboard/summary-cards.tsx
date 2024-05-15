@@ -82,7 +82,7 @@ const SummaryCardContent = async ({
 const cardData = (title: string, subtext: string): ReactNode => (
 	<CardContent>
 		<div className="text-2xl font-bold">{title}</div>
-		<p className="text-xs text-muted-foreground">{subtext}</p>
+		{/* <p className="text-xs text-muted-foreground">{subtext}</p> */}
 	</CardContent>
 );
 

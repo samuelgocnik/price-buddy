@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ExpensesWithRelations } from '@/db/schema/expenses';
 import { Button } from '@/components/ui/button';
 import { getExpensesRecent } from '@/server-actions/expenses';
+import { userDisplayName } from '@/lib/utils';
 
 import { LoaderCentered } from '../ui/loader';
 import { AvatarBackgroundFallback } from '../empty-photo';
@@ -54,14 +55,16 @@ const ExpencesList = async ({ userId }: LatestChangesProps) => {
 					</Avatar>
 					<div className="grid gap-1">
 						<p className="text-sm font-medium leading-none">
-							{expense.paidBy?.name ?? 'Unknown User'}
+							{userDisplayName(expense.paidBy)}
 						</p>
-						{/* <p className="text-sm">{expense.paidBy?.email ?? 'Unknown Email'}</p> */}
 						<p className="text-sm">
 							{d(expense.createdAt).format('DD/MM/YYYY - HH:mm')}
 						</p>
 					</div>
-					<div className="ml-auto font-medium">{expense.amount} €</div>
+					<div className="ml-auto flex flex-col">
+						<div className="ml-auto font-medium">{expense.amount} €</div>
+						<div className="ml-auto text-sm text-gray-600">{expense.title}</div>
+					</div>
 				</div>
 			))}
 		</>
