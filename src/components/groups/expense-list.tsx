@@ -2,6 +2,7 @@
 
 import { getGroupsExpenses } from '@/server-actions/expenses';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { userDisplayName } from '@/lib/utils';
 
 import { AvatarBackgroundFallback } from '../empty-photo';
 import { DeleteExpenseButton } from '../../app/(app)/(group)/group/[id]/delete-expense-button';
@@ -17,7 +18,7 @@ export const ExpenseList = async ({ id }: { id: string }) => {
 					<p className="my-auto">{expense.title}</p>
 					<div>
 						<p className="my-auto hidden text-center md:block">
-							{expense.paidBy.name}
+							{userDisplayName(expense.paidBy)}
 						</p>
 						<div>
 							<Avatar className="m-auto my-1 block h-6 w-6 md:hidden">

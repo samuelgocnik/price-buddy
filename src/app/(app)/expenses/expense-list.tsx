@@ -7,6 +7,7 @@ import { auth } from '@/auth';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { AvatarBackgroundFallback } from '@/components/empty-photo';
 import { getUsersExpenes } from '@/server-actions/expenses';
+import { userDisplayName } from '@/lib/utils';
 
 export const ExpenseList = async () => {
 	const session: Session | null = await auth();
@@ -56,7 +57,9 @@ export const ExpenseList = async () => {
 									/>
 									<AvatarBackgroundFallback />
 								</Avatar>
-								{userName === expense.paidBy.name ? 'Me' : expense.paidBy.name}
+								{userName === expense.paidBy.name
+									? 'Me'
+									: userDisplayName(expense.paidBy)}
 							</div>
 						</td>
 						<td className="px-6 py-3">{expense.amount} €</td>

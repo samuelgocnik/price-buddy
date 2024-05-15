@@ -1,3 +1,5 @@
+import { type User } from '@/db/schema/users';
+
 export type AmountAndDate = {
 	amount: string;
 	date: string;
@@ -42,3 +44,12 @@ export const safeAccAdd = (acc: number, num: string) => {
 
 export const sleep = (time: number) =>
 	new Promise(resolve => setTimeout(resolve, time));
+
+export const userDisplayName = (user: User | null): string => {
+	if (!user) {
+		return 'Unknown User';
+	}
+	return user.firstName !== null && user.lastName !== null
+		? `${user.firstName} ${user.lastName}`
+		: user.name ?? 'Unknown User';
+};
