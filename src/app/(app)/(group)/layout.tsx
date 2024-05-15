@@ -20,8 +20,8 @@ const GroupLayout = async ({ children }: PropsWithChildren) => {
 	return (
 		<div
 			className={cn(
-				'h-full max-h-full flex-1 overflow-y-auto rounded-lg bg-almond-100 shadow',
-				hasGroups && 'md:grid md:grid-cols-[1fr_2fr]'
+				'h-full max-h-full flex-1 overflow-y-auto rounded-lg bg-almond-100 shadow md:bg-almond-200',
+				hasGroups && 'md:grid md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr]'
 			)}
 		>
 			<aside className="overflow-y-auto">

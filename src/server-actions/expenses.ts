@@ -12,11 +12,7 @@ import {
 	type ExpensesWithRelations
 } from '@/db/schema/expenses';
 import { type UserBalances, userBalances } from '@/db/schema/userBalances';
-import {
-	type AmountAndDate,
-	calculateAmountAndMonthChange,
-	sleep
-} from '@/lib/utils';
+import { type AmountAndDate, calculateAmountAndMonthChange } from '@/lib/utils';
 import { usersGroups } from '@/db/schema/userGroups';
 
 import { updateBalancesAfterExpense } from './userBalances';
@@ -70,7 +66,6 @@ export const getUserSendTotal = async (
 	const [amountTotal, monthChangePercentage] =
 		calculateAmountAndMonthChange(amountAndDate);
 
-	await sleep(2000);
 	return [amountTotal, monthChangePercentage];
 };
 
@@ -97,7 +92,6 @@ export const getUserOwedTotal = async (
 
 	const [amount, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
-	await sleep(2000);
 	return [amount, percentage];
 };
 
@@ -124,7 +118,6 @@ export const getUserOweTotal = async (
 
 	const [owe, percentage] = calculateAmountAndMonthChange(amountAndDate);
 
-	await sleep(2000);
 	return [owe, percentage];
 };
 
@@ -159,7 +152,6 @@ export const getExpensesRecent = async (
 		limit
 	});
 
-	await sleep(2000);
 	return relatedExpenses;
 };
 

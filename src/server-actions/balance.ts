@@ -6,7 +6,7 @@ import {
 	type BalancesWithUsers,
 	type UserBalances
 } from '@/db/schema/userBalances';
-import { safeAccAdd, sleep } from '@/lib/utils';
+import { safeAccAdd } from '@/lib/utils';
 
 export const getAllBalances = async (
 	userId: string
@@ -26,7 +26,6 @@ export const getAllBalances = async (
 		}
 	});
 
-	await sleep(2000);
 	return balances;
 };
 
@@ -39,6 +38,5 @@ export const getUserTotalBalance = async (userId: string): Promise<number> => {
 		(acc, balance) => safeAccAdd(acc, balance.balance),
 		0.0
 	);
-	await sleep(2000);
 	return totalBalance;
 };

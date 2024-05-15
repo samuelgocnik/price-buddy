@@ -122,12 +122,8 @@ export const getGroupsPreview = async (
 		groupsForUser
 	);
 
-	await sleep(2000);
 	return groupsForUser;
 };
-
-const sleep = (time: number) =>
-	new Promise(resolve => setTimeout(resolve, time));
 
 export const leaveGroupAction = async ({
 	userId,
